@@ -5,11 +5,12 @@
   --color-theme-hover: #509e00;
   --color-navy: #040a44;
   --color-navy-dark: #03056b;
-  --font-base: var(--font-poppins), 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: var(--font-heading), 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-body: var(--font-sans), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
-  font-family: var(--font-base);
+  font-family: var(--font-body);
   color: #4b5563;
   background-color: #ffffff;
   font-size: 14px;
@@ -18,13 +19,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Base typography font without forcing dark color on white headings */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-base);
-  letter-spacing: 0px;
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
 }
 
-/* BeERP Theme Specific Classes */
 .beerp-btn-green {
   background-color: #5dab00;
   color: #ffffff !important;
@@ -51,7 +50,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 16px 36px rgba(77, 112, 212, 0.12);
 }
 
-/* 3D Green Spherical Icon with soft glow as in BeERP */
+/* 3D Green Spherical Icon with soft glow */
 .beerp-icon-circle {
   width: 90px;
   height: 90px;

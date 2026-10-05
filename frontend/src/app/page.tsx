@@ -319,12 +319,23 @@ export default function HomeView() {
         </div>
       </header>
 
-      {/* 2. HERO BANNER (WARM, LUMINOUS & ACCESSIBLE COLOR PALETTE FOR COLOMBIAN FAMILIES) */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#f8fafc] via-[#f1f5f9] to-[#ffffff] border-b border-slate-200 py-12 lg:py-20">
+      {/* 2. HERO BANNER WITH PROFESSIONAL ENTERPRISE BACKGROUND IMAGE */}
+      <section className="relative overflow-hidden border-b border-slate-200 py-14 lg:py-24 bg-slate-50">
+        {/* Background Image of Computers / Modern Workspace with Soft Protective Overlay */}
+        <div
+          className="absolute inset-0 bg-cover bg-right lg:bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=85')`,
+          }}
+        >
+          {/* Luminous gradient overlay ensuring 100% contrast for text and visibility of computers */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 sm:via-white/90 to-white/75 backdrop-blur-[1px]"></div>
+        </div>
+
         <div className="relative max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
-            {/* Left Content: High Contrast & Human Warmth */}
+            {/* Left Content: Enterprise Typography & High Contrast */}
             <div className="lg:col-span-7 space-y-6">
               {/* Badge */}
               <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-xs">
@@ -332,14 +343,14 @@ export default function HomeView() {
                 <span>AFILIACIÓN DIGITAL INMEDIATA EN MENOS DE 2 MINUTOS</span>
               </div>
 
-              {/* H1 Headline (Deep Navy for high contrast, lime green for emphasis) */}
-              <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-light text-[#040a44] leading-[1.15] tracking-tight">
+              {/* H1 Headline (Plus Jakarta Sans for corporate authority, lime green for highlight) */}
+              <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-bold text-[#040a44] leading-[1.12] tracking-tight">
                 Con Soluciones W <br />
                 estarás seguro y <br />
-                <strong className="font-bold text-[#5dab00]">protegido 24/7</strong>
+                <strong className="text-[#5dab00] font-extrabold">protegido 24/7</strong>
               </h1>
 
-              {/* Subheading */}
+              {/* Subheading in Inter */}
               <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-xl">
                 Atención médica domiciliaria, ambulancia, asistencia para mascotas y auxilio en el hogar 
                 para ti y tus seres queridos en una sola suscripción mensual sin intermediarios.

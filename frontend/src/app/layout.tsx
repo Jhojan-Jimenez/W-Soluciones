@@ -1,16 +1,23 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import "./globals.css";
 
-const poppins = Poppins({
-  weight: ["300", "400", "500", "600", "700", "800"],
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-poppins",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-heading",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-sans",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Soluciones W | Sistemas de Asistencia Familiar B2C",
+  title: "Soluciones W | Plataforma de Asistencia Familiar B2C",
   description:
     "Portal digital de autogestión de asistencias médicas, ambulancia, mascotas, hogar y odontología en Colombia. Activación en menos de 2 minutos.",
 };
@@ -21,8 +28,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={`${poppins.variable} h-full scroll-smooth`}>
-      <body className="min-h-full flex flex-col font-sans antialiased bg-white text-[#626262]">
+    <html
+      lang="es"
+      className={`${plusJakarta.variable} ${inter.variable} h-full scroll-smooth`}
+    >
+      <body className="min-h-full flex flex-col font-sans antialiased bg-white text-slate-700">
         {children}
       </body>
     </html>
