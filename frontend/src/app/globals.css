@@ -1,28 +1,109 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  --color-theme: #5dab00;
+  --color-theme-hover: #509e00;
+  --color-navy: #040a44;
+  --color-navy-dark: #03056b;
+  --font-base: var(--font-poppins), 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  scroll-behavior: smooth;
+  font-family: var(--font-base);
+  color: #626262;
+  background-color: #ffffff;
+  font-size: 14px;
+  line-height: 25px;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom BeERP styling accents */
-.erp-shadow {
-  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08);
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-base);
+  color: #040a44;
+  letter-spacing: 0px;
 }
 
-.erp-shadow-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+h1 {
+  font-size: 48px;
+  line-height: 54px;
+  font-weight: 300;
 }
 
-.erp-shadow-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.15);
+@media (min-width: 768px) {
+  h1 {
+    font-size: 54px;
+    line-height: 60px;
+  }
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 42px;
+  font-weight: 300;
+}
+
+h3 {
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 300;
+}
+
+h6 {
+  font-size: 13px;
+  line-height: 19px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #040a44;
+}
+
+/* BeERP Theme Specific Classes */
+.beerp-btn-green {
+  background-color: #5dab00;
+  color: #ffffff;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  border-radius: 6px;
+}
+
+.beerp-btn-green:hover {
+  background-color: #509e00;
+}
+
+.beerp-card {
+  background-color: #ffffff;
+  border: 1px solid #eef1f6;
+  border-radius: 18px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.beerp-card:hover {
+  transform: translateY(-5px);
+  border-color: #4d70d4;
+  box-shadow: 0 18px 40px rgba(77, 112, 212, 0.12);
+}
+
+/* 3D Green Spherical Icon with soft glow as in BeERP */
+.beerp-icon-circle {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #78da00 0%, #5dab00 60%, #468600 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 14px 26px -6px rgba(93, 171, 0, 0.45), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  transition: transform 0.3s ease;
+}
+
+.beerp-card:hover .beerp-icon-circle {
+  transform: scale(1.05);
+}
+
+/* Hero Background styling */
+.hero-gradient-overlay {
+  background: linear-gradient(90deg, #ffffff 0%, #ffffff 45%, rgba(255, 255, 255, 0.92) 58%, rgba(255, 255, 255, 0.4) 80%, rgba(255, 255, 255, 0.1) 100%);
 }
