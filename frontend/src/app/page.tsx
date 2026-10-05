@@ -29,7 +29,8 @@ import {
   Layers,
   Sparkles,
   HelpCircle,
-  CheckCheck
+  CheckCheck,
+  Shield
 } from "lucide-react";
 
 interface AssistanceModule {
@@ -149,7 +150,7 @@ export default function HomeView() {
   const [selectedPlan, setSelectedPlan] = useState<"virtual" | "tradicional" | "plus">("plus");
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "annual">("monthly");
   
-  // Hero Quick Lead Form (Grupo EMI style)
+  // Hero Quick Lead Form
   const [quickLead, setQuickLead] = useState({
     name: "",
     email: "",
@@ -193,7 +194,7 @@ export default function HomeView() {
   // FAQ Accordion
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  // Pricing Matrix based on EMI-like tiers
+  // Pricing Matrix
   const planPrices = {
     virtual: { monthly: 24900, name: "Plan Básico Digital" },
     tradicional: { monthly: 39900, name: "Plan Tradicional Hogar & Salud" },
@@ -212,7 +213,6 @@ export default function HomeView() {
       alert("Por favor completa los campos obligatorios.");
       return;
     }
-    // Prepopulate modal form
     setFormData((prev) => ({
       ...prev,
       fullName: quickLead.name,
@@ -265,9 +265,9 @@ export default function HomeView() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#626262] flex flex-col font-sans pb-16 md:pb-0">
-      {/* 1. TOP NAVBAR (Structured like Grupo EMI + BeERP Aesthetics) */}
-      <header className="sticky top-0 z-40 bg-white border-b border-slate-100 shadow-sm">
+    <div className="min-h-screen bg-white text-slate-700 flex flex-col font-sans pb-16 md:pb-0">
+      {/* 1. TOP NAVBAR (High contrast, professional and clean) */}
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           {/* Logo with Green Striped Emblem and Navy Typography */}
           <div className="flex items-center gap-3.5">
@@ -283,86 +283,83 @@ export default function HomeView() {
                 <span className="text-2xl font-extrabold text-[#03056b] tracking-tight">ERP</span>
                 <span className="text-xl font-bold text-[#040a44]">Soluciones W</span>
               </div>
-              <p className="text-[10px] text-[#747474] font-medium tracking-wider uppercase leading-none">
+              <p className="text-[10px] text-slate-500 font-medium tracking-wider uppercase leading-none">
                 Asistencia Familiar & Hogar · Dir. Wilson Triana
               </p>
             </div>
           </div>
 
-          {/* Right Section (Grupo EMI structure: Phone Line + WhatsApp Action Button) */}
+          {/* Right Section: Phone Line + WhatsApp Action Button */}
           <div className="flex items-center gap-5 sm:gap-7">
             {/* Phone direct call */}
             <a
               href="tel:6017459000"
               className="hidden lg:flex items-center gap-3 text-left hover:opacity-90 transition"
             >
-              <div className="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-[#03056b]">
+              <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-[#03056b]">
                 <Phone className="w-5 h-5 stroke-[1.8]" />
               </div>
               <div className="leading-tight">
-                <span className="block text-[11px] text-slate-400 font-medium">Línea de Afiliaciones 24/7</span>
+                <span className="block text-[11px] text-slate-500 font-medium">Línea de Afiliaciones 24/7</span>
                 <span className="block text-base font-bold text-[#040a44]">601 745 90 00</span>
               </div>
             </a>
 
-            {/* WhatsApp CTA Button (EMI Style in BeERP green) */}
+            {/* WhatsApp CTA Button in BeERP lime green */}
             <a
               href="https://wa.me/573203282014"
               target="_blank"
               rel="noreferrer"
-              className="beerp-btn-green px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm hover:shadow-md transition"
+              className="beerp-btn-green px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm hover:shadow-md transition"
             >
-              <MessageCircle className="w-4 h-4" />
+              <MessageCircle className="w-4 h-4 text-white" />
               <span className="hidden xs:inline">Asesoría por</span> WhatsApp
             </a>
           </div>
         </div>
       </header>
 
-      {/* 2. HERO BANNER WITH EMBEDDED AFFILIATION FORM (Exact Grupo EMI layout + BeERP visuals) */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#040a44] via-[#051f3f] to-[#040a44] text-white py-12 lg:py-20">
-        {/* Soft background watermark */}
-        <div className="absolute inset-0 bg-[radial-gradient(#5dab00_1px,transparent_1px)] [background-size:28px_28px] opacity-10 pointer-events-none"></div>
-
+      {/* 2. HERO BANNER (WARM, LUMINOUS & ACCESSIBLE COLOR PALETTE FOR COLOMBIAN FAMILIES) */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#f8fafc] via-[#f1f5f9] to-[#ffffff] border-b border-slate-200 py-12 lg:py-20">
         <div className="relative max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
-            {/* Left Content (Grupo EMI Banner text) */}
+            {/* Left Content: High Contrast & Human Warmth */}
             <div className="lg:col-span-7 space-y-6">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-[#5dab00]/20 border border-[#5dab00]/40 text-[#77da00] text-xs font-semibold px-3.5 py-1.5 rounded-full">
-                <Sparkles className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-[#5dab00]" />
                 <span>AFILIACIÓN DIGITAL INMEDIATA EN MENOS DE 2 MINUTOS</span>
               </div>
 
-              {/* H1 Headline (BeERP typography, Grupo EMI message) */}
-              <h1 className="text-4xl sm:text-5xl lg:text-5xl font-light text-white leading-[1.15] tracking-tight">
+              {/* H1 Headline (Deep Navy for high contrast, lime green for emphasis) */}
+              <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-light text-[#040a44] leading-[1.15] tracking-tight">
                 Con Soluciones W <br />
                 estarás seguro y <br />
-                <strong className="font-semibold text-[#77da00]">protegido 24/7</strong>
+                <strong className="font-bold text-[#5dab00]">protegido 24/7</strong>
               </h1>
 
               {/* Subheading */}
-              <p className="text-base sm:text-lg text-slate-300 font-light leading-relaxed max-w-xl">
+              <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-xl">
                 Atención médica domiciliaria, ambulancia, asistencia para mascotas y auxilio en el hogar 
                 para ti y tus seres queridos en una sola suscripción mensual sin intermediarios.
               </p>
 
-              {/* Dual Action Buttons (EMI style) */}
+              {/* Action Buttons */}
               <div className="pt-2 flex flex-wrap items-center gap-3.5">
                 <a
                   href="https://wa.me/573203282014"
                   target="_blank"
                   rel="noreferrer"
-                  className="bg-[#25D366] hover:bg-[#20ba59] text-white px-5 py-3 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 transition shadow-md"
+                  className="bg-[#25D366] hover:bg-[#20ba59] text-white px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition shadow-md hover:shadow-lg"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <MessageCircle className="w-4 h-4 text-white" />
                   <span>Chatea con un asesor</span>
                 </a>
 
                 <a
                   href="tel:6017459000"
-                  className="bg-white hover:bg-slate-100 text-[#040a44] px-5 py-3 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 transition shadow-md"
+                  className="bg-white hover:bg-slate-50 text-[#040a44] border-2 border-slate-300 px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition shadow-sm hover:border-[#040a44]"
                 >
                   <Phone className="w-4 h-4 text-[#03056b]" />
                   <span>Llamar a la Central</span>
@@ -370,7 +367,7 @@ export default function HomeView() {
               </div>
 
               {/* Trust Indicators */}
-              <div className="pt-6 border-t border-slate-700/60 flex flex-wrap gap-6 text-xs text-slate-300">
+              <div className="pt-6 border-t border-slate-200 flex flex-wrap gap-6 text-xs text-slate-600 font-medium">
                 <div className="flex items-center gap-2">
                   <CheckCheck className="w-4 h-4 text-[#5dab00]" />
                   <span>Sin períodos de carencia</span>
@@ -386,9 +383,9 @@ export default function HomeView() {
               </div>
             </div>
 
-            {/* Right Card: Formulario ¡Afíliate en línea ya! (Grupo EMI Banner Form) */}
+            {/* Right Card: Formulario ¡Afíliate en línea ya! */}
             <div className="lg:col-span-5">
-              <div className="bg-white text-slate-900 rounded-2xl p-6 sm:p-8 shadow-2xl border border-slate-100 relative">
+              <div className="bg-white text-slate-900 rounded-2xl p-6 sm:p-8 shadow-xl shadow-slate-200/60 border border-slate-200 relative">
                 <div className="text-center mb-6">
                   <h2 className="text-2xl font-bold text-[#040a44]">
                     ¡Afíliate en línea ya!
@@ -409,7 +406,7 @@ export default function HomeView() {
                       placeholder="Ingresa tu nombre completo"
                       value={quickLead.name}
                       onChange={(e) => setQuickLead({ ...quickLead, name: e.target.value })}
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00]"
+                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00] focus:bg-white transition"
                     />
                   </div>
 
@@ -423,7 +420,7 @@ export default function HomeView() {
                       placeholder="ejemplo.correo@gmail.com"
                       value={quickLead.email}
                       onChange={(e) => setQuickLead({ ...quickLead, email: e.target.value })}
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00]"
+                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00] focus:bg-white transition"
                     />
                   </div>
 
@@ -437,7 +434,7 @@ export default function HomeView() {
                       placeholder="300 000 00 00"
                       value={quickLead.phone}
                       onChange={(e) => setQuickLead({ ...quickLead, phone: e.target.value })}
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00]"
+                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00] focus:bg-white transition"
                     />
                   </div>
 
@@ -448,7 +445,7 @@ export default function HomeView() {
                     <select
                       value={selectedPlan}
                       onChange={(e) => setSelectedPlan(e.target.value as any)}
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00]"
+                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00] focus:bg-white transition font-medium"
                     >
                       <option value="plus">Plan Plus Familiar 360° ($54.900/mes) - Recomendado</option>
                       <option value="tradicional">Plan Tradicional Hogar & Salud ($39.900/mes)</option>
@@ -461,7 +458,7 @@ export default function HomeView() {
                     className="w-full beerp-btn-green py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 mt-2"
                   >
                     <span>Continuar Afiliación</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 text-white" />
                   </button>
 
                   <div className="pt-2 text-center text-[10px] text-slate-400 space-y-1">
@@ -482,26 +479,26 @@ export default function HomeView() {
         </div>
       </section>
 
-      {/* 3. SECCIÓN DE PLANES GRUPO EMI (Planes estructurados con cards de precios) */}
-      <section id="planes" className="py-20 lg:py-24 bg-[#051f3f] text-white">
+      {/* 3. SECCIÓN DE PLANES (CRISP, HIGH CONTRAST & ACCESSIBLE FOR ALL FAMILY MEMBERS) */}
+      <section id="planes" className="py-20 lg:py-24 bg-[#f8fafc] border-b border-slate-200">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h6 className="text-[12px] font-light tracking-[2px] text-[#5dab00] uppercase mb-2">
-              SUSCRIPCIONES MENSUALES
+            <h6 className="text-[12px] font-bold tracking-[2px] text-[#5dab00] uppercase mb-2">
+              SUSCRIPCIONES MENSUALES TRANSPARENTES
             </h6>
-            <h2 className="text-[32px] sm:text-[38px] font-light text-white leading-tight">
+            <h2 className="text-[32px] sm:text-[38px] font-light text-[#040a44] leading-tight">
               Planes Soluciones W
             </h2>
-            <p className="mt-3 text-slate-300 text-sm">
+            <p className="mt-3 text-slate-600 text-sm">
               Selecciona el plan que mejor se adapte a tu familia y activa tu certificado oficial en línea.
             </p>
 
             {/* Switch Mensual / Anual */}
-            <div className="mt-6 inline-flex items-center bg-slate-900/80 p-1 rounded-xl border border-slate-700">
+            <div className="mt-6 inline-flex items-center bg-white p-1 rounded-xl border border-slate-300 shadow-xs">
               <button
                 onClick={() => setBillingPeriod("monthly")}
                 className={`px-4 py-2 text-xs font-semibold rounded-lg transition ${
-                  billingPeriod === "monthly" ? "bg-white text-[#040a44] shadow" : "text-slate-400"
+                  billingPeriod === "monthly" ? "bg-[#040a44] text-white shadow" : "text-slate-600 hover:text-slate-900"
                 }`}
               >
                 Pago Mensual
@@ -509,7 +506,7 @@ export default function HomeView() {
               <button
                 onClick={() => setBillingPeriod("annual")}
                 className={`px-4 py-2 text-xs font-semibold rounded-lg transition ${
-                  billingPeriod === "annual" ? "beerp-btn-green text-white shadow" : "text-slate-400"
+                  billingPeriod === "annual" ? "beerp-btn-green text-white shadow" : "text-slate-600 hover:text-slate-900"
                 }`}
               >
                 Pago Anual (2 Meses Gratis)
@@ -517,19 +514,22 @@ export default function HomeView() {
             </div>
           </div>
 
-          {/* Cards Grid: 3 Planes (Grupo EMI Structure: Virtual, Tradicional, Plus) */}
+          {/* Cards Grid: 3 Planes (Crisp White Cards on Soft Slate Canvas) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
             
             {/* Plan 1: Virtual / Básico */}
-            <div className="bg-[#f1f3f6] text-slate-900 rounded-2xl p-7 flex flex-col justify-between shadow-lg relative border border-slate-200">
+            <div className="bg-white rounded-2xl p-7 flex flex-col justify-between shadow-sm hover:shadow-md transition relative border border-slate-200">
               <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
+                  Básico Individual
+                </span>
                 <h3 className="text-xl font-bold text-[#040a44]">{planPrices.virtual.name}</h3>
-                <p className="text-xs text-slate-500 mt-1 min-h-[32px]">
+                <p className="text-xs text-slate-500 mt-1 min-h-[34px]">
                   Atención médica 100% virtual sin esperas, ideal para personas jóvenes e independientes.
                 </p>
 
-                <div className="my-6 py-4 border-t border-b border-slate-200 text-center">
-                  <span className="text-xs text-slate-500 block">Desde</span>
+                <div className="my-6 py-4 border-t border-b border-slate-100 text-center bg-slate-50 rounded-xl">
+                  <span className="text-xs text-slate-500 block">Tarifa Neta</span>
                   <div className="flex items-baseline justify-center gap-1">
                     <span className="text-3xl font-extrabold text-[#03056b]">
                       ${(billingPeriod === "monthly" ? 24900 : 249000).toLocaleString("es-CO")}
@@ -570,15 +570,18 @@ export default function HomeView() {
             </div>
 
             {/* Plan 2: Tradicional Hogar & Salud */}
-            <div className="bg-[#f1f3f6] text-slate-900 rounded-2xl p-7 flex flex-col justify-between shadow-lg relative border border-slate-200">
+            <div className="bg-white rounded-2xl p-7 flex flex-col justify-between shadow-sm hover:shadow-md transition relative border border-slate-200">
               <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-blue-600 block mb-1">
+                  Protección Hogar
+                </span>
                 <h3 className="text-xl font-bold text-[#040a44]">{planPrices.tradicional.name}</h3>
-                <p className="text-xs text-slate-500 mt-1 min-h-[32px]">
+                <p className="text-xs text-slate-500 mt-1 min-h-[34px]">
                   Médico a domicilio, ambulancia y auxilio básico para reparaciones urgentes del hogar.
                 </p>
 
-                <div className="my-6 py-4 border-t border-b border-slate-200 text-center">
-                  <span className="text-xs text-slate-500 block">Desde</span>
+                <div className="my-6 py-4 border-t border-b border-slate-100 text-center bg-slate-50 rounded-xl">
+                  <span className="text-xs text-slate-500 block">Tarifa Neta</span>
                   <div className="flex items-baseline justify-center gap-1">
                     <span className="text-3xl font-extrabold text-[#03056b]">
                       ${(billingPeriod === "monthly" ? 39900 : 399000).toLocaleString("es-CO")}
@@ -619,20 +622,23 @@ export default function HomeView() {
             </div>
 
             {/* Plan 3: Plan Plus Familiar 360° (MÁS POPULAR / HIGHLIGHTED) */}
-            <div className="bg-white text-slate-900 rounded-2xl p-7 flex flex-col justify-between shadow-2xl relative border-2 border-[#5dab00] transform md:-translate-y-2">
+            <div className="bg-white rounded-2xl p-7 flex flex-col justify-between shadow-xl relative border-2 border-[#5dab00] transform md:-translate-y-2">
               {/* Badge EMI style */}
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#5dab00] text-white text-[11px] font-extrabold px-3.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#5dab00] text-white text-[11px] font-extrabold px-4 py-1 rounded-full uppercase tracking-wider shadow-sm">
                 MÁS POPULAR · RECOMENDADO
               </div>
 
               <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#5dab00] block mb-1">
+                  Protección Integral 360°
+                </span>
                 <h3 className="text-xl font-bold text-[#040a44]">{planPrices.plus.name}</h3>
-                <p className="text-xs text-slate-500 mt-1 min-h-[32px]">
-                  Cobertura completa 360°: Salud, Ambulancia, Mascotas, Hogar y Odontología.
+                <p className="text-xs text-slate-500 mt-1 min-h-[34px]">
+                  Cobertura completa: Salud, Ambulancia, Mascotas, Hogar y Odontología.
                 </p>
 
-                <div className="my-6 py-4 border-t border-b border-slate-100 text-center bg-slate-50 rounded-xl">
-                  <span className="text-xs text-slate-500 block">Tarifa Especial</span>
+                <div className="my-6 py-4 border-t border-b border-slate-100 text-center bg-emerald-50/60 rounded-xl">
+                  <span className="text-xs text-emerald-800 font-semibold block">Tarifa Especial Combo</span>
                   <div className="flex items-baseline justify-center gap-1">
                     <span className="text-4xl font-extrabold text-[#03056b]">
                       ${(billingPeriod === "monthly" ? 54900 : 549000).toLocaleString("es-CO")}
@@ -649,30 +655,30 @@ export default function HomeView() {
                 <ul className="space-y-3 text-xs text-slate-700 mb-8">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
-                    <span className="font-semibold">Médico a domicilio + Telemedicina 24/7</span>
+                    <span className="font-semibold text-slate-900">Médico a domicilio + Telemedicina 24/7</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
-                    <span className="font-semibold">Ambulancia medicalizada prioritaria</span>
+                    <span className="font-semibold text-slate-900">Ambulancia medicalizada prioritaria</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
-                    <span className="font-semibold">Asistencia veterinaria para mascotas (urgencias y vacunas)</span>
+                    <span className="font-semibold text-slate-900">Asistencia veterinaria para mascotas (urgencias y vacunas)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
-                    <span className="font-semibold">Plomería, cerrajería y electricidad en casa</span>
+                    <span className="font-semibold text-slate-900">Plomería, cerrajería y electricidad en casa</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
-                    <span className="font-semibold">Odontología de urgencia + 1 limpieza profunda anual</span>
+                    <span className="font-semibold text-slate-900">Odontología de urgencia + 1 limpieza profunda anual</span>
                   </li>
                 </ul>
               </div>
 
               <button
                 onClick={() => handleSelectPlanAndCheckout("plus")}
-                className="w-full beerp-btn-green py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-md hover:shadow-lg transition"
+                className="w-full beerp-btn-green py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-md hover:shadow-lg transition text-white"
               >
                 Activar Plan Plus 360°
               </button>
@@ -682,11 +688,11 @@ export default function HomeView() {
         </div>
       </section>
 
-      {/* 4. DETALLE DE COBERTURAS (BeERP 3D Icons Grid + EMI Service cards) */}
+      {/* 4. DETALLE DE COBERTURAS (Pure White Canvas with 3D Spherical Green Icons) */}
       <section id="servicios" className="py-20 lg:py-24 bg-white">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h6 className="text-[13px] font-light tracking-[2px] text-[#040a44] uppercase mb-2">
+            <h6 className="text-[13px] font-bold tracking-[2px] text-[#5dab00] uppercase mb-2">
               COBERTURAS AL DETALLE
             </h6>
             <h2 className="text-[32px] sm:text-[36px] font-light text-[#040a44] leading-tight">
@@ -733,8 +739,8 @@ export default function HomeView() {
                   </ul>
                 </div>
 
-                <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-[11px] text-slate-500">
-                  <strong className="text-slate-700">Límite garantizado:</strong> {mod.limit}
+                <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-[11px] text-slate-600">
+                  <strong className="text-slate-800">Límite garantizado:</strong> {mod.limit}
                 </div>
               </div>
             ))}
@@ -761,7 +767,7 @@ export default function HomeView() {
                 href="https://wa.me/573203282014"
                 target="_blank"
                 rel="noreferrer"
-                className="w-full beerp-btn-green py-3 rounded-xl text-center font-bold text-xs uppercase tracking-wider block"
+                className="w-full beerp-btn-green py-3.5 rounded-xl text-center font-bold text-xs uppercase tracking-wider block text-white shadow-md hover:shadow-lg transition"
               >
                 Abrir WhatsApp de Emergencias
               </a>
@@ -770,7 +776,7 @@ export default function HomeView() {
         </div>
       </section>
 
-      {/* 5. MEDIOS DE PAGO ACEPTADOS (Grupo EMI payment methods layout) */}
+      {/* 5. MEDIOS DE PAGO ACEPTADOS */}
       <section className="py-14 bg-slate-50 border-t border-b border-slate-200">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6 text-center">
           <h6 className="text-[12px] font-bold tracking-[2px] text-[#040a44] uppercase mb-2">
@@ -783,20 +789,20 @@ export default function HomeView() {
             Integrado con pasarela certificada Wompi (Bancolombia) y Mercado Pago con cifrado SSL de 256 bits.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-10 opacity-85">
-            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-xs flex items-center gap-2">
               <Building2 className="w-5 h-5 text-blue-600" />
               <span className="text-xs font-bold text-slate-800">PSE Débito</span>
             </div>
-            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-xs flex items-center gap-2">
               <Zap className="w-5 h-5 text-purple-600" />
               <span className="text-xs font-bold text-slate-800">Nequi</span>
             </div>
-            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-xs flex items-center gap-2">
               <CreditCard className="w-5 h-5 text-emerald-600" />
               <span className="text-xs font-bold text-slate-800">Tarjetas Visa / Mastercard</span>
             </div>
-            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-xs flex items-center gap-2">
               <Building2 className="w-5 h-5 text-red-600" />
               <span className="text-xs font-bold text-slate-800">Daviplata</span>
             </div>
@@ -804,11 +810,11 @@ export default function HomeView() {
         </div>
       </section>
 
-      {/* 6. OPERATOR LOOKUP DEMO (Wilson Triana's Call Center Validator) */}
+      {/* 6. OPERATOR LOOKUP DEMO (Wilson Triana's Call Center Validator - High Contrast Elegance) */}
       <section id="operador" className="py-20 bg-[#040a44] text-white">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mx-auto text-center mb-10">
-            <h6 className="text-[12px] font-light tracking-[2px] text-[#5dab00] uppercase mb-2">
+            <h6 className="text-[12px] font-bold tracking-[2px] text-[#5dab00] uppercase mb-2">
               VERIFICADOR CENTRAL DE DESPACHO
             </h6>
             <h2 className="text-3xl font-light text-white">
@@ -819,7 +825,7 @@ export default function HomeView() {
             </p>
           </div>
 
-          <div className="max-w-xl mx-auto bg-slate-900/90 border border-slate-700 p-6 sm:p-7 rounded-2xl shadow-2xl">
+          <div className="max-w-xl mx-auto bg-slate-900 border border-slate-700 p-6 sm:p-7 rounded-2xl shadow-2xl">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -832,7 +838,7 @@ export default function HomeView() {
                 onClick={handleOperatorSearch}
                 className="beerp-btn-green px-5 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition flex items-center gap-1.5"
               >
-                <Search className="w-4 h-4" />
+                <Search className="w-4 h-4 text-white" />
                 <span>Consultar</span>
               </button>
             </div>
@@ -845,7 +851,7 @@ export default function HomeView() {
                       <div>
                         <p className="text-slate-400">Titular:</p>
                         <p className="text-sm font-bold text-white">{operatorSearchResult.name}</p>
-                        <p className="text-slate-500">C.C. {operatorSearchResult.cedula}</p>
+                        <p className="text-slate-400">C.C. {operatorSearchResult.cedula}</p>
                       </div>
                       <span className="bg-[#5dab00]/20 text-[#5dab00] border border-[#5dab00]/40 font-bold px-3 py-1 rounded-full text-[11px] flex items-center gap-1.5">
                         <span className="w-2 h-2 rounded-full bg-[#5dab00]"></span>
@@ -855,11 +861,11 @@ export default function HomeView() {
 
                     <div className="grid grid-cols-2 gap-3 text-slate-300">
                       <div>
-                        <span className="text-slate-500">Plan:</span>
+                        <span className="text-slate-400">Plan:</span>
                         <p className="font-semibold text-white">{operatorSearchResult.plan}</p>
                       </div>
                       <div>
-                        <span className="text-slate-500">Vigencia hasta:</span>
+                        <span className="text-slate-400">Vigencia hasta:</span>
                         <p className="font-semibold text-white">{operatorSearchResult.validUntil}</p>
                       </div>
                     </div>
@@ -883,11 +889,11 @@ export default function HomeView() {
         </div>
       </section>
 
-      {/* 7. PREGUNTAS FRECUENTES (Grupo EMI Accordion Layout) */}
-      <section className="py-20 bg-white border-b border-slate-100">
+      {/* 7. PREGUNTAS FRECUENTES (Clean Accordion) */}
+      <section className="py-20 bg-white border-b border-slate-200">
         <div className="max-w-[860px] mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
-            <h6 className="text-[12px] font-bold tracking-[2px] text-[#040a44] uppercase mb-2">
+            <h6 className="text-[12px] font-bold tracking-[2px] text-[#5dab00] uppercase mb-2">
               RESOLVEMOS TUS DUDAS
             </h6>
             <h2 className="text-3xl font-light text-[#040a44]">
@@ -928,10 +934,10 @@ export default function HomeView() {
         </div>
       </section>
 
-      {/* 8. FOOTER (BeERP 3-columns + Legal) */}
-      <footer className="bg-white pt-16 pb-12 text-xs text-[#747474] border-t border-slate-100">
+      {/* 8. FOOTER */}
+      <footer className="bg-white pt-16 pb-12 text-xs text-slate-500 border-t border-slate-200">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pb-12 border-b border-slate-100">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pb-12 border-b border-slate-200">
             <div>
               <h4 className="text-sm font-bold text-[#040a44] mb-3">Red de Asistencias Soluciones W</h4>
               <p className="leading-relaxed">
@@ -961,7 +967,7 @@ export default function HomeView() {
         </div>
       </footer>
 
-      {/* 9. MOBILE BOTTOM ACTION BAR (Exact Grupo EMI Mobile Menu: Llamar, WhatsApp, Cotizar) */}
+      {/* 9. MOBILE BOTTOM ACTION BAR (Llamar, WhatsApp, Ver Planes) */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 px-4 py-2 flex items-center justify-around shadow-2xl">
         <a
           href="tel:6017459000"
@@ -986,7 +992,7 @@ export default function HomeView() {
             const el = document.getElementById("planes");
             el?.scrollIntoView({ behavior: "smooth" });
           }}
-          className="beerp-btn-green px-4 py-2 text-xs font-bold rounded-lg"
+          className="beerp-btn-green px-4 py-2 text-xs font-bold rounded-lg text-white"
         >
           Ver Planes
         </button>
@@ -1123,7 +1129,7 @@ export default function HomeView() {
                   <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex justify-between">
                     <div>
                       <p className="font-bold text-[#040a44]">{formData.fullName}</p>
-                      <p className="text-slate-400">Plan: {planPrices[selectedPlan].name}</p>
+                      <p className="text-slate-500">Plan: {planPrices[selectedPlan].name}</p>
                     </div>
                     <div className="text-right">
                       <span className="text-slate-400 block">Total a pagar:</span>
@@ -1181,24 +1187,24 @@ export default function HomeView() {
                   </div>
                   <div>
                     <h4 className="text-lg font-bold text-[#040a44]">¡Afiliación Activa!</h4>
-                    <p className="text-slate-400">Emisión digital automática completada en menos de 2 minutos.</p>
+                    <p className="text-slate-500">Emisión digital automática completada en menos de 2 minutos.</p>
                   </div>
 
                   <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-left space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="text-slate-400">Contrato:</span>
+                      <span className="text-slate-500">Contrato:</span>
                       <span className="font-mono font-bold text-[#03056b]">{generatedPolicy.contractNumber}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-slate-400">Plan:</span>
+                      <span className="text-slate-500">Plan:</span>
                       <span className="font-semibold text-slate-800">{generatedPolicy.planName}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-slate-400">Titular:</span>
+                      <span className="text-slate-500">Titular:</span>
                       <span className="font-semibold text-slate-800">{formData.fullName}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-slate-400">Documento:</span>
+                      <span className="text-slate-500">Documento:</span>
                       <span className="font-semibold text-slate-800">{formData.docNumber}</span>
                     </div>
                   </div>
@@ -1208,14 +1214,14 @@ export default function HomeView() {
                       onClick={() => alert(`Certificado ${generatedPolicy.contractNumber}.pdf descargado exitosamente.`)}
                       className="w-full beerp-btn-green py-3 rounded-xl font-bold uppercase tracking-wider flex items-center justify-center gap-2"
                     >
-                      <Download className="w-4 h-4" />
+                      <Download className="w-4 h-4 text-white" />
                       <span>Descargar Certificado PDF</span>
                     </button>
                     <a
                       href={`https://wa.me/573203282014?text=Hola%20Soluciones%20W,%20acabo%20de%20afiliarme%20al%20${generatedPolicy.planName}%20con%20contrato%20${generatedPolicy.contractNumber}.`}
                       target="_blank"
                       rel="noreferrer"
-                      className="w-full bg-[#040a44] text-white py-3 rounded-xl font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+                      className="w-full bg-[#040a44] hover:bg-[#03056b] text-white py-3 rounded-xl font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition"
                     >
                       <MessageCircle className="w-4 h-4" />
                       <span>Guardar Central en WhatsApp</span>
