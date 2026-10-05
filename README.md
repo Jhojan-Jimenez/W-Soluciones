@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛡️ Soluciones W — Portal B2C de Autogestión de Asistencias
 
-## Getting Started
+> Plataforma web transaccional B2C (24/7) para la adquisición autónoma y gestión de programas de asistencia familiar en Colombia (Médica, Ambulancia, Mascotas, Hogar y Odontología).
+> Desarrollado bajo la dirección de **Wilson Triana** con arquitectura Next.js 16 + Tailwind CSS y gestión con PNPM.
 
-First, run the development server:
+---
+
+## 🚀 Inicio Rápido
+
+Para ejecutar el entorno local de desarrollo:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# 1. Entrar al proyecto
+cd /home/claude/Workspace/Portafolio/CV/Projects/soluciones-w
+
+# 2. Instalar dependencias con PNPM
+pnpm install
+
+# 3. Iniciar servidor de desarrollo
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+El portal estará disponible en `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 Estructura del MVP (Los 4 Módulos)
 
-## Learn More
+1. **Módulo 1: Portafolio y Cotización Transparente**
+   * Vista de las 5 asistencias con sus coberturas, topes anuales y precios unitarios.
+   * Cotizador interactivo en tiempo real con descuentos por combo (15% a 25%) y opción de pago anual con 2 meses gratis.
+2. **Módulo 2: Registro Express (Fricción Cero)**
+   * Formulario optimizado de captura de datos (Cédula, Nombres, Celular, Correo, Dirección) y aceptación de Habeas Data (Ley 1581).
+3. **Módulo 3: Checkout Digital & Emisión Instantánea (< 2 min)**
+   * Simulación e integración con pasarela de pagos colombiana (Wompi/Mercado Pago) con PSE, Nequi y tarjetas.
+   * Generación y entrega instantánea del número de contrato, certificado digital y enlace directo a WhatsApp.
+4. **Módulo 4: Operación & Central de Emergencias (Wilson Triana)**
+   * Visor rápido para el operador del Call Center: consulta por cédula para validar vigencia, asistencias activas y eventos disponibles en 1 segundo.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📋 Documentación de Prerrequisitos
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Consulta el archivo [`PREREQUISITES.md`](file:///home/claude/Workspace/Portafolio/CV/Projects/soluciones-w/PREREQUISITES.md) para revisar los acuerdos de negocio, marco legal de Habeas Data, trámites de pasarela de pagos y activos de marca requeridos antes de iniciar los sprints técnicos.
