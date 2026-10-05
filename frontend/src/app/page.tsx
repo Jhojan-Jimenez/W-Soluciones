@@ -9,7 +9,6 @@ import {
   Smile,
   ShieldCheck,
   CheckCircle2,
-  Clock,
   PhoneCall,
   MessageCircle,
   CreditCard,
@@ -24,9 +23,13 @@ import {
   Coins,
   Heart,
   Settings,
-  Plus,
+  ChevronDown,
+  ChevronUp,
+  Phone,
   Layers,
-  Phone
+  Sparkles,
+  HelpCircle,
+  CheckCheck
 } from "lucide-react";
 
 interface AssistanceModule {
@@ -43,29 +46,31 @@ interface AssistanceModule {
 const MODULES_LIST: AssistanceModule[] = [
   {
     id: "medica",
-    name: "Asistencia Médica",
-    priceTag: "BASE INCLUIDA",
+    name: "Medicina Domiciliaria",
+    priceTag: "BASE ESENCIAL",
     priceValue: 18900,
-    category: "Salud Integral",
-    description: "Médico general a domicilio y telemedicina 24/7 con fórmula médica electrónica.",
+    category: "Salud Familiar",
+    description: "Médico general en la comodidad de tu hogar y telemedicina 24/7 sin copagos ni filas.",
     features: [
-      "Médico general a casa (hasta 3 eventos/año)",
-      "Telemedicina 24/7 con médicos certificados",
-      "Orientación médica telefónica y nutrición"
+      "Médico general a domicilio (hasta 3 consultas/año)",
+      "Telemedicina 24/7 con fórmula médica digital",
+      "Orientación telefónica en medicina general y pediatría",
+      "Envío de medicamentos básicos post-consulta"
     ],
-    limit: "Hasta $250.000 COP por consulta presencial"
+    limit: "Hasta $250.000 COP por consulta domiciliaria"
   },
   {
     id: "ambulancia",
-    name: "Ambulancia 24/7",
+    name: "Ambulancia & Urgencias",
     priceTag: "$14.900+",
     priceValue: 14900,
-    category: "Urgencias Vitales",
-    description: "Traslado medicalizado prioritario y atención prehospitalaria ante emergencias.",
+    category: "Respuesta Inmediata",
+    description: "Traslado medicalizado prioritario ante accidentes o complicaciones de salud.",
     features: [
-      "Traslado en ambulancia básica y medicalizada",
-      "Primeros auxilios y estabilización in situ",
-      "Coordinación hospitalaria inmediata"
+      "Ambulancia medicalizada y básica 24/7",
+      "Estabilización y primeros auxilios en sitio",
+      "Traslado prioritario a centros de la red hospitalaria",
+      "Cobertura urbana en Bogotá y ciudades principales"
     ],
     limit: "Hasta 2 traslados anuales 100% cubiertos"
   },
@@ -75,11 +80,12 @@ const MODULES_LIST: AssistanceModule[] = [
     priceTag: "$15.900+",
     priceValue: 15900,
     category: "Veterinaria",
-    description: "Atención de urgencia veterinaria para perros y gatos ante accidentes o malestar agudo.",
+    description: "Atención veterinaria de urgencia para tus perros y gatos ante accidentes e imprevistos.",
     features: [
-      "Consulta veterinaria de urgencia",
+      "Consulta veterinaria presencial por urgencia",
       "Teleorientación veterinaria 24 horas",
-      "1 vacuna o desparasitación anual incluida"
+      "Auxilio de guardería si el amo es hospitalizado",
+      "1 vacuna preventiva o desparasitación anual"
     ],
     limit: "Hasta $200.000 COP por evento (máx. 2 al año)"
   },
@@ -88,84 +94,70 @@ const MODULES_LIST: AssistanceModule[] = [
     name: "Asistencia Hogar",
     priceTag: "$16.900+",
     priceValue: 16900,
-    category: "Plomería & Cerrajería",
-    description: "Técnicos certificados para roturas de tuberías, cortes eléctricos y cerrajería 24/7.",
+    category: "Técnicos a Domicilio",
+    description: "Auxilio express ante roturas de tuberías, cortes eléctricos y cerrajería de emergencia.",
     features: [
-      "Plomería de emergencia por inundación o fugas",
-      "Cerrajería 24/7 por pérdida de llaves",
-      "Electricidad de urgencia por corto circuito"
+      "Plomería de emergencia por fuga o inundación",
+      "Cerrajería 24/7 por pérdida o daño de llaves",
+      "Electricidad de urgencia por corto circuito",
+      "Mano de obra y materiales básicos cubiertos"
     ],
-    limit: "Hasta $220.000 COP (mano de obra + materiales)"
+    limit: "Hasta $220.000 COP por evento (máx. 3 eventos/año)"
   },
   {
     id: "odontologica",
-    name: "Odontológica",
+    name: "Odontología Integral",
     priceTag: "$12.900+",
     priceValue: 12900,
     category: "Salud Oral",
-    description: "Urgencias por dolor agudo y prevención con profilaxis anual en red aliada.",
+    description: "Urgencias por dolor agudo y prevención con limpieza anual en centros odontológicos aliados.",
     features: [
-      "Atención de urgencia odontológica por dolor",
-      "1 profilaxis y limpieza profunda al año",
-      "Tarifas preferenciales con 40% de descuento"
+      "Atención de urgencia odontológica por dolor o trauma",
+      "1 profilaxis y limpieza profunda al año sin costo",
+      "Valoración diagnóstica con radiografías preliminares",
+      "Descuentos del 35% al 50% en tratamientos clínicos"
     ],
     limit: "1 Urgencia cubierta al 100% + 1 profilaxis anual"
+  }
+];
+
+const FAQS = [
+  {
+    q: "¿Tengo que pagar copagos o cuotas moderadoras al usar el servicio?",
+    a: "No. A diferencia de las EPS o medicinas prepagadas tradicionales, en Soluciones W los eventos cubiertos dentro del tope anual no tienen copagos ni cuotas adicionales. Solo pagas tu suscripción mensual."
   },
   {
-    id: "combo",
-    name: "Combo 360° Familiar",
-    priceTag: "AHORRA 25%",
-    priceValue: 59625,
-    category: "Paquete Completo",
-    description: "Los 5 módulos unidos para una protección integral sin vacíos de cobertura.",
-    features: [
-      "Médica + Ambulancia + Mascotas + Hogar + Odonto",
-      "Prioridad alta en despacho de central",
-      "Hasta 4 beneficiarios del mismo núcleo familiar"
-    ],
-    limit: "Cobertura completa simultánea"
+    q: "¿Cuánto tiempo tarda en activarse la cobertura una vez pago en línea?",
+    a: "La activación es instantánea. Nuestro motor digital emite tu certificado oficial de cobertura en menos de 2 minutos tras la confirmación de pago, y quedas inmediatamente registrado en la central de emergencias."
   },
   {
-    id: "telemedicina",
-    name: "Telemedicina VIP",
-    priceTag: "ILIMITADA",
-    priceValue: 9900,
-    category: "Canal Digital",
-    description: "Consultas virtuales ilimitadas con medicina general y pediatría por videollamada.",
-    features: [
-      "Atención médica por video en menos de 5 min",
-      "Fórmula médica oficial enviada por WhatsApp",
-      "Sin límites de llamadas ni cobros extra"
-    ],
-    limit: "Consultas ilimitadas 365 días"
+    q: "¿Cómo solicito una ambulancia, un médico o un cerrajero ante una urgencia?",
+    a: "Muy fácil: marcas a nuestra línea directa de emergencias (601) 745-9000 o abres nuestro chat de WhatsApp oficial. El operador digita tu número de cédula en el sistema y despacha la asistencia de inmediato sin pedirte papeles físicos."
   },
   {
-    id: "custom",
-    name: "Arma tu Propio Plan",
-    priceTag: "A TU MEDIDA",
-    priceValue: 0,
-    category: "Personalizado",
-    description: "Combina exactamente las coberturas que tú y tu familia necesitan.",
-    features: [
-      "Selecciona 1, 2, 3 o más asistencias",
-      "Descuento automático progresivo",
-      "Tarifa transparente sin cobros ocultos"
-    ],
-    limit: "Flexibilidad 100% personalizada"
+    q: "¿Hay cláusula de permanencia mínima?",
+    a: "Ninguna. Puedes cancelar tu suscripción mensual cuando lo desees directamente desde tu panel o escribiendo a nuestro WhatsApp de atención sin penalizaciones."
+  },
+  {
+    q: "¿Qué incluye la asistencia veterinaria para mascotas?",
+    a: "Cubre consultas de urgencia ante enfermedades agudas o accidentes para perros y gatos, teleorientación veterinaria 24 horas y un procedimiento preventivo (vacuna o desparasitación) al año."
   }
 ];
 
 export default function HomeView() {
-  const [selectedModules, setSelectedModules] = useState<string[]>([
-    "medica",
-    "ambulancia",
-    "mascotas",
-    "hogar",
-    "odontologica"
-  ]);
+  // Plan selection
+  const [selectedPlan, setSelectedPlan] = useState<"virtual" | "tradicional" | "plus">("plus");
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "annual">("monthly");
+  
+  // Hero Quick Lead Form (Grupo EMI style)
+  const [quickLead, setQuickLead] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    plan: "plus"
+  });
 
-  // Modal Checkout
+  // Full Checkout Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [checkoutStep, setCheckoutStep] = useState<1 | 2 | 3>(1);
   const [formData, setFormData] = useState({
@@ -183,6 +175,7 @@ export default function HomeView() {
     contractNumber: string;
     date: string;
     totalPaid: number;
+    planName: string;
   } | null>(null);
 
   // Central Operator Demo
@@ -197,49 +190,43 @@ export default function HomeView() {
     eventsRemaining?: number;
   } | null>(null);
 
-  // Pricing Logic
-  const rawSubtotal = selectedModules.reduce((acc, modId) => {
-    const item = MODULES_LIST.find((m) => m.id === modId);
-    return acc + (item?.priceValue || 0);
-  }, 0);
+  // FAQ Accordion
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  let discountRate = 0;
-  if (selectedModules.length >= 5) discountRate = 0.25;
-  else if (selectedModules.length >= 3) discountRate = 0.15;
+  // Pricing Matrix based on EMI-like tiers
+  const planPrices = {
+    virtual: { monthly: 24900, name: "Plan Básico Digital" },
+    tradicional: { monthly: 39900, name: "Plan Tradicional Hogar & Salud" },
+    plus: { monthly: 54900, name: "Plan Plus Familiar 360°" }
+  };
 
-  const discountedMonthly = Math.round(rawSubtotal * (1 - discountRate));
-  const finalPrice =
+  const currentPriceMonthly = planPrices[selectedPlan].monthly;
+  const currentFinalPrice =
     billingPeriod === "monthly"
-      ? discountedMonthly
-      : Math.round(discountedMonthly * 10);
+      ? currentPriceMonthly
+      : Math.round(currentPriceMonthly * 10); // 2 months free
 
-  const toggleModule = (id: string) => {
-    if (selectedModules.includes(id)) {
-      if (selectedModules.length === 1) return;
-      setSelectedModules(selectedModules.filter((m) => m !== id));
-    } else {
-      setSelectedModules([...selectedModules, id]);
+  const handleHeroLeadSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!quickLead.name || !quickLead.phone || !quickLead.email) {
+      alert("Por favor completa los campos obligatorios.");
+      return;
     }
-  };
-
-  const handleSelectCombo = () => {
-    setSelectedModules(["medica", "ambulancia", "mascotas", "hogar", "odontologica"]);
-    const el = document.getElementById("cotizador");
-    el?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const startCheckout = () => {
+    // Prepopulate modal form
+    setFormData((prev) => ({
+      ...prev,
+      fullName: quickLead.name,
+      phone: quickLead.phone,
+      email: quickLead.email
+    }));
     setCheckoutStep(1);
     setIsModalOpen(true);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.docNumber || !formData.fullName || !formData.phone || !formData.email) {
-      alert("Por favor completa los campos obligatorios.");
-      return;
-    }
-    setCheckoutStep(2);
+  const handleSelectPlanAndCheckout = (planKey: "virtual" | "tradicional" | "plus") => {
+    setSelectedPlan(planKey);
+    setCheckoutStep(1);
+    setIsModalOpen(true);
   };
 
   const handlePaymentSimulation = () => {
@@ -250,7 +237,8 @@ export default function HomeView() {
       setGeneratedPolicy({
         contractNumber: randomContract,
         date: new Date().toLocaleDateString("es-CO", { year: "numeric", month: "long", day: "numeric" }),
-        totalPaid: finalPrice
+        totalPaid: currentFinalPrice,
+        planName: planPrices[selectedPlan].name
       });
       setCheckoutStep(3);
     }, 1400);
@@ -264,7 +252,7 @@ export default function HomeView() {
         name: "Carlos Andrés Villamil",
         cedula: searchCedula,
         status: "ACTIVO Y VIGENTE",
-        plan: "Combo 360° Familiar (5 Asistencias)",
+        plan: planPrices[selectedPlan].name,
         validUntil: "04 de Noviembre, 2026",
         eventsRemaining: 3
       });
@@ -277,433 +265,568 @@ export default function HomeView() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#626262] flex flex-col font-sans">
-      {/* 1. HEADER (Exact BeERP structure: Logo on left, 3 line-icon info items on right, Nav below) */}
-      <header className="border-b border-slate-100 bg-white">
-        <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-6 pb-4">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-slate-100">
-            {/* BeERP Style Logo: Green striped circle emblem + Navy Bold Text */}
-            <div className="flex items-center gap-3.5">
-              {/* Green striped circular emblem */}
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#77da00] via-[#5dab00] to-[#458500] flex items-center justify-center p-2.5 shadow-md shadow-[#5dab00]/25">
-                <svg viewBox="0 0 40 40" className="w-full h-full text-white fill-none stroke-current stroke-[3.5] stroke-linecap-round">
-                  <path d="M12 8 L22 32" />
-                  <path d="M20 8 L30 32" />
-                  <circle cx="20" cy="20" r="18" strokeWidth="2.5" />
-                </svg>
-              </div>
-
-              {/* Logo Typography */}
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-extrabold text-[#03056b] tracking-tight">
-                  ERP
-                </span>
-                <div className="leading-tight">
-                  <span className="block text-sm font-bold text-[#040a44]">
-                    Soluciones W
-                  </span>
-                  <span className="block text-[10px] text-[#747474] font-medium tracking-wider uppercase">
-                    Asistencias B2C
-                  </span>
-                </div>
-              </div>
+    <div className="min-h-screen bg-white text-[#626262] flex flex-col font-sans pb-16 md:pb-0">
+      {/* 1. TOP NAVBAR (Structured like Grupo EMI + BeERP Aesthetics) */}
+      <header className="sticky top-0 z-40 bg-white border-b border-slate-100 shadow-sm">
+        <div className="max-w-[1180px] mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+          {/* Logo with Green Striped Emblem and Navy Typography */}
+          <div className="flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#77da00] via-[#5dab00] to-[#458500] flex items-center justify-center p-2.5 shadow-md shadow-[#5dab00]/25 shrink-0">
+              <svg viewBox="0 0 40 40" className="w-full h-full text-white fill-none stroke-current stroke-[3.5] stroke-linecap-round">
+                <path d="M12 8 L22 32" />
+                <path d="M20 8 L30 32" />
+                <circle cx="20" cy="20" r="18" strokeWidth="2.5" />
+              </svg>
             </div>
-
-            {/* 3 Info Indicators (Exact BeERP header right side) */}
-            <div className="hidden sm:flex items-center gap-8">
-              {/* Item 1 */}
-              <div className="flex items-center gap-3">
-                <Coins className="w-7 h-7 text-[#03056b] stroke-[1.25]" />
-                <div className="text-xs leading-snug">
-                  <p className="font-medium text-[#040a44]">Ahorra dinero</p>
-                  <p className="text-slate-400">y costos de urgencia</p>
-                </div>
+            <div>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-2xl font-extrabold text-[#03056b] tracking-tight">ERP</span>
+                <span className="text-xl font-bold text-[#040a44]">Soluciones W</span>
               </div>
-
-              {/* Item 2 */}
-              <div className="flex items-center gap-3">
-                <Heart className="w-7 h-7 text-[#03056b] stroke-[1.25]" />
-                <div className="text-xs leading-snug">
-                  <p className="font-medium text-[#040a44]">Preferido por</p>
-                  <p className="text-slate-400">+10.000 afiliados</p>
-                </div>
-              </div>
-
-              {/* Item 3 */}
-              <div className="flex items-center gap-3">
-                <Settings className="w-7 h-7 text-[#03056b] stroke-[1.25]" />
-                <div className="text-xs leading-snug">
-                  <p className="font-medium text-[#040a44]">Activación rápida</p>
-                  <p className="text-slate-400">en menos de 2 min</p>
-                </div>
-              </div>
+              <p className="text-[10px] text-[#747474] font-medium tracking-wider uppercase leading-none">
+                Asistencia Familiar & Hogar · Dir. Wilson Triana
+              </p>
             </div>
           </div>
 
-          {/* Navigation Bar (BeERP horizontal text links) */}
-          <nav className="flex items-center justify-between pt-4">
-            <div className="flex items-center gap-8 text-[15px]">
-              <a href="#" className="font-bold text-[#5dab00] transition">
-                Inicio
-              </a>
-              <a href="#modulos" className="font-bold text-[#040a44] hover:text-[#5dab00] transition">
-                Módulos
-              </a>
-              <a href="#cotizador" className="font-bold text-[#040a44] hover:text-[#5dab00] transition">
-                Cotizador
-              </a>
-              <a href="#operador" className="font-bold text-[#040a44] hover:text-[#5dab00] transition">
-                Consulta Central
-              </a>
-              <a href="#contacto" className="font-bold text-[#040a44] hover:text-[#5dab00] transition">
-                Emergencias 24/7
-              </a>
-            </div>
+          {/* Right Section (Grupo EMI structure: Phone Line + WhatsApp Action Button) */}
+          <div className="flex items-center gap-5 sm:gap-7">
+            {/* Phone direct call */}
+            <a
+              href="tel:6017459000"
+              className="hidden lg:flex items-center gap-3 text-left hover:opacity-90 transition"
+            >
+              <div className="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-[#03056b]">
+                <Phone className="w-5 h-5 stroke-[1.8]" />
+              </div>
+              <div className="leading-tight">
+                <span className="block text-[11px] text-slate-400 font-medium">Línea de Afiliaciones 24/7</span>
+                <span className="block text-base font-bold text-[#040a44]">601 745 90 00</span>
+              </div>
+            </a>
 
-            <div className="hidden lg:flex items-center gap-2">
-              <span className="inline-block w-2 h-2 rounded-full bg-[#5dab00] animate-pulse"></span>
-              <span className="text-xs font-semibold text-[#040a44]">Central Despacho Operativa</span>
-            </div>
-          </nav>
+            {/* WhatsApp CTA Button (EMI Style in BeERP green) */}
+            <a
+              href="https://wa.me/573203282014"
+              target="_blank"
+              rel="noreferrer"
+              className="beerp-btn-green px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm hover:shadow-md transition"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span className="hidden xs:inline">Asesoría por</span> WhatsApp
+            </a>
+          </div>
         </div>
       </header>
 
-      {/* 2. HERO SECTION (Faithful recreation of BeERP screenshot 1) */}
-      <section className="relative overflow-hidden bg-white border-b border-slate-100 min-h-[580px] flex items-center">
-        {/* Right side background image: Collaborative team with clean white left fade */}
-        <div
-          className="absolute inset-y-0 right-0 w-full lg:w-[65%] bg-no-repeat bg-cover bg-center"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80')`,
-          }}
-        >
-          {/* BeERP soft white gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent"></div>
-        </div>
+      {/* 2. HERO BANNER WITH EMBEDDED AFFILIATION FORM (Exact Grupo EMI layout + BeERP visuals) */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#040a44] via-[#051f3f] to-[#040a44] text-white py-12 lg:py-20">
+        {/* Soft background watermark */}
+        <div className="absolute inset-0 bg-[radial-gradient(#5dab00_1px,transparent_1px)] [background-size:28px_28px] opacity-10 pointer-events-none"></div>
 
-        <div className="relative max-w-[1140px] mx-auto px-4 sm:px-6 w-full py-16 lg:py-24">
-          <div className="max-w-[540px]">
-            {/* Main Headline (Poppins 300 Light, Deep Navy #040a44) */}
-            <h1 className="text-[44px] sm:text-[54px] font-light text-[#040a44] leading-[1.1] tracking-tight">
-              Sistema integral y <br />
-              fácil de activar de <br />
-              asistencia familiar
-            </h1>
+        <div className="relative max-w-[1180px] mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            
+            {/* Left Content (Grupo EMI Banner text) */}
+            <div className="lg:col-span-7 space-y-6">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 bg-[#5dab00]/20 border border-[#5dab00]/40 text-[#77da00] text-xs font-semibold px-3.5 py-1.5 rounded-full">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>AFILIACIÓN DIGITAL INMEDIATA EN MENOS DE 2 MINUTOS</span>
+              </div>
 
-            {/* BeERP Subheadline: Deep Navy #03056b Bold */}
-            <div className="mt-8 mb-8">
-              <p className="text-[19px] font-bold text-[#03056b] leading-[26px]">
-                Versión 1.0 con 5 módulos esenciales <br />
-                Activación digital en menos de 2 minutos
+              {/* H1 Headline (BeERP typography, Grupo EMI message) */}
+              <h1 className="text-4xl sm:text-5xl lg:text-5xl font-light text-white leading-[1.15] tracking-tight">
+                Con Soluciones W <br />
+                estarás seguro y <br />
+                <strong className="font-semibold text-[#77da00]">protegido 24/7</strong>
+              </h1>
+
+              {/* Subheading */}
+              <p className="text-base sm:text-lg text-slate-300 font-light leading-relaxed max-w-xl">
+                Atención médica domiciliaria, ambulancia, asistencia para mascotas y auxilio en el hogar 
+                para ti y tus seres queridos en una sola suscripción mensual sin intermediarios.
               </p>
+
+              {/* Dual Action Buttons (EMI style) */}
+              <div className="pt-2 flex flex-wrap items-center gap-3.5">
+                <a
+                  href="https://wa.me/573203282014"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="bg-[#25D366] hover:bg-[#20ba59] text-white px-5 py-3 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 transition shadow-md"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Chatea con un asesor</span>
+                </a>
+
+                <a
+                  href="tel:6017459000"
+                  className="bg-white hover:bg-slate-100 text-[#040a44] px-5 py-3 rounded-xl font-semibold text-xs sm:text-sm flex items-center gap-2 transition shadow-md"
+                >
+                  <Phone className="w-4 h-4 text-[#03056b]" />
+                  <span>Llamar a la Central</span>
+                </a>
+              </div>
+
+              {/* Trust Indicators */}
+              <div className="pt-6 border-t border-slate-700/60 flex flex-wrap gap-6 text-xs text-slate-300">
+                <div className="flex items-center gap-2">
+                  <CheckCheck className="w-4 h-4 text-[#5dab00]" />
+                  <span>Sin períodos de carencia</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCheck className="w-4 h-4 text-[#5dab00]" />
+                  <span>Sin exámenes médicos</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCheck className="w-4 h-4 text-[#5dab00]" />
+                  <span>Sin permanencia</span>
+                </div>
+              </div>
             </div>
 
-            {/* BeERP Action Buttons: Solid Lime Green + App Store / WhatsApp badge */}
-            <div className="flex flex-wrap items-center gap-4">
+            {/* Right Card: Formulario ¡Afíliate en línea ya! (Grupo EMI Banner Form) */}
+            <div className="lg:col-span-5">
+              <div className="bg-white text-slate-900 rounded-2xl p-6 sm:p-8 shadow-2xl border border-slate-100 relative">
+                <div className="text-center mb-6">
+                  <h2 className="text-2xl font-bold text-[#040a44]">
+                    ¡Afíliate en línea ya!
+                  </h2>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Completa tus datos y activa tu plan en 2 minutos.
+                  </p>
+                </div>
+
+                <form onSubmit={handleHeroLeadSubmit} className="space-y-4 text-xs">
+                  <div>
+                    <label className="block font-semibold text-slate-700 mb-1">
+                      Nombre y apellido *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Ingresa tu nombre completo"
+                      value={quickLead.name}
+                      onChange={(e) => setQuickLead({ ...quickLead, name: e.target.value })}
+                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-semibold text-slate-700 mb-1">
+                      Correo electrónico *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="ejemplo.correo@gmail.com"
+                      value={quickLead.email}
+                      onChange={(e) => setQuickLead({ ...quickLead, email: e.target.value })}
+                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-semibold text-slate-700 mb-1">
+                      Teléfono / WhatsApp *
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="300 000 00 00"
+                      value={quickLead.phone}
+                      onChange={(e) => setQuickLead({ ...quickLead, phone: e.target.value })}
+                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block font-semibold text-slate-700 mb-1">
+                      Plan de Interés
+                    </label>
+                    <select
+                      value={selectedPlan}
+                      onChange={(e) => setSelectedPlan(e.target.value as any)}
+                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00]"
+                    >
+                      <option value="plus">Plan Plus Familiar 360° ($54.900/mes) - Recomendado</option>
+                      <option value="tradicional">Plan Tradicional Hogar & Salud ($39.900/mes)</option>
+                      <option value="virtual">Plan Básico Digital ($24.900/mes)</option>
+                    </select>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full beerp-btn-green py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 mt-2"
+                  >
+                    <span>Continuar Afiliación</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+
+                  <div className="pt-2 text-center text-[10px] text-slate-400 space-y-1">
+                    <p>* Campos obligatorios</p>
+                    <p>
+                      Al continuar, estás aceptando nuestros{" "}
+                      <a href="#terminos" className="text-[#040a44] font-semibold underline">
+                        términos y condiciones
+                      </a>{" "}
+                      y política de Habeas Data.
+                    </p>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 3. SECCIÓN DE PLANES GRUPO EMI (Planes estructurados con cards de precios) */}
+      <section id="planes" className="py-20 lg:py-24 bg-[#051f3f] text-white">
+        <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <h6 className="text-[12px] font-light tracking-[2px] text-[#5dab00] uppercase mb-2">
+              SUSCRIPCIONES MENSUALES
+            </h6>
+            <h2 className="text-[32px] sm:text-[38px] font-light text-white leading-tight">
+              Planes Soluciones W
+            </h2>
+            <p className="mt-3 text-slate-300 text-sm">
+              Selecciona el plan que mejor se adapte a tu familia y activa tu certificado oficial en línea.
+            </p>
+
+            {/* Switch Mensual / Anual */}
+            <div className="mt-6 inline-flex items-center bg-slate-900/80 p-1 rounded-xl border border-slate-700">
               <button
-                onClick={() => {
-                  const el = document.getElementById("cotizador");
-                  el?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="beerp-btn-green px-7 py-3.5 text-[15px] font-semibold tracking-wide shadow-md shadow-[#5dab00]/25 hover:shadow-lg transition"
+                onClick={() => setBillingPeriod("monthly")}
+                className={`px-4 py-2 text-xs font-semibold rounded-lg transition ${
+                  billingPeriod === "monthly" ? "bg-white text-[#040a44] shadow" : "text-slate-400"
+                }`}
               >
-                Cotizar y Activar Plan
+                Pago Mensual
               </button>
+              <button
+                onClick={() => setBillingPeriod("annual")}
+                className={`px-4 py-2 text-xs font-semibold rounded-lg transition ${
+                  billingPeriod === "annual" ? "beerp-btn-green text-white shadow" : "text-slate-400"
+                }`}
+              >
+                Pago Anual (2 Meses Gratis)
+              </button>
+            </div>
+          </div>
+
+          {/* Cards Grid: 3 Planes (Grupo EMI Structure: Virtual, Tradicional, Plus) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+            
+            {/* Plan 1: Virtual / Básico */}
+            <div className="bg-[#f1f3f6] text-slate-900 rounded-2xl p-7 flex flex-col justify-between shadow-lg relative border border-slate-200">
+              <div>
+                <h3 className="text-xl font-bold text-[#040a44]">{planPrices.virtual.name}</h3>
+                <p className="text-xs text-slate-500 mt-1 min-h-[32px]">
+                  Atención médica 100% virtual sin esperas, ideal para personas jóvenes e independientes.
+                </p>
+
+                <div className="my-6 py-4 border-t border-b border-slate-200 text-center">
+                  <span className="text-xs text-slate-500 block">Desde</span>
+                  <div className="flex items-baseline justify-center gap-1">
+                    <span className="text-3xl font-extrabold text-[#03056b]">
+                      ${(billingPeriod === "monthly" ? 24900 : 249000).toLocaleString("es-CO")}
+                    </span>
+                    <span className="text-xs text-slate-500 font-semibold">
+                      COP / {billingPeriod === "monthly" ? "mes" : "año"}
+                    </span>
+                  </div>
+                  <span className="text-[11px] text-slate-400 block mt-1">Por persona · Sin copagos</span>
+                </div>
+
+                <ul className="space-y-3 text-xs text-slate-600 mb-8">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <span>Telemedicina ilimitada 24/7 con fórmula médica digital</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <span>Orientación médica y pediátrica telefónica</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <span>Odontología preventiva (1 profilaxis anual sin costo)</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-slate-400">
+                    <X className="w-4 h-4 text-slate-300 shrink-0 mt-0.5" />
+                    <span>No incluye médico domiciliario presencial</span>
+                  </li>
+                </ul>
+              </div>
+
+              <button
+                onClick={() => handleSelectPlanAndCheckout("virtual")}
+                className="w-full bg-[#040a44] hover:bg-[#03056b] text-white py-3 rounded-xl font-bold uppercase tracking-wider text-xs transition"
+              >
+                Elegir Plan Virtual
+              </button>
+            </div>
+
+            {/* Plan 2: Tradicional Hogar & Salud */}
+            <div className="bg-[#f1f3f6] text-slate-900 rounded-2xl p-7 flex flex-col justify-between shadow-lg relative border border-slate-200">
+              <div>
+                <h3 className="text-xl font-bold text-[#040a44]">{planPrices.tradicional.name}</h3>
+                <p className="text-xs text-slate-500 mt-1 min-h-[32px]">
+                  Médico a domicilio, ambulancia y auxilio básico para reparaciones urgentes del hogar.
+                </p>
+
+                <div className="my-6 py-4 border-t border-b border-slate-200 text-center">
+                  <span className="text-xs text-slate-500 block">Desde</span>
+                  <div className="flex items-baseline justify-center gap-1">
+                    <span className="text-3xl font-extrabold text-[#03056b]">
+                      ${(billingPeriod === "monthly" ? 39900 : 399000).toLocaleString("es-CO")}
+                    </span>
+                    <span className="text-xs text-slate-500 font-semibold">
+                      COP / {billingPeriod === "monthly" ? "mes" : "año"}
+                    </span>
+                  </div>
+                  <span className="text-[11px] text-slate-400 block mt-1">Por persona · Sin copagos</span>
+                </div>
+
+                <ul className="space-y-3 text-xs text-slate-600 mb-8">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <span>Médico general presencial a domicilio (hasta 3 eventos)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <span>Traslado de ambulancia medicalizada y básica 24/7</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <span>Plomería y cerrajería de urgencia en el hogar</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <span>Telemedicina ilimitada + Odontología preventiva</span>
+                  </li>
+                </ul>
+              </div>
+
+              <button
+                onClick={() => handleSelectPlanAndCheckout("tradicional")}
+                className="w-full bg-[#040a44] hover:bg-[#03056b] text-white py-3 rounded-xl font-bold uppercase tracking-wider text-xs transition"
+              >
+                Elegir Plan Tradicional
+              </button>
+            </div>
+
+            {/* Plan 3: Plan Plus Familiar 360° (MÁS POPULAR / HIGHLIGHTED) */}
+            <div className="bg-white text-slate-900 rounded-2xl p-7 flex flex-col justify-between shadow-2xl relative border-2 border-[#5dab00] transform md:-translate-y-2">
+              {/* Badge EMI style */}
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#5dab00] text-white text-[11px] font-extrabold px-3.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                MÁS POPULAR · RECOMENDADO
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold text-[#040a44]">{planPrices.plus.name}</h3>
+                <p className="text-xs text-slate-500 mt-1 min-h-[32px]">
+                  Cobertura completa 360°: Salud, Ambulancia, Mascotas, Hogar y Odontología.
+                </p>
+
+                <div className="my-6 py-4 border-t border-b border-slate-100 text-center bg-slate-50 rounded-xl">
+                  <span className="text-xs text-slate-500 block">Tarifa Especial</span>
+                  <div className="flex items-baseline justify-center gap-1">
+                    <span className="text-4xl font-extrabold text-[#03056b]">
+                      ${(billingPeriod === "monthly" ? 54900 : 549000).toLocaleString("es-CO")}
+                    </span>
+                    <span className="text-xs text-slate-500 font-semibold">
+                      COP / {billingPeriod === "monthly" ? "mes" : "año"}
+                    </span>
+                  </div>
+                  <span className="text-[11px] text-[#5dab00] font-bold block mt-1">
+                    Incluye las 5 Asistencias Esenciales
+                  </span>
+                </div>
+
+                <ul className="space-y-3 text-xs text-slate-700 mb-8">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <span className="font-semibold">Médico a domicilio + Telemedicina 24/7</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <span className="font-semibold">Ambulancia medicalizada prioritaria</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <span className="font-semibold">Asistencia veterinaria para mascotas (urgencias y vacunas)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <span className="font-semibold">Plomería, cerrajería y electricidad en casa</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <span className="font-semibold">Odontología de urgencia + 1 limpieza profunda anual</span>
+                  </li>
+                </ul>
+              </div>
+
+              <button
+                onClick={() => handleSelectPlanAndCheckout("plus")}
+                className="w-full beerp-btn-green py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-md hover:shadow-lg transition"
+              >
+                Activar Plan Plus 360°
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 4. DETALLE DE COBERTURAS (BeERP 3D Icons Grid + EMI Service cards) */}
+      <section id="servicios" className="py-20 lg:py-24 bg-white">
+        <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <h6 className="text-[13px] font-light tracking-[2px] text-[#040a44] uppercase mb-2">
+              COBERTURAS AL DETALLE
+            </h6>
+            <h2 className="text-[32px] sm:text-[36px] font-light text-[#040a44] leading-tight">
+              Los 5 Pilares de Asistencia en Soluciones W
+            </h2>
+            <p className="mt-3 text-sm text-slate-500">
+              Conoce el alcance específico y los límites garantizados para cada una de nuestras coberturas.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {MODULES_LIST.map((mod) => (
+              <div
+                key={mod.id}
+                className="beerp-card p-7 flex flex-col justify-between"
+              >
+                <div>
+                  {/* BeERP 3D Spherical Green Icon */}
+                  <div className="beerp-icon-circle mb-5">
+                    {mod.id === "medica" && <Stethoscope className="w-10 h-10" />}
+                    {mod.id === "ambulancia" && <Ambulance className="w-10 h-10" />}
+                    {mod.id === "mascotas" && <Dog className="w-10 h-10" />}
+                    {mod.id === "hogar" && <Home className="w-10 h-10" />}
+                    {mod.id === "odontologica" && <Smile className="w-10 h-10" />}
+                  </div>
+
+                  <span className="text-xs font-bold text-[#5dab00] uppercase tracking-wide">
+                    {mod.category}
+                  </span>
+                  <h3 className="text-xl font-bold text-[#040a44] mt-1 mb-2">
+                    {mod.name}
+                  </h3>
+                  <p className="text-xs text-slate-500 leading-relaxed mb-4">
+                    {mod.description}
+                  </p>
+
+                  <ul className="space-y-2 text-xs text-slate-600 mb-6">
+                    {mod.features.map((feat, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#5dab00] shrink-0 mt-0.5" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-[11px] text-slate-500">
+                  <strong className="text-slate-700">Límite garantizado:</strong> {mod.limit}
+                </div>
+              </div>
+            ))}
+
+            {/* Banner card de contacto */}
+            <div className="bg-gradient-to-br from-[#03056b] to-[#040a44] text-white rounded-2xl p-7 flex flex-col justify-between shadow-xl">
+              <div>
+                <span className="bg-[#5dab00] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                  ATENCIÓN 24 HORAS
+                </span>
+                <h3 className="text-2xl font-bold text-white mt-4 leading-snug">
+                  ¿Necesitas asistencia en este instante?
+                </h3>
+                <p className="text-xs text-slate-300 mt-2 leading-relaxed">
+                  Llama a nuestra central médica y técnica. Un operador verificará tu cédula y despachará el auxilio de inmediato.
+                </p>
+                <div className="my-6 pt-4 border-t border-white/20">
+                  <span className="text-xs text-slate-300 block">Línea Nacional</span>
+                  <p className="text-2xl font-bold text-white">+57 (601) 745-9000</p>
+                </div>
+              </div>
 
               <a
                 href="https://wa.me/573203282014"
                 target="_blank"
                 rel="noreferrer"
-                className="bg-black hover:bg-slate-900 text-white px-5 py-2.5 rounded-lg flex items-center gap-3 transition shadow-sm"
+                className="w-full beerp-btn-green py-3 rounded-xl text-center font-bold text-xs uppercase tracking-wider block"
               >
-                <MessageCircle className="w-6 h-6 text-[#5dab00]" />
-                <div className="text-left leading-none">
-                  <span className="block text-[10px] text-slate-300 font-light uppercase tracking-wider">
-                    Línea Directa 24/7
-                  </span>
-                  <span className="block text-xs font-bold text-white mt-0.5">
-                    WhatsApp Asistencias
-                  </span>
-                </div>
+                Abrir WhatsApp de Emergencias
               </a>
             </div>
+          </div>
+        </div>
+      </section>
 
-            {/* Sub-text under buttons */}
-            <div className="mt-4 flex items-center gap-6 text-xs text-slate-400">
-              <span>Cobertura Bogotá y Nacional</span>
-              <span>•</span>
-              <span>Sin cláusulas de permanencia</span>
+      {/* 5. MEDIOS DE PAGO ACEPTADOS (Grupo EMI payment methods layout) */}
+      <section className="py-14 bg-slate-50 border-t border-b border-slate-200">
+        <div className="max-w-[1180px] mx-auto px-4 sm:px-6 text-center">
+          <h6 className="text-[12px] font-bold tracking-[2px] text-[#040a44] uppercase mb-2">
+            PAGOS SEGUROS EN LÍNEA
+          </h6>
+          <h2 className="text-2xl sm:text-3xl font-light text-[#040a44]">
+            Paga fácil con tus medios favoritos en Colombia
+          </h2>
+          <p className="text-xs text-slate-500 mt-2 max-w-lg mx-auto">
+            Integrado con pasarela certificada Wompi (Bancolombia) y Mercado Pago con cifrado SSL de 256 bits.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-10 opacity-85">
+            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+              <Building2 className="w-5 h-5 text-blue-600" />
+              <span className="text-xs font-bold text-slate-800">PSE Débito</span>
+            </div>
+            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+              <Zap className="w-5 h-5 text-purple-600" />
+              <span className="text-xs font-bold text-slate-800">Nequi</span>
+            </div>
+            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+              <CreditCard className="w-5 h-5 text-emerald-600" />
+              <span className="text-xs font-bold text-slate-800">Tarjetas Visa / Mastercard</span>
+            </div>
+            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+              <Building2 className="w-5 h-5 text-red-600" />
+              <span className="text-xs font-bold text-slate-800">Daviplata</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. "BUY LICENSES / MODULES" SECTION (Exact match to BeERP screenshot 2) */}
-      <section id="modulos" className="py-20 lg:py-24 bg-[#ffffff]">
-        <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
-          {/* Centered BeERP Heading */}
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h6 className="text-[13px] font-light tracking-[2px] text-[#040a44] uppercase mb-2">
-              PORTAFOLIO DE ASISTENCIAS
-            </h6>
-            <h2 className="text-[32px] sm:text-[36px] font-light text-[#040a44] leading-tight">
-              Módulo base con 4 asistencias adicionales <br className="hidden sm:block" />
-              listas para tus necesidades
-            </h2>
-          </div>
-
-          {/* 4-Columns Grid with 3D Spherical Green Icons */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {MODULES_LIST.map((mod, index) => {
-              const isCombo = mod.id === "combo";
-              const isCustom = mod.id === "custom";
-
-              return (
-                <div
-                  key={mod.id}
-                  onClick={() => {
-                    if (isCombo) handleSelectCombo();
-                    else if (isCustom) {
-                      const el = document.getElementById("cotizador");
-                      el?.scrollIntoView({ behavior: "smooth" });
-                    } else {
-                      toggleModule(mod.id);
-                    }
-                  }}
-                  className={`beerp-card p-7 text-center cursor-pointer flex flex-col items-center justify-between min-h-[300px] ${
-                    selectedModules.includes(mod.id) && !isCombo && !isCustom
-                      ? "border-[#4d70d4] ring-1 ring-[#4d70d4]/30"
-                      : ""
-                  }`}
-                >
-                  <div className="flex flex-col items-center w-full">
-                    {/* 3D Green Icon Circle (BeERP style) */}
-                    <div className="beerp-icon-circle mb-6">
-                      {mod.id === "medica" && <Stethoscope className="w-10 h-10 stroke-[2]" />}
-                      {mod.id === "ambulancia" && <Ambulance className="w-10 h-10 stroke-[2]" />}
-                      {mod.id === "mascotas" && <Dog className="w-10 h-10 stroke-[2]" />}
-                      {mod.id === "hogar" && <Home className="w-10 h-10 stroke-[2]" />}
-                      {mod.id === "odontologica" && <Smile className="w-10 h-10 stroke-[2]" />}
-                      {mod.id === "combo" && <Layers className="w-10 h-10 stroke-[2]" />}
-                      {mod.id === "telemedicina" && <ShieldCheck className="w-10 h-10 stroke-[2]" />}
-                      {mod.id === "custom" && <Plus className="w-12 h-12 stroke-[2.5]" />}
-                    </div>
-
-                    {/* Price tag in #5dab00 */}
-                    <span className="text-[13px] font-bold text-[#5dab00] tracking-wide mb-1 block">
-                      {mod.priceTag}
-                    </span>
-
-                    {/* Module Title (font-light, deep navy) */}
-                    <h3 className="text-[20px] font-light text-[#040a44] leading-snug">
-                      {mod.name}
-                    </h3>
-                  </div>
-
-                  <div className="w-full mt-4 pt-3 border-t border-slate-100">
-                    <p className="text-[12px] text-slate-500 leading-relaxed line-clamp-2">
-                      {mod.description}
-                    </p>
-                    <span className="inline-block mt-2 text-[11px] font-semibold text-[#4d70d4]">
-                      {selectedModules.includes(mod.id) ? "✓ Seleccionado" : "+ Agregar a plan"}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. INTERACTIVE COTIZADOR & SIMULATOR SECTION */}
-      <section id="cotizador" className="py-20 bg-[#fbfcfd] border-t border-b border-slate-100">
-        <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <h6 className="text-[13px] font-light tracking-[2px] text-[#040a44] uppercase mb-2">
-              COTIZADOR EN LÍNEA
-            </h6>
-            <h2 className="text-[32px] sm:text-[36px] font-light text-[#040a44] leading-tight">
-              Calcula tu cuota mensual en tiempo real
-            </h2>
-            <p className="mt-3 text-sm text-slate-500">
-              Selecciona las asistencias que deseas proteger y el sistema calculará tu tarifa neta con descuentos por paquete.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Left Box: Modules Selector */}
-            <div className="lg:col-span-7 bg-white p-7 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
-              <div className="flex items-center justify-between pb-5 border-b border-slate-100 mb-6">
-                <span className="text-xs font-bold text-[#040a44] uppercase tracking-wider">
-                  Módulos para tu suscripción:
-                </span>
-                <button
-                  onClick={handleSelectCombo}
-                  className="text-xs font-bold text-[#5dab00] hover:text-[#509e00] transition"
-                >
-                  Seleccionar Todo (Combo 25% OFF)
-                </button>
-              </div>
-
-              <div className="space-y-3">
-                {MODULES_LIST.slice(0, 5).map((m) => {
-                  const isChecked = selectedModules.includes(m.id);
-                  return (
-                    <div
-                      key={m.id}
-                      onClick={() => toggleModule(m.id)}
-                      className={`p-4 rounded-xl border flex items-center justify-between cursor-pointer transition ${
-                        isChecked
-                          ? "border-[#4d70d4] bg-blue-50/20"
-                          : "border-slate-200 bg-white hover:border-slate-300"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <div
-                          className={`w-5 h-5 rounded flex items-center justify-center border transition ${
-                            isChecked
-                              ? "bg-[#5dab00] border-[#5dab00] text-white"
-                              : "border-slate-300 bg-white"
-                          }`}
-                        >
-                          {isChecked && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold text-[#040a44]">{m.name}</p>
-                          <p className="text-xs text-slate-400">{m.category}</p>
-                        </div>
-                      </div>
-
-                      <div className="text-right">
-                        <span className="text-sm font-bold text-[#040a44]">
-                          ${m.priceValue.toLocaleString("es-CO")}
-                        </span>
-                        <span className="text-xs text-slate-400 block">COP / mes</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Billing Switch */}
-              <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-bold text-[#040a44]">Periodo de facturación</p>
-                  <p className="text-xs text-slate-400">Paga 10 meses y recibe 12 meses de cobertura</p>
-                </div>
-                <div className="flex items-center bg-slate-100 p-1 rounded-lg">
-                  <button
-                    onClick={() => setBillingPeriod("monthly")}
-                    className={`px-3 py-1.5 text-xs font-semibold rounded-md transition ${
-                      billingPeriod === "monthly"
-                        ? "bg-white text-[#040a44] shadow-sm"
-                        : "text-slate-500"
-                    }`}
-                  >
-                    Mensual
-                  </button>
-                  <button
-                    onClick={() => setBillingPeriod("annual")}
-                    className={`px-3 py-1.5 text-xs font-semibold rounded-md transition ${
-                      billingPeriod === "annual"
-                        ? "beerp-btn-green text-white shadow-sm"
-                        : "text-slate-500"
-                    }`}
-                  >
-                    Anual (2 Meses Gratis)
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Box: Order Summary & Checkout Trigger */}
-            <div className="lg:col-span-5 bg-white p-7 sm:p-8 rounded-2xl border border-slate-200 beerp-card-shadow sticky top-8">
-              <span className="text-[11px] font-bold tracking-wider text-slate-400 uppercase">
-                TU PLAN SOLUCIONES W
-              </span>
-              <h3 className="text-xl font-bold text-[#040a44] mt-1">
-                Resumen de Afiliación B2C
-              </h3>
-
-              <div className="mt-6 space-y-3 pb-6 border-b border-slate-100 text-sm">
-                <div className="flex justify-between text-slate-600">
-                  <span>Módulos incluidos:</span>
-                  <span className="font-bold text-[#040a44]">{selectedModules.length} de 5</span>
-                </div>
-                <div className="flex justify-between text-slate-600">
-                  <span>Subtotal bruto:</span>
-                  <span>${rawSubtotal.toLocaleString("es-CO")} COP</span>
-                </div>
-                {discountRate > 0 && (
-                  <div className="flex justify-between text-[#5dab00] font-semibold">
-                    <span>Descuento paquete multi-asistencia:</span>
-                    <span>- {discountRate * 100}%</span>
-                  </div>
-                )}
-                {billingPeriod === "annual" && (
-                  <div className="flex justify-between text-blue-600 font-semibold">
-                    <span>Beneficio anual:</span>
-                    <span>2 Meses Gratis</span>
-                  </div>
-                )}
-              </div>
-
-              <div className="py-6 border-b border-slate-100">
-                <span className="text-xs text-slate-400 uppercase font-semibold">Total a pagar:</span>
-                <div className="flex items-baseline gap-2 mt-1">
-                  <span className="text-4xl font-extrabold text-[#03056b]">
-                    ${finalPrice.toLocaleString("es-CO")}
-                  </span>
-                  <span className="text-sm font-semibold text-slate-500">
-                    COP / {billingPeriod === "monthly" ? "mes" : "año"}
-                  </span>
-                </div>
-                <p className="text-xs text-[#5dab00] mt-2 flex items-center gap-1.5 font-medium">
-                  <ShieldCheck className="w-4 h-4" />
-                  Activación instantánea en menos de 2 minutos
-                </p>
-              </div>
-
-              <div className="mt-6 space-y-3">
-                <button
-                  onClick={startCheckout}
-                  className="w-full beerp-btn-green py-3.5 px-4 rounded-xl text-sm font-bold shadow-md hover:shadow-lg transition flex items-center justify-center gap-2"
-                >
-                  <CreditCard className="w-4 h-4" />
-                  <span>Activar Cobertura Ahora</span>
-                </button>
-                <p className="text-center text-[11px] text-slate-400">
-                  Transacción protegida con PSE, Tarjetas y Nequi · Sin permanencia
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. BACKOFFICE VERIFICATION MODULE (Wilson Triana's Central Operator Demo) */}
+      {/* 6. OPERATOR LOOKUP DEMO (Wilson Triana's Call Center Validator) */}
       <section id="operador" className="py-20 bg-[#040a44] text-white">
-        <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
-          <div className="max-w-2xl mx-auto text-center mb-12">
+        <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
+          <div className="max-w-2xl mx-auto text-center mb-10">
             <h6 className="text-[12px] font-light tracking-[2px] text-[#5dab00] uppercase mb-2">
-              CENTRAL TELEFÓNICA DE EMERGENCIAS
+              VERIFICADOR CENTRAL DE DESPACHO
             </h6>
-            <h2 className="text-[32px] font-light text-white leading-tight">
-              Visor de Validación Rápida por Cédula
+            <h2 className="text-3xl font-light text-white">
+              Búsqueda Rápida del Operador Telefónico
             </h2>
-            <p className="mt-3 text-sm text-slate-300">
-              Prueba cómo el operador de Soluciones W digita la cédula y confirma la vigencia en menos de 1 segundo al recibir una llamada.
+            <p className="mt-2 text-xs text-slate-300">
+              Así consulta el operador de Wilson Triana el estado del afiliado en menos de 1 segundo al recibir una llamada.
             </p>
           </div>
 
-          <div className="max-w-xl mx-auto bg-slate-900/80 border border-slate-700 p-7 rounded-2xl shadow-xl">
+          <div className="max-w-xl mx-auto bg-slate-900/90 border border-slate-700 p-6 sm:p-7 rounded-2xl shadow-2xl">
             <div className="flex gap-2">
               <input
                 type="text"
                 value={searchCedula}
                 onChange={(e) => setSearchCedula(e.target.value)}
-                placeholder="Digita cualquier cédula (ej. 1020304050)..."
-                className="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#5dab00]"
+                placeholder="Digita cualquier número de cédula (ej. 1020304050)..."
+                className="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#5dab00]"
               />
               <button
                 onClick={handleOperatorSearch}
@@ -715,10 +838,10 @@ export default function HomeView() {
             </div>
 
             {operatorSearchResult && (
-              <div className="mt-6 pt-6 border-t border-slate-800 animate-in fade-in duration-200">
+              <div className="mt-5 pt-5 border-t border-slate-800 animate-in fade-in duration-200">
                 {operatorSearchResult.found ? (
-                  <div className="bg-slate-950/80 border border-[#5dab00]/40 rounded-xl p-5 text-xs space-y-3">
-                    <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                  <div className="bg-slate-950/80 border border-[#5dab00]/40 rounded-xl p-4 text-xs space-y-3">
+                    <div className="flex items-center justify-between pb-2 border-b border-slate-800">
                       <div>
                         <p className="text-slate-400">Titular:</p>
                         <p className="text-sm font-bold text-white">{operatorSearchResult.name}</p>
@@ -741,17 +864,15 @@ export default function HomeView() {
                       </div>
                     </div>
 
-                    <div className="pt-2">
-                      <button
-                        onClick={() => alert("Simulación: Despacho de ambulancia/técnico confirmado a la dirección del titular.")}
-                        className="w-full bg-[#5dab00] hover:bg-[#509e00] text-white font-bold py-2.5 rounded-lg text-xs transition"
-                      >
-                        Autorizar Despacho de Emergencia
-                      </button>
-                    </div>
+                    <button
+                      onClick={() => alert("Simulación: Solicitud de despacho enviada a la red de proveedores.")}
+                      className="w-full bg-[#5dab00] hover:bg-[#509e00] text-white font-bold py-2.5 rounded-lg text-xs transition"
+                    >
+                      Autorizar Despacho de Auxilio Inmediato
+                    </button>
                   </div>
                 ) : (
-                  <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 text-xs text-red-300 flex items-center gap-2">
+                  <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3 text-xs text-red-300 flex items-center gap-2">
                     <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
                     <span>No se registra cobertura activa para el documento ingresado.</span>
                   </div>
@@ -762,107 +883,128 @@ export default function HomeView() {
         </div>
       </section>
 
-      {/* 6. DUAL CONTACT SECTION (Exact BeERP layout: Phone Icon + Cloud Icon) */}
-      <section id="contacto" className="py-20 bg-white">
-        <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Box Left: Phone Icon (Contact With Us) */}
-            <div>
-              <div className="w-16 h-16 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-[#5dab00] mb-6">
-                <Phone className="w-8 h-8" />
-              </div>
-              <h6 className="text-[13px] font-light tracking-[2px] text-[#040a44] uppercase mb-1">
-                CONTACTO DIRECTO
-              </h6>
-              <h2 className="text-[28px] sm:text-[32px] font-light text-[#040a44] leading-tight">
-                Central de emergencias <br />
-                y coordinación 24 horas
-              </h2>
-              <div className="mt-6 pt-4 border-t border-slate-100">
-                <p className="text-[24px] font-bold text-[#03056b]">
-                  +57 (601) 745-9000
-                </p>
-                <p className="text-xs text-slate-400 mt-1">
-                  Atención médica, ambulancias y técnicos domiciliarios en Bogotá y perímetro nacional.
-                </p>
-              </div>
-            </div>
+      {/* 7. PREGUNTAS FRECUENTES (Grupo EMI Accordion Layout) */}
+      <section className="py-20 bg-white border-b border-slate-100">
+        <div className="max-w-[860px] mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12">
+            <h6 className="text-[12px] font-bold tracking-[2px] text-[#040a44] uppercase mb-2">
+              RESOLVEMOS TUS DUDAS
+            </h6>
+            <h2 className="text-3xl font-light text-[#040a44]">
+              Preguntas Frecuentes
+            </h2>
+          </div>
 
-            {/* Box Right: Cloud Icon (Afiliación / Start) */}
-            <div>
-              <div className="w-16 h-16 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-[#5dab00] mb-6">
-                <Layers className="w-8 h-8" />
-              </div>
-              <h6 className="text-[13px] font-light tracking-[2px] text-[#040a44] uppercase mb-1">
-                AUTOGESTIÓN B2C
-              </h6>
-              <h2 className="text-[28px] sm:text-[32px] font-light text-[#040a44] leading-tight">
-                Activa tu suscripción <br />
-                familiar en 2 minutos
-              </h2>
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-4">
-                <button
-                  onClick={() => {
-                    const el = document.getElementById("cotizador");
-                    el?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="beerp-btn-green px-6 py-3 text-xs font-bold uppercase tracking-wider"
+          <div className="space-y-3">
+            {FAQS.map((faq, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <div
+                  key={idx}
+                  className="border border-slate-200 rounded-xl overflow-hidden transition"
                 >
-                  Cotizar Ahora
-                </button>
-                <span className="text-xs text-slate-400">Sin papeleos ni exámenes</span>
-              </div>
-            </div>
+                  <button
+                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                    className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 bg-white hover:bg-slate-50 transition"
+                  >
+                    <span className="text-sm font-semibold text-[#040a44]">
+                      {faq.q}
+                    </span>
+                    {isOpen ? (
+                      <ChevronUp className="w-5 h-5 text-[#5dab00] shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" />
+                    )}
+                  </button>
+                  {isOpen && (
+                    <div className="px-5 pb-5 pt-1 text-xs text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/50">
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* 7. FOOTER (Exact BeERP 3-columns + bottom copyright line) */}
-      <footer className="border-t border-slate-100 bg-[#ffffff] pt-16 pb-12 text-xs text-[#747474]">
-        <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
+      {/* 8. FOOTER (BeERP 3-columns + Legal) */}
+      <footer className="bg-white pt-16 pb-12 text-xs text-[#747474] border-t border-slate-100">
+        <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pb-12 border-b border-slate-100">
             <div>
-              <h4 className="text-base font-semibold text-[#040a44] mb-3">Red de Asistencias</h4>
+              <h4 className="text-sm font-bold text-[#040a44] mb-3">Red de Asistencias Soluciones W</h4>
               <p className="leading-relaxed">
                 Médica domiciliaria, ambulancias de urgencia, atención veterinaria, cerrajería, plomería y odontología preventiva.
               </p>
             </div>
             <div>
-              <h4 className="text-base font-semibold text-[#040a44] mb-3">Atención al Usuario</h4>
+              <h4 className="text-sm font-bold text-[#040a44] mb-3">Atención al Usuario 24/7</h4>
               <p className="leading-relaxed">
                 Bogotá D.C., Colombia <br />
                 Línea PBX: +57 (601) 745-9000 <br />
-                WhatsApp: +57 320 328 2014
+                WhatsApp Oficial: +57 320 328 2014
               </p>
             </div>
             <div>
-              <h4 className="text-base font-semibold text-[#040a44] mb-3">Marco Legal</h4>
+              <h4 className="text-sm font-bold text-[#040a44] mb-3">Marco Legal y Habeas Data</h4>
               <p className="leading-relaxed">
-                Habeas Data Ley 1581 de 2012. Soluciones W es un servicio de auxilio y asistencia operativa; no constituye entidad aseguradora ni EPS.
+                Ley 1581 de 2012. Soluciones W ofrece programas de auxilio y asistencia operativa; no constituye entidad aseguradora ni EPS.
               </p>
             </div>
           </div>
 
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
-            <p>© {new Date().getFullYear()} Soluciones W. Desarrollado bajo arquitectura Next.js y Tailwind CSS.</p>
+            <p>© {new Date().getFullYear()} Soluciones W Colombia. Todos los derechos reservados.</p>
             <p>Dirección General: Wilson Triana</p>
           </div>
         </div>
       </footer>
 
-      {/* 8. CHECKOUT & INSTANT EMISSION MODAL */}
+      {/* 9. MOBILE BOTTOM ACTION BAR (Exact Grupo EMI Mobile Menu: Llamar, WhatsApp, Cotizar) */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 px-4 py-2 flex items-center justify-around shadow-2xl">
+        <a
+          href="tel:6017459000"
+          className="flex flex-col items-center gap-1 text-[11px] font-semibold text-[#040a44]"
+        >
+          <Phone className="w-5 h-5 text-[#03056b]" />
+          <span>Llamar</span>
+        </a>
+
+        <a
+          href="https://wa.me/573203282014"
+          target="_blank"
+          rel="noreferrer"
+          className="flex flex-col items-center gap-1 text-[11px] font-semibold text-[#25D366]"
+        >
+          <MessageCircle className="w-5 h-5" />
+          <span>WhatsApp</span>
+        </a>
+
+        <button
+          onClick={() => {
+            const el = document.getElementById("planes");
+            el?.scrollIntoView({ behavior: "smooth" });
+          }}
+          className="beerp-btn-green px-4 py-2 text-xs font-bold rounded-lg"
+        >
+          Ver Planes
+        </button>
+      </div>
+
+      {/* 10. CHECKOUT & EMISSION MODAL */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
             <div className="bg-[#040a44] text-white px-6 py-4 flex items-center justify-between">
               <div>
                 <p className="text-[10px] text-[#5dab00] font-bold uppercase tracking-wider">
-                  PASO {checkoutStep} DE 3
+                  PASO {checkoutStep} DE 3 · {planPrices[selectedPlan].name}
                 </p>
                 <h3 className="text-base font-bold text-white">
                   {checkoutStep === 1 && "Registro Express del Titular"}
                   {checkoutStep === 2 && "Pago Seguro con Pasarela (Wompi)"}
-                  {checkoutStep === 3 && "¡Certificado de Cobertura Emitido!"}
+                  {checkoutStep === 3 && "¡Certificado Oficial Emitido!"}
                 </h3>
               </div>
               <button
@@ -875,7 +1017,17 @@ export default function HomeView() {
 
             <div className="p-6 overflow-y-auto">
               {checkoutStep === 1 && (
-                <form onSubmit={handleFormSubmit} className="space-y-4 text-xs">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (!formData.docNumber || !formData.fullName || !formData.phone || !formData.email) {
+                      alert("Por favor completa los campos obligatorios.");
+                      return;
+                    }
+                    setCheckoutStep(2);
+                  }}
+                  className="space-y-4 text-xs"
+                >
                   <div className="grid grid-cols-3 gap-2">
                     <div>
                       <label className="block font-semibold text-slate-700 mb-1">Tipo Doc.</label>
@@ -971,12 +1123,12 @@ export default function HomeView() {
                   <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex justify-between">
                     <div>
                       <p className="font-bold text-[#040a44]">{formData.fullName}</p>
-                      <p className="text-slate-400">C.C. {formData.docNumber}</p>
+                      <p className="text-slate-400">Plan: {planPrices[selectedPlan].name}</p>
                     </div>
                     <div className="text-right">
                       <span className="text-slate-400 block">Total a pagar:</span>
                       <span className="text-base font-extrabold text-[#03056b]">
-                        ${finalPrice.toLocaleString("es-CO")} COP
+                        ${currentFinalPrice.toLocaleString("es-CO")} COP
                       </span>
                     </div>
                   </div>
@@ -1029,13 +1181,17 @@ export default function HomeView() {
                   </div>
                   <div>
                     <h4 className="text-lg font-bold text-[#040a44]">¡Afiliación Activa!</h4>
-                    <p className="text-slate-400">Emisión digital automática completada en 1.4 segundos.</p>
+                    <p className="text-slate-400">Emisión digital automática completada en menos de 2 minutos.</p>
                   </div>
 
                   <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-left space-y-2">
                     <div className="flex justify-between items-center">
                       <span className="text-slate-400">Contrato:</span>
                       <span className="font-mono font-bold text-[#03056b]">{generatedPolicy.contractNumber}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-400">Plan:</span>
+                      <span className="font-semibold text-slate-800">{generatedPolicy.planName}</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-slate-400">Titular:</span>
@@ -1049,14 +1205,14 @@ export default function HomeView() {
 
                   <div className="space-y-2 pt-2">
                     <button
-                      onClick={() => alert(`Certificado ${generatedPolicy.contractNumber}.pdf generado exitosamente.`)}
+                      onClick={() => alert(`Certificado ${generatedPolicy.contractNumber}.pdf descargado exitosamente.`)}
                       className="w-full beerp-btn-green py-3 rounded-xl font-bold uppercase tracking-wider flex items-center justify-center gap-2"
                     >
                       <Download className="w-4 h-4" />
                       <span>Descargar Certificado PDF</span>
                     </button>
                     <a
-                      href={`https://wa.me/573203282014?text=Hola%20Soluciones%20W,%20acabo%20de%20afiliarme%20con%20contrato%20${generatedPolicy.contractNumber}.`}
+                      href={`https://wa.me/573203282014?text=Hola%20Soluciones%20W,%20acabo%20de%20afiliarme%20al%20${generatedPolicy.planName}%20con%20contrato%20${generatedPolicy.contractNumber}.`}
                       target="_blank"
                       rel="noreferrer"
                       className="w-full bg-[#040a44] text-white py-3 rounded-xl font-bold uppercase tracking-wider flex items-center justify-center gap-2"
