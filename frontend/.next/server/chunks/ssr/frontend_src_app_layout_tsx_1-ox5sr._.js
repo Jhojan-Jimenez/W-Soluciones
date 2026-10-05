@@ -1,0 +1,3 @@
+module.exports=[35829,a=>{"use strict";var b=a.i(25710);a.s(["default",0,function({children:a}){return(0,b.jsx)("html",{lang:"es",className:"h-full scroll-smooth",children:(0,b.jsx)("body",{className:"min-h-full flex flex-col font-sans antialiased bg-white text-slate-900",children:a})})},"metadata",0,{title:"Soluciones W | Plataforma de Asistencia Familiar B2C",description:"Portal digital de autogestión de asistencias médicas, ambulancia, mascotas, hogar y odontología en Colombia. Activación en menos de 2 minutos."}])},36399,function(a){a.n(a.i(35829))}];
+
+//# sourceMappingURL=frontend_src_app_layout_tsx_1-ox5sr._.js.map
