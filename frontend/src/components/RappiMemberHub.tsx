@@ -136,7 +136,7 @@ const PAST_SERVICES: PastService[] = [
 ];
 
 export default function RappiMemberHub({ member, onLogout }: RappiMemberHubProps) {
-  const [activeTab, setActiveTab] = useState<TabType>("poliza");
+  const [activeTab, setActiveTab] = useState<TabType>("asistencias");
   const [activeCategory, setActiveCategory] = useState<ServiceCategory>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCarnetHolder, setSelectedCarnetHolder] = useState<Beneficiary>(DEFAULT_BENEFICIARIES[0]);
@@ -383,8 +383,8 @@ export default function RappiMemberHub({ member, onLogout }: RappiMemberHubProps
         <div className="bg-slate-50 border-t border-slate-200">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 flex gap-1 sm:gap-4 overflow-x-auto">
             {[
+              { id: "asistencias", label: "Todas las Asistencias (1-Click)", icon: Stethoscope },
               { id: "poliza", label: "Mi Póliza & Carnet", icon: ShieldCheck },
-              { id: "asistencias", label: "Catálogo de Asistencias", icon: Stethoscope },
               { id: "historial", label: "Historial de Servicios", icon: ClipboardList },
               { id: "beneficiarios", label: "Beneficiarios Cubiertos", icon: Users }
             ].map((tab) => {
@@ -722,6 +722,30 @@ export default function RappiMemberHub({ member, onLogout }: RappiMemberHubProps
         {/* ============================================================== */}
         {activeTab === "asistencias" && (
           <div className="space-y-6">
+            {/* Quick Policy Strip */}
+            <div className="bg-white border border-slate-200 rounded-lg p-3.5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-md bg-[#063a57] text-white flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                </div>
+                <div>
+                  <span className="font-bold text-slate-900 block leading-tight">
+                    {member.planName} · Cobertura 100% Activa
+                  </span>
+                  <span className="text-[11px] text-slate-500 font-mono">
+                    Póliza {member.contractNumber} · Titular: {member.fullName} · 3 de 3 cupos médicos disponibles
+                  </span>
+                </div>
+              </div>
+              <button
+                onClick={() => setActiveTab("poliza")}
+                className="text-xs font-semibold text-[#167394] hover:text-[#0a5278] flex items-center gap-1 self-start sm:self-auto"
+              >
+                <span>Ver Carnet Digital & Coberturas</span>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
             {/* Search Bar & Categories Header */}
             <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-sm space-y-4">
               <div className="relative">
