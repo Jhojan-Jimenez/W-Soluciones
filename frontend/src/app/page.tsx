@@ -363,7 +363,7 @@ export default function HomeView() {
 
             {/* WhatsApp CTA Button */}
             <a
-              href="https://wa.me/573203282014"
+              href="https://wa.me/573134289397"
               target="_blank"
               rel="noreferrer"
               className="bg-[#167394] hover:bg-[#0a5278] text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 shadow-sm hover:shadow-md transition"
@@ -415,7 +415,7 @@ export default function HomeView() {
               {/* Action Buttons */}
               <div className="pt-2 flex flex-wrap items-center gap-3.5">
                 <a
-                  href="https://wa.me/573203282014"
+                  href="https://wa.me/573134289397"
                   target="_blank"
                   rel="noreferrer"
                   className="bg-[#25D366] hover:bg-[#20ba59] text-white px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition shadow-md hover:shadow-lg"
@@ -831,7 +831,7 @@ export default function HomeView() {
               </div>
 
               <a
-                href="https://wa.me/573203282014"
+                href="https://wa.me/573134289397"
                 target="_blank"
                 rel="noreferrer"
                 className="w-full bg-[#167394] hover:bg-[#0a5278] text-white py-3.5 rounded-xl text-center font-bold text-xs uppercase tracking-wider block text-white shadow-md hover:shadow-lg transition"
@@ -843,35 +843,175 @@ export default function HomeView() {
         </div>
       </section>
 
-      {/* 5. MEDIOS DE PAGO ACEPTADOS */}
-      <section className="py-14 bg-slate-50 border-t border-b border-slate-200">
-        <div className="max-w-[1180px] mx-auto px-4 sm:px-6 text-center">
-          <h6 className="text-[12px] font-bold tracking-[2px] text-[#063a57] uppercase mb-2">
-            PAGOS SEGUROS EN LÍNEA
-          </h6>
-          <h2 className="text-2xl sm:text-3xl font-light text-[#063a57]">
-            Paga fácil con tus medios favoritos en Colombia
-          </h2>
-          <p className="text-xs text-slate-500 mt-2 max-w-lg mx-auto">
-            Integrado con pasarela certificada Wompi (Bancolombia) y Mercado Pago con cifrado SSL de 256 bits.
-          </p>
+      {/* 5. MEDIOS DE PAGO ACEPTADOS & PASARELAS DE CONFIANZA */}
+      <section id="pagos" className="py-16 lg:py-20 bg-slate-50 border-t border-b border-slate-200">
+        <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="inline-flex items-center gap-1.5 bg-[#e8f4f8] text-[#0a5278] border border-cyan-300 px-3.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider mb-3">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#167394]" />
+              PAGOS SEGUROS EN LÍNEA · COLOMBIA
+            </span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#063a57] tracking-tight">
+              Paga fácil con tus medios favoritos en Colombia
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
+              Integrado con pasarelas certificadas con cifrado bancario SSL de 256 bits. Activa tu plan mensual con la opción que prefieras, <strong>sin cláusulas de permanencia</strong> y con emisión digital en menos de 2 minutos.
+            </p>
+          </div>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-10">
-            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-xs flex items-center gap-2">
-              <Building2 className="w-5 h-5 text-blue-600" />
-              <span className="text-xs font-bold text-slate-800">PSE Débito</span>
+          {/* Grid de Medios de Pago con Logos e Información Real */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {/* 1. PSE Débito */}
+            <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-11 h-11 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center p-1">
+                    <svg className="w-8 h-8" viewBox="0 0 40 40" fill="none">
+                      <circle cx="20" cy="20" r="18" fill="#002D72" />
+                      <circle cx="20" cy="20" r="14" fill="#ffffff" />
+                      <circle cx="20" cy="20" r="12" fill="#005691" />
+                      <text x="20" y="23.5" textAnchor="middle" fill="#ffffff" fontWeight="900" fontSize="9" fontFamily="system-ui, sans-serif" letterSpacing="0.5">PSE</text>
+                      <circle cx="25.5" cy="14" r="1.8" fill="#E30613" />
+                    </svg>
+                  </div>
+                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-blue-50 text-blue-700">
+                    Débito ACH
+                  </span>
+                </div>
+                <h4 className="text-sm font-bold text-slate-900 mb-1">
+                  PSE Débito Bancario
+                </h4>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Paga al instante debitando de tu cuenta de ahorros o corriente de todos los bancos en Colombia.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                <span className="font-semibold text-emerald-700">Sin comisiones</span>
+                <span className="text-slate-400 font-mono text-[10px]">Aprobación Inmediata</span>
+              </div>
             </div>
-            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-xs flex items-center gap-2">
-              <Zap className="w-5 h-5 text-purple-600" />
-              <span className="text-xs font-bold text-slate-800">Nequi</span>
+
+            {/* 2. Nequi */}
+            <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-11 h-11 rounded-lg bg-[#20002c] flex items-center justify-center p-1 shadow-xs">
+                    <span className="text-[#ff1a75] font-black text-sm tracking-tight" style={{ fontFamily: 'system-ui, sans-serif' }}>
+                      N<span className="text-white font-bold text-[10px]">eq</span>
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-fuchsia-50 text-fuchsia-700">
+                    Billetera Móvil
+                  </span>
+                </div>
+                <h4 className="text-sm font-bold text-slate-900 mb-1">
+                  Nequi
+                </h4>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Pago rápido y seguro desde tu celular mediante notificación push o código dinámico de la app.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                <span className="font-semibold text-emerald-700">100% Desde el móvil</span>
+                <span className="text-slate-400 font-mono text-[10px]">En 5 segundos</span>
+              </div>
             </div>
-            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-xs flex items-center gap-2">
-              <CreditCard className="w-5 h-5 text-emerald-600" />
-              <span className="text-xs font-bold text-slate-800">Tarjetas Visa / Mastercard</span>
+
+            {/* 3. Tarjetas Crédito & Débito */}
+            <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="h-11 px-2.5 rounded-lg bg-slate-50 border border-slate-200 flex items-center gap-1.5">
+                    {/* Visa & Mastercard Logos */}
+                    <svg className="h-3.5 w-auto" viewBox="0 0 36 12" fill="none">
+                      <path d="M14.5 1.2L10.9 10.8H8.5L6.2 3.2C6.1 2.6 5.9 2.4 5.3 2.1C4.5 1.6 3.1 1.2 1.8 0.9L1.9 1.1H6.1C7 1.1 7.3 1.8 7.5 2.6L8.9 10.8H11.6L15.8 1.2H14.5ZM25 7.6C25 5 21.2 4.8 21.3 3.5C21.3 3 21.8 2.6 22.7 2.4C23.2 2.3 24.5 2.3 25.8 2.9L26.3 1.3C25.6 1.1 24.7 0.9 23.6 0.9C20.5 0.9 18.3 2.5 18.3 5C18.3 8.3 22.9 8.1 22.9 9.8C22.9 10.3 22.4 10.8 21.3 11C20.2 11.1 18.9 10.7 18.1 10.2L17.6 11.9C18.4 12.2 19.8 12.5 21.3 12.5C24.6 12.5 26.8 10.9 26.8 8.2L25 7.6ZM33.2 10.8H35.5L33.3 1.2H31.3C30.6 1.2 30 1.6 29.7 2.3L25.4 10.8H28L28.5 9.3H31.7L32 10.8H33.2ZM29.3 7.3L30.6 3.6L31.3 7.3H29.3ZM18.1 1.2L16 10.8H13.5L15.6 1.2H18.1Z" fill="#1434CB" />
+                    </svg>
+                    <svg className="w-6 h-4" viewBox="0 0 32 20" fill="none">
+                      <circle cx="12" cy="10" r="8" fill="#EB001B" />
+                      <circle cx="20" cy="10" r="8" fill="#F79E1B" fillOpacity="0.88" />
+                    </svg>
+                  </div>
+                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-emerald-50 text-emerald-700">
+                    Todas las Franquicias
+                  </span>
+                </div>
+                <h4 className="text-sm font-bold text-slate-900 mb-1">
+                  Visa & Mastercard
+                </h4>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Tarjetas de crédito y débito con soporte para pago recurrente automático mensual sin interrupciones.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                <span className="font-semibold text-emerald-700">Débito automático opcional</span>
+                <span className="text-slate-400 font-mono text-[10px]">Cifrado 3D Secure</span>
+              </div>
             </div>
-            <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-xs flex items-center gap-2">
-              <Building2 className="w-5 h-5 text-red-600" />
-              <span className="text-xs font-bold text-slate-800">Daviplata</span>
+
+            {/* 4. Daviplata */}
+            <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-11 h-11 rounded-lg bg-[#ED1C24] flex items-center justify-center text-white shadow-xs">
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z" />
+                    </svg>
+                  </div>
+                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-red-50 text-red-700">
+                    Davivienda
+                  </span>
+                </div>
+                <h4 className="text-sm font-bold text-slate-900 mb-1">
+                  Daviplata
+                </h4>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Autorización rápida con saldo disponible en tu billetera digital Daviplata de forma confiable.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                <span className="font-semibold text-emerald-700">Sin trámites</span>
+                <span className="text-slate-400 font-mono text-[10px]">Inmediato</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Complemento de Confianza: Pasarelas Oficiales & Sellos de Seguridad */}
+          <div className="mt-8 bg-white rounded-xl border border-slate-200 p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
+            <div className="flex flex-wrap items-center gap-4 text-xs text-slate-700">
+              <span className="font-bold text-slate-900 flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-[#167394]" />
+                Pasarelas Oficiales:
+              </span>
+              <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg">
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 12C4 7.58172 7.58172 4 12 4" stroke="#FDDA24" strokeWidth="3" strokeLinecap="round" />
+                  <path d="M12 4C16.4183 4 20 7.58172 20 12" stroke="#00C389" strokeWidth="3" strokeLinecap="round" />
+                  <path d="M20 12C20 16.4183 16.4183 20 12 20" stroke="#002F6C" strokeWidth="3" strokeLinecap="round" />
+                </svg>
+                <span className="font-bold text-[#002F6C]">Wompi</span>
+                <span className="text-[10px] text-slate-400">Grupo Bancolombia</span>
+              </div>
+              <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg">
+                <div className="w-4 h-4 rounded-full bg-[#009EE3] flex items-center justify-center text-white text-[8px] font-bold">
+                  MP
+                </div>
+                <span className="font-bold text-[#009EE3]">Mercado Pago</span>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-4 text-[11px] text-slate-500 font-medium">
+              <span className="flex items-center gap-1.5">
+                <CheckCheck className="w-4 h-4 text-emerald-600" />
+                Cero permanencia (Cancela cuando desees)
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCheck className="w-4 h-4 text-emerald-600" />
+                Cifrado SSL 256-Bit
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCheck className="w-4 h-4 text-emerald-600" />
+                Factura electrónica automática
+              </span>
             </div>
           </div>
         </div>
@@ -1066,7 +1206,7 @@ export default function HomeView() {
               <p className="leading-relaxed">
                 Bogotá D.C., Colombia <br />
                 Línea PBX: +57 (601) 745-9000 <br />
-                WhatsApp Oficial: +57 320 328 2014
+                WhatsApp Oficial: +57 313 428 9397
               </p>
             </div>
             <div>
@@ -1095,7 +1235,7 @@ export default function HomeView() {
         </a>
 
         <a
-          href="https://wa.me/573203282014"
+          href="https://wa.me/573134289397"
           target="_blank"
           rel="noreferrer"
           className="flex flex-col items-center gap-1 text-[11px] font-semibold text-[#25D366]"
@@ -1617,7 +1757,7 @@ export default function HomeView() {
                     </button>
 
                     <a
-                      href={`https://wa.me/573203282014?text=Hola%20Soluciones%20W,%20acabo%20de%20afiliarme%20al%20${generatedPolicy.planName}%20con%20contrato%20${generatedPolicy.contractNumber}.`}
+                      href={`https://wa.me/573134289397?text=Hola%20Soluciones%20W,%20acabo%20de%20afiliarme%20al%20${generatedPolicy.planName}%20con%20contrato%20${generatedPolicy.contractNumber}.`}
                       target="_blank"
                       rel="noreferrer"
                       className="w-full bg-[#063a57] hover:bg-[#0a5278] text-white py-3 rounded-xl font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition text-xs"

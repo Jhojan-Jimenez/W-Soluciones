@@ -52,6 +52,7 @@ interface ServiceItem {
   actionLabel: string;
   coverageDetail: string;
   icon: any;
+  imageUrl: string;
   isUrgent?: boolean;
 }
 
@@ -66,6 +67,7 @@ const URGENT_SERVICES: ServiceItem[] = [
     actionLabel: "Solicitar Ambulancia",
     coverageDetail: "Hasta 2 traslados anuales 100% cubiertos",
     icon: Ambulance,
+    imageUrl: "https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=800&q=80",
     isUrgent: true
   }
 ];
@@ -79,8 +81,9 @@ const ON_DEMAND_SERVICES: ServiceItem[] = [
     eta: "Llegada en 45 a 60 min",
     benefit: "Valoración presencial y fórmula médica para cuadros gripales, gastroenteritis y malestar general sin salir de casa.",
     actionLabel: "Solicitar Médico",
-    coverageDetail: "Hasta 3 visitas al año sin copago (tope $250.000 COP c/u)",
-    icon: Stethoscope
+    coverageDetail: "Hasta 3 visitas al año sin copago",
+    icon: Stethoscope,
+    imageUrl: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: "plomeria",
@@ -90,8 +93,9 @@ const ON_DEMAND_SERVICES: ServiceItem[] = [
     eta: "Llegada en aprox. 45 min",
     benefit: "Técnico en sitio para reparar roturas imprevistas de tuberías, filtraciones mayores y atascos en la vivienda.",
     actionLabel: "Solicitar Plomero",
-    coverageDetail: "Mano de obra y materiales cubiertos hasta $220.000 COP",
-    icon: Wrench
+    coverageDetail: "Mano de obra y materiales cubiertos",
+    icon: Wrench,
+    imageUrl: "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: "cerrajeria",
@@ -102,7 +106,8 @@ const ON_DEMAND_SERVICES: ServiceItem[] = [
     benefit: "Apertura de emergencia por llaves olvidadas adentro, pérdida, robo o cerradura bloqueada.",
     actionLabel: "Solicitar Cerrajero",
     coverageDetail: "Hasta $150.000 COP cubiertos por servicio",
-    icon: Key
+    icon: Key,
+    imageUrl: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: "electricidad",
@@ -113,7 +118,8 @@ const ON_DEMAND_SERVICES: ServiceItem[] = [
     benefit: "Restablecimiento urgente de suministro eléctrico por averías de breakers o fallas generales en el inmueble.",
     actionLabel: "Solicitar Electricista",
     coverageDetail: "Hasta $200.000 COP cubiertos por evento",
-    icon: Zap
+    icon: Zap,
+    imageUrl: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: "mascota-urgencia",
@@ -124,7 +130,8 @@ const ON_DEMAND_SERVICES: ServiceItem[] = [
     benefit: "Atención médica presencial para perros y gatos ante accidentes, heridas agudas o intoxicación repentina.",
     actionLabel: "Pedir Veterinario",
     coverageDetail: "Hasta $200.000 COP por evento (2 al año)",
-    icon: Dog
+    icon: Dog,
+    imageUrl: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=800&q=80"
   }
 ];
 
@@ -138,7 +145,8 @@ const SCHEDULED_SERVICES: ServiceItem[] = [
     benefit: "Videoconsulta sin esperas con médico general y fórmula digital emitida con firma oficial a tu celular.",
     actionLabel: "Iniciar Consulta",
     coverageDetail: "Consultas ilimitadas sin costo adicional",
-    icon: Activity
+    icon: Activity,
+    imageUrl: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: "odontologia-urgencia",
@@ -149,7 +157,8 @@ const SCHEDULED_SERVICES: ServiceItem[] = [
     benefit: "Alivio clínico inmediato del dolor de muela agudo, traumatismos dentales o infecciones en consultorio aliado.",
     actionLabel: "Ubicar Consultorio",
     coverageDetail: "100% cubierto según términos de póliza",
-    icon: Smile
+    icon: Smile,
+    imageUrl: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: "odontologia-limpieza",
@@ -160,7 +169,8 @@ const SCHEDULED_SERVICES: ServiceItem[] = [
     benefit: "Limpieza profunda, remoción de placa y valoración diagnóstica sin costo extra en centros odontológicos aliados.",
     actionLabel: "Agendar Limpieza",
     coverageDetail: "1 profilaxis anual por beneficiario",
-    icon: Calendar
+    icon: Calendar,
+    imageUrl: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: "mascota-vacuna",
@@ -171,7 +181,8 @@ const SCHEDULED_SERVICES: ServiceItem[] = [
     benefit: "Procedimiento preventivo anual incluido para tu perro o gato registrado: vacuna o desparasitación con carnet clínico.",
     actionLabel: "Agendar Vacuna",
     coverageDetail: "1 procedimiento anual incluido sin costo",
-    icon: Shield
+    icon: Shield,
+    imageUrl: "https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&w=800&q=80"
   }
 ];
 
@@ -389,41 +400,66 @@ export default function RappiMemberHub({ member, onLogout }: RappiMemberHubProps
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {visibleOnDemand.map((service) => {
                 const Icon = service.icon;
                 return (
                   <div
                     key={service.id}
-                    className="bg-white rounded-lg border border-slate-200 hover:border-slate-300 shadow-sm p-5 flex flex-col justify-between transition"
+                    className="bg-white rounded-xl border border-slate-200 hover:border-slate-300 shadow-xs hover:shadow-md overflow-hidden flex flex-col justify-between transition group"
                   >
-                    <div>
-                      <div className="flex items-start justify-between gap-3 mb-3">
-                        <div className="w-10 h-10 rounded-md bg-slate-50 border border-slate-100 flex items-center justify-center text-[#063a57]">
-                          <Icon className="w-5 h-5 text-[#167394]" />
-                        </div>
-                        {/* 1 solo metadato clave por tarjeta */}
-                        <span className="text-xs font-mono font-medium text-slate-500">
-                          ⏱ {service.eta}
+                    {/* Top Image Banner */}
+                    <div className="relative h-44 w-full bg-slate-100 overflow-hidden">
+                      <img
+                        src={service.imageUrl}
+                        alt={service.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-900/20 to-transparent"></div>
+
+                      {/* Floating Category Badge */}
+                      <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md text-[#063a57] text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-xs flex items-center gap-1.5">
+                        <Icon className="w-3.5 h-3.5 text-[#167394]" />
+                        {service.categoryLabel}
+                      </span>
+
+                      {/* Floating ETA Badge */}
+                      <span className="absolute top-3 right-3 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-mono font-medium px-2.5 py-1 rounded-md shadow-xs">
+                        ⏱ {service.eta}
+                      </span>
+
+                      {/* Coverage Detail at the base of the image */}
+                      <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] text-white">
+                        <span className="font-medium truncate drop-shadow-sm">
+                          {service.coverageDetail}
+                        </span>
+                        <span className="text-[10px] font-bold text-emerald-300 bg-emerald-950/80 px-2 py-0.5 rounded backdrop-blur-xs shrink-0">
+                          $0 Copago
                         </span>
                       </div>
-
-                      <h4 className="text-sm font-bold text-slate-900 leading-snug">
-                        {service.title}
-                      </h4>
-                      <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
-                        {service.benefit}
-                      </p>
                     </div>
 
-                    {/* Botón de acción sólido y real (no un enlace diminuto) */}
-                    <div className="mt-5 pt-3 border-t border-slate-100">
-                      <button
-                        onClick={() => handleOpenService(service)}
-                        className="w-full bg-[#063a57] hover:bg-[#0a5278] text-white font-semibold text-xs py-2.5 px-4 rounded-md transition flex items-center justify-center gap-1.5 shadow-xs"
-                      >
-                        <span>{service.actionLabel}</span>
-                      </button>
+                    {/* Content Body */}
+                    <div className="p-5 flex-1 flex flex-col justify-between">
+                      <div>
+                        <h4 className="text-base font-bold text-slate-900 leading-snug group-hover:text-[#063a57] transition">
+                          {service.title}
+                        </h4>
+                        <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                          {service.benefit}
+                        </p>
+                      </div>
+
+                      {/* Action Button */}
+                      <div className="mt-5 pt-3 border-t border-slate-100">
+                        <button
+                          onClick={() => handleOpenService(service)}
+                          className="w-full bg-[#063a57] hover:bg-[#0a5278] text-white font-semibold text-xs py-2.5 px-4 rounded-lg transition flex items-center justify-center gap-1.5 shadow-xs"
+                        >
+                          <span>{service.actionLabel}</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );
@@ -444,39 +480,61 @@ export default function RappiMemberHub({ member, onLogout }: RappiMemberHubProps
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
               {visibleScheduled.map((service) => {
                 const Icon = service.icon;
                 return (
                   <div
                     key={service.id}
-                    className="bg-white rounded-lg border border-slate-200 hover:border-slate-300 shadow-sm p-5 flex flex-col justify-between transition"
+                    className="bg-white rounded-xl border border-slate-200 hover:border-slate-300 shadow-xs hover:shadow-md overflow-hidden flex flex-col justify-between transition group"
                   >
-                    <div>
-                      <div className="flex items-start justify-between gap-3 mb-3">
-                        <div className="w-10 h-10 rounded-md bg-slate-50 border border-slate-100 flex items-center justify-center text-[#063a57]">
-                          <Icon className="w-5 h-5 text-[#167394]" />
-                        </div>
-                        <span className="text-xs font-mono font-medium text-slate-500">
-                          ⏱ {service.eta}
+                    {/* Top Image Banner */}
+                    <div className="relative h-44 w-full bg-slate-100 overflow-hidden">
+                      <img
+                        src={service.imageUrl}
+                        alt={service.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-900/20 to-transparent"></div>
+
+                      <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md text-[#063a57] text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-xs flex items-center gap-1.5">
+                        <Icon className="w-3.5 h-3.5 text-[#167394]" />
+                        {service.categoryLabel}
+                      </span>
+
+                      <span className="absolute top-3 right-3 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-mono font-medium px-2.5 py-1 rounded-md shadow-xs">
+                        ⏱ {service.eta}
+                      </span>
+
+                      <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] text-white">
+                        <span className="font-medium truncate drop-shadow-sm">
+                          {service.coverageDetail}
+                        </span>
+                        <span className="text-[10px] font-bold text-emerald-300 bg-emerald-950/80 px-2 py-0.5 rounded backdrop-blur-xs shrink-0">
+                          100% Incluido
                         </span>
                       </div>
-
-                      <h4 className="text-sm font-bold text-slate-900 leading-snug">
-                        {service.title}
-                      </h4>
-                      <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
-                        {service.benefit}
-                      </p>
                     </div>
 
-                    <div className="mt-5 pt-3 border-t border-slate-100">
-                      <button
-                        onClick={() => handleOpenService(service)}
-                        className="w-full bg-[#167394] hover:bg-[#0a5278] text-white font-semibold text-xs py-2.5 px-4 rounded-md transition flex items-center justify-center gap-1.5 shadow-xs"
-                      >
-                        <span>{service.actionLabel}</span>
-                      </button>
+                    <div className="p-5 flex-1 flex flex-col justify-between">
+                      <div>
+                        <h4 className="text-base font-bold text-slate-900 leading-snug group-hover:text-[#063a57] transition">
+                          {service.title}
+                        </h4>
+                        <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                          {service.benefit}
+                        </p>
+                      </div>
+
+                      <div className="mt-5 pt-3 border-t border-slate-100">
+                        <button
+                          onClick={() => handleOpenService(service)}
+                          className="w-full bg-[#167394] hover:bg-[#0a5278] text-white font-semibold text-xs py-2.5 px-4 rounded-lg transition flex items-center justify-center gap-1.5 shadow-xs"
+                        >
+                          <span>{service.actionLabel}</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );
@@ -490,28 +548,36 @@ export default function RappiMemberHub({ member, onLogout }: RappiMemberHubProps
       {/* 8. MODAL DE SOLICITUD / DESPACHO LIMPIO */}
       {selectedService && (
         <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg max-w-lg w-full shadow-2xl border border-slate-300 ring-1 ring-slate-900/10 relative animate-in fade-in zoom-in duration-200 overflow-hidden text-slate-800">
-            {/* Modal Header */}
-            <div className="bg-[#063a57] text-white px-6 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-md bg-white/10 flex items-center justify-center text-white">
-                  <selectedService.icon className="w-4 h-4" />
-                </div>
+          <div className="bg-white rounded-xl max-w-lg w-full shadow-2xl border border-slate-300 ring-1 ring-slate-900/10 relative animate-in fade-in zoom-in duration-200 overflow-hidden text-slate-800">
+            {/* Modal Service Image Preview */}
+            <div className="relative h-36 w-full overflow-hidden bg-slate-100">
+              <img
+                src={selectedService.imageUrl}
+                alt={selectedService.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-900/40 to-black/30"></div>
+              
+              <button
+                onClick={() => setSelectedService(null)}
+                className="absolute top-3 right-3 text-white/80 hover:text-white bg-black/40 hover:bg-black/60 p-1.5 rounded-full transition"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white">
                 <div>
-                  <span className="text-[10px] font-mono text-white/70 uppercase tracking-wider block">
+                  <span className="text-[10px] font-mono text-cyan-200 uppercase tracking-wider block">
                     {selectedService.categoryLabel}
                   </span>
-                  <h3 className="text-sm font-bold text-white leading-tight">
+                  <h3 className="text-base font-bold text-white leading-tight">
                     {selectedService.title}
                   </h3>
                 </div>
+                <span className="bg-emerald-600 font-bold px-2 py-0.5 rounded text-[10px] shadow-xs shrink-0">
+                  $0 Copago
+                </span>
               </div>
-              <button
-                onClick={() => setSelectedService(null)}
-                className="text-white/70 hover:text-white p-1 rounded-md transition"
-              >
-                <X className="w-5 h-5" />
-              </button>
             </div>
 
             <div className="p-6 space-y-4 text-xs">
