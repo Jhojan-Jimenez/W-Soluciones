@@ -408,47 +408,44 @@ export default function RappiMemberHub({ member, onLogout }: RappiMemberHubProps
                     key={service.id}
                     className="bg-white rounded-xl border border-slate-200 hover:border-slate-300 shadow-xs hover:shadow-md overflow-hidden flex flex-col justify-between transition group"
                   >
-                    {/* Top Image Banner */}
-                    <div className="relative h-44 w-full bg-slate-100 overflow-hidden">
+                    {/* Clean Service Image Banner */}
+                    <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
                       <img
                         src={service.imageUrl}
                         alt={service.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-900/20 to-transparent"></div>
-
-                      {/* Floating Category Badge */}
-                      <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md text-[#063a57] text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-xs flex items-center gap-1.5">
-                        <Icon className="w-3.5 h-3.5 text-[#167394]" />
-                        {service.categoryLabel}
-                      </span>
-
-                      {/* Floating ETA Badge */}
-                      <span className="absolute top-3 right-3 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-mono font-medium px-2.5 py-1 rounded-md shadow-xs">
-                        ⏱ {service.eta}
-                      </span>
-
-                      {/* Coverage Detail at the base of the image */}
-                      <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] text-white">
-                        <span className="font-medium truncate drop-shadow-sm">
-                          {service.coverageDetail}
-                        </span>
-                        <span className="text-[10px] font-bold text-emerald-300 bg-emerald-950/80 px-2 py-0.5 rounded backdrop-blur-xs shrink-0">
-                          $0 Copago
-                        </span>
-                      </div>
                     </div>
 
                     {/* Content Body */}
                     <div className="p-5 flex-1 flex flex-col justify-between">
                       <div>
+                        {/* Categoría y Tiempo de Arribo integrados de forma limpia */}
+                        <div className="flex items-center justify-between text-xs mb-2">
+                          <span className="font-semibold text-[#167394] flex items-center gap-1.5">
+                            <Icon className="w-3.5 h-3.5 text-[#167394]" />
+                            {service.categoryLabel}
+                          </span>
+                          <span className="font-mono text-[11px] text-slate-500 flex items-center gap-1 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded">
+                            <Clock className="w-3 h-3 text-slate-400" />
+                            {service.eta}
+                          </span>
+                        </div>
+
                         <h4 className="text-base font-bold text-slate-900 leading-snug group-hover:text-[#063a57] transition">
                           {service.title}
                         </h4>
+                        
                         <p className="text-xs text-slate-600 mt-2 leading-relaxed">
                           {service.benefit}
                         </p>
+
+                        {/* Detalle de cobertura y $0 Copago */}
+                        <div className="mt-3.5 py-1.5 px-2.5 bg-slate-50 border border-slate-100 rounded-md flex items-center justify-between text-[11px] text-slate-600">
+                          <span className="truncate">{service.coverageDetail}</span>
+                          <span className="font-bold text-emerald-700 shrink-0 ml-2">$0 Copago</span>
+                        </div>
                       </div>
 
                       {/* Action Button */}
@@ -488,43 +485,41 @@ export default function RappiMemberHub({ member, onLogout }: RappiMemberHubProps
                     key={service.id}
                     className="bg-white rounded-xl border border-slate-200 hover:border-slate-300 shadow-xs hover:shadow-md overflow-hidden flex flex-col justify-between transition group"
                   >
-                    {/* Top Image Banner */}
-                    <div className="relative h-44 w-full bg-slate-100 overflow-hidden">
+                    {/* Clean Service Image Banner */}
+                    <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
                       <img
                         src={service.imageUrl}
                         alt={service.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-900/20 to-transparent"></div>
-
-                      <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md text-[#063a57] text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-xs flex items-center gap-1.5">
-                        <Icon className="w-3.5 h-3.5 text-[#167394]" />
-                        {service.categoryLabel}
-                      </span>
-
-                      <span className="absolute top-3 right-3 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-mono font-medium px-2.5 py-1 rounded-md shadow-xs">
-                        ⏱ {service.eta}
-                      </span>
-
-                      <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-[11px] text-white">
-                        <span className="font-medium truncate drop-shadow-sm">
-                          {service.coverageDetail}
-                        </span>
-                        <span className="text-[10px] font-bold text-emerald-300 bg-emerald-950/80 px-2 py-0.5 rounded backdrop-blur-xs shrink-0">
-                          100% Incluido
-                        </span>
-                      </div>
                     </div>
 
                     <div className="p-5 flex-1 flex flex-col justify-between">
                       <div>
+                        <div className="flex items-center justify-between text-xs mb-2">
+                          <span className="font-semibold text-[#167394] flex items-center gap-1.5">
+                            <Icon className="w-3.5 h-3.5 text-[#167394]" />
+                            {service.categoryLabel}
+                          </span>
+                          <span className="font-mono text-[11px] text-slate-500 flex items-center gap-1 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded">
+                            <Clock className="w-3 h-3 text-slate-400" />
+                            {service.eta}
+                          </span>
+                        </div>
+
                         <h4 className="text-base font-bold text-slate-900 leading-snug group-hover:text-[#063a57] transition">
                           {service.title}
                         </h4>
+                        
                         <p className="text-xs text-slate-600 mt-2 leading-relaxed">
                           {service.benefit}
                         </p>
+
+                        <div className="mt-3.5 py-1.5 px-2.5 bg-slate-50 border border-slate-100 rounded-md flex items-center justify-between text-[11px] text-slate-600">
+                          <span className="truncate">{service.coverageDetail}</span>
+                          <span className="font-bold text-emerald-700 shrink-0 ml-2">100% Incluido</span>
+                        </div>
                       </div>
 
                       <div className="mt-5 pt-3 border-t border-slate-100">
