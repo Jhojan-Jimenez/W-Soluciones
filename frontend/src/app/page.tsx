@@ -581,13 +581,13 @@ export default function HomeView() {
             </div>
           </div>
 
-          {/* Cards Grid: 3 Planes (Crisp White Cards on Soft Slate Canvas) */}
+          {/* Cards Grid: 3 Planes (Sober, Institutional Insurance Cards) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
             
             {/* Plan 1: Virtual / Básico */}
-            <div className="bg-white rounded-2xl p-7 flex flex-col justify-between shadow-sm hover:shadow-md transition relative border border-slate-200">
+            <div className="bg-white rounded-lg p-7 flex flex-col justify-between shadow-sm hover:shadow-md transition relative border border-slate-200">
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-1">
                   Básico Individual
                 </span>
                 <h3 className="text-xl font-bold text-[#063a57]">{planPrices.virtual.name}</h3>
@@ -595,7 +595,7 @@ export default function HomeView() {
                   Atención médica 100% virtual sin esperas, ideal para personas jóvenes e independientes.
                 </p>
 
-                <div className="my-6 py-4 border-t border-b border-slate-100 text-center bg-slate-50 rounded-xl">
+                <div className="my-6 py-4 border-t border-b border-slate-100 text-center bg-slate-50 rounded-md">
                   <span className="text-xs text-slate-500 block">Tarifa Neta</span>
                   <div className="flex items-baseline justify-center gap-1">
                     <span className="text-3xl font-extrabold text-[#0a5278]">
@@ -630,16 +630,16 @@ export default function HomeView() {
 
               <button
                 onClick={() => handleSelectPlanAndCheckout("virtual")}
-                className="w-full bg-[#063a57] hover:bg-[#0a5278] text-white py-3 rounded-xl font-bold uppercase tracking-wider text-xs transition"
+                className="w-full bg-[#063a57] hover:bg-[#0a5278] text-white py-3 rounded-md font-bold uppercase tracking-wider text-xs transition"
               >
                 Elegir Plan Virtual
               </button>
             </div>
 
             {/* Plan 2: Tradicional Hogar & Salud */}
-            <div className="bg-white rounded-2xl p-7 flex flex-col justify-between shadow-sm hover:shadow-md transition relative border border-slate-200">
+            <div className="bg-white rounded-lg p-7 flex flex-col justify-between shadow-sm hover:shadow-md transition relative border border-slate-200">
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-blue-600 block mb-1">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-blue-700 block mb-1">
                   Protección Hogar
                 </span>
                 <h3 className="text-xl font-bold text-[#063a57]">{planPrices.tradicional.name}</h3>
@@ -647,7 +647,7 @@ export default function HomeView() {
                   Médico a domicilio, ambulancia y auxilio básico para reparaciones urgentes del hogar.
                 </p>
 
-                <div className="my-6 py-4 border-t border-b border-slate-100 text-center bg-slate-50 rounded-xl">
+                <div className="my-6 py-4 border-t border-b border-slate-100 text-center bg-slate-50 rounded-md">
                   <span className="text-xs text-slate-500 block">Tarifa Neta</span>
                   <div className="flex items-baseline justify-center gap-1">
                     <span className="text-3xl font-extrabold text-[#0a5278]">
@@ -682,17 +682,17 @@ export default function HomeView() {
 
               <button
                 onClick={() => handleSelectPlanAndCheckout("tradicional")}
-                className="w-full bg-[#063a57] hover:bg-[#0a5278] text-white py-3 rounded-xl font-bold uppercase tracking-wider text-xs transition"
+                className="w-full bg-[#063a57] hover:bg-[#0a5278] text-white py-3 rounded-md font-bold uppercase tracking-wider text-xs transition"
               >
                 Elegir Plan Tradicional
               </button>
             </div>
 
-            {/* Plan 3: Plan Plus Familiar 360° (MÁS POPULAR / HIGHLIGHTED) */}
-            <div className="bg-white rounded-2xl p-7 flex flex-col justify-between shadow-xl relative border-2 border-[#167394] transform md:-translate-y-2">
-              {/* Badge EMI style */}
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#167394] text-white text-[11px] font-extrabold px-4 py-1 rounded-full uppercase tracking-wider shadow-sm">
-                MÁS POPULAR · RECOMENDADO
+            {/* Plan 3: Plan Plus Familiar 360° (MÁS POPULAR / INTEGRATED BANNER) */}
+            <div className="bg-white rounded-lg p-7 flex flex-col justify-between shadow-md relative border-2 border-[#167394] overflow-hidden">
+              {/* Integrated Header Banner - Never overflows or wraps awkwardly */}
+              <div className="bg-[#167394] text-white text-[11px] font-bold uppercase tracking-wider py-1.5 px-4 text-center -mx-7 -mt-7 mb-6">
+                ★ Plan Más Popular · Recomendado
               </div>
 
               <div>
@@ -704,7 +704,7 @@ export default function HomeView() {
                   Cobertura completa: Salud, Ambulancia, Mascotas, Hogar y Odontología.
                 </p>
 
-                <div className="my-6 py-4 border-t border-b border-slate-100 text-center bg-[#e8f4f8] rounded-xl">
+                <div className="my-6 py-4 border-t border-b border-slate-100 text-center bg-[#e8f4f8] rounded-md">
                   <span className="text-xs text-[#0a5278] font-semibold block">Tarifa Especial Combo</span>
                   <div className="flex items-baseline justify-center gap-1">
                     <span className="text-4xl font-extrabold text-[#0a5278]">
@@ -745,7 +745,7 @@ export default function HomeView() {
 
               <button
                 onClick={() => handleSelectPlanAndCheckout("plus")}
-                className="w-full bg-[#167394] hover:bg-[#0a5278] text-white py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-md hover:shadow-lg transition text-white"
+                className="w-full bg-[#167394] hover:bg-[#0a5278] text-white py-3.5 rounded-md font-bold uppercase tracking-wider text-xs shadow transition"
               >
                 Activar Plan Plus 360°
               </button>
@@ -1128,7 +1128,7 @@ export default function HomeView() {
       {/* 10. CHECKOUT & EMISSION MODAL */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
+          <div className="bg-white w-full max-w-lg rounded-lg shadow-2xl border border-slate-300 ring-1 ring-slate-900/10 overflow-hidden flex flex-col max-h-[90vh]">
             <div className="bg-[#063a57] text-white px-6 py-4 flex items-center justify-between">
               <div>
                 <p className="text-[10px] text-[#167394] font-bold uppercase tracking-wider">
