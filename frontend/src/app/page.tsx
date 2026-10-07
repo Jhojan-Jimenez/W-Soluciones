@@ -867,77 +867,123 @@ export default function HomeView() {
         </div>
       </section>
 
-      {/* 6. OPERATOR LOOKUP DEMO (Wilson Triana's Call Center Validator - High Contrast Elegance) */}
-      <section id="operador" className="py-20 bg-[#063a57] text-white">
+      {/* 6. OPERATOR LOOKUP DEMO (Wilson Triana's Call Center Validator - Clean Light UI) */}
+      <section id="operador" className="py-20 bg-gradient-to-b from-slate-50 via-white to-slate-50 border-t border-b border-slate-200">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mx-auto text-center mb-10">
-            <h6 className="text-[12px] font-bold tracking-[2px] text-[#167394] uppercase mb-2">
+            <span className="inline-flex items-center gap-1.5 bg-[#e8f4f8] text-[#167394] px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3 shadow-xs">
+              <Search className="w-3.5 h-3.5" />
               VERIFICADOR CENTRAL DE DESPACHO
-            </h6>
-            <h2 className="text-3xl font-light text-white">
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#063a57] tracking-tight">
               Búsqueda Rápida del Operador Telefónico
             </h2>
-            <p className="mt-2 text-xs text-slate-300">
-              Así consulta el operador de Wilson Triana el estado del afiliado en menos de 1 segundo al recibir una llamada.
+            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+              Así consulta el operador de Wilson Triana el estado del afiliado en menos de 1 segundo al recibir una llamada o mensaje de emergencia.
             </p>
           </div>
 
-          <div className="max-w-xl mx-auto bg-slate-900 border border-slate-700 p-6 sm:p-7 rounded-2xl shadow-2xl">
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={searchCedula}
-                onChange={(e) => setSearchCedula(e.target.value)}
-                placeholder="Digita cualquier número de cédula (ej. 1020304050)..."
-                className="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#167394]"
-              />
+          <div className="max-w-2xl mx-auto bg-white border border-slate-200 p-6 sm:p-8 rounded-2xl shadow-xl shadow-slate-200/60">
+            <div className="flex flex-col sm:flex-row gap-2.5">
+              <div className="relative flex-1">
+                <input
+                  type="text"
+                  value={searchCedula}
+                  onChange={(e) => setSearchCedula(e.target.value)}
+                  placeholder="Digita cualquier número de cédula (ej. 1018492031)..."
+                  className="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3.5 text-slate-900 placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:border-[#167394] focus:bg-white focus:ring-2 focus:ring-[#167394]/15 transition font-medium"
+                />
+              </div>
               <button
                 onClick={handleOperatorSearch}
-                className="bg-[#167394] hover:bg-[#0a5278] text-white px-5 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition flex items-center gap-1.5"
+                className="bg-[#167394] hover:bg-[#0a5278] text-white px-6 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition shadow-sm hover:shadow flex items-center justify-center gap-2 shrink-0"
               >
                 <Search className="w-4 h-4 text-white" />
                 <span>Consultar</span>
               </button>
             </div>
 
+            {/* Quick Demo Helper */}
+            <div className="mt-2.5 flex items-center justify-between text-[11px] text-slate-400">
+              <span>Tip: Digita 7 o más dígitos para simular un afiliado activo.</span>
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchCedula("1018492031");
+                  setTimeout(() => {
+                    setOperatorSearchResult({
+                      found: true,
+                      name: "Carlos Andrés Villamil",
+                      cedula: "1018492031",
+                      status: "ACTIVO Y VIGENTE",
+                      plan: "Plan Plus Familiar 360°",
+                      validUntil: "04 de Noviembre, 2026",
+                      eventsRemaining: 3
+                    });
+                  }, 100);
+                }}
+                className="text-[#167394] font-semibold hover:underline"
+              >
+                Probar con C.C. Demo
+              </button>
+            </div>
+
             {operatorSearchResult && (
-              <div className="mt-5 pt-5 border-t border-slate-800 animate-in fade-in duration-200">
+              <div className="mt-6 pt-6 border-t border-slate-100 animate-in fade-in duration-200">
                 {operatorSearchResult.found ? (
-                  <div className="bg-slate-950/80 border border-[#167394]/40 rounded-xl p-4 text-xs space-y-3">
-                    <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+                  <div className="bg-[#f8fcfe] border border-[#167394]/25 rounded-2xl p-5 sm:p-6 text-xs space-y-4 shadow-xs">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-200">
                       <div>
-                        <p className="text-slate-400">Titular:</p>
-                        <p className="text-sm font-bold text-white">{operatorSearchResult.name}</p>
-                        <p className="text-slate-400">C.C. {operatorSearchResult.cedula}</p>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                          Titular Afiliado
+                        </span>
+                        <h4 className="text-base sm:text-lg font-bold text-[#063a57]">
+                          {operatorSearchResult.name}
+                        </h4>
+                        <p className="text-slate-500 font-mono text-[11px]">
+                          C.C. {operatorSearchResult.cedula}
+                        </p>
                       </div>
-                      <span className="bg-[#167394]/20 text-[#167394] border border-[#167394]/40 font-bold px-3 py-1 rounded-full text-[11px] flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-[#167394]"></span>
-                        {operatorSearchResult.status}
-                      </span>
+                      <div>
+                        <span className="bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold px-3 py-1 rounded-full text-[11px] inline-flex items-center gap-1.5 shadow-xs">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                          {operatorSearchResult.status}
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3 text-slate-300">
-                      <div>
-                        <span className="text-slate-400">Plan:</span>
-                        <p className="font-semibold text-white">{operatorSearchResult.plan}</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-slate-700">
+                      <div className="bg-white p-3 rounded-xl border border-slate-200">
+                        <span className="text-[10px] text-slate-400 font-medium block">Plan Contratado:</span>
+                        <p className="font-bold text-[#0a5278] text-xs mt-0.5">
+                          {operatorSearchResult.plan}
+                        </p>
                       </div>
-                      <div>
-                        <span className="text-slate-400">Vigencia hasta:</span>
-                        <p className="font-semibold text-white">{operatorSearchResult.validUntil}</p>
+                      <div className="bg-white p-3 rounded-xl border border-slate-200">
+                        <span className="text-[10px] text-slate-400 font-medium block">Vigencia Oficial:</span>
+                        <p className="font-bold text-slate-800 text-xs mt-0.5">
+                          {operatorSearchResult.validUntil}
+                        </p>
                       </div>
                     </div>
 
                     <button
-                      onClick={() => alert("Simulación: Solicitud de despacho enviada a la red de proveedores.")}
-                      className="w-full bg-[#167394] hover:bg-[#509e00] text-white font-bold py-2.5 rounded-lg text-xs transition"
+                      onClick={() => alert("Simulación: Solicitud de despacho enviada en tiempo real a la red médica y técnica.")}
+                      className="w-full bg-[#167394] hover:bg-[#0a5278] text-white font-bold py-3 rounded-xl text-xs uppercase tracking-wider transition shadow-sm flex items-center justify-center gap-2"
                     >
-                      Autorizar Despacho de Auxilio Inmediato
+                      <CheckCircle2 className="w-4 h-4 text-cyan-200" />
+                      <span>Autorizar Despacho de Auxilio Inmediato</span>
                     </button>
                   </div>
                 ) : (
-                  <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3 text-xs text-red-300 flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
-                    <span>No se registra cobertura activa para el documento ingresado.</span>
+                  <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-xs text-red-800 flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-bold">No se registra cobertura activa</p>
+                      <p className="text-slate-600 mt-0.5">
+                        El documento ingresado no cuenta con una suscripción vigente en la base de datos de Soluciones W.
+                      </p>
+                    </div>
                   </div>
                 )}
               </div>
