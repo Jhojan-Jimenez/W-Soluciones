@@ -1,25 +1,23 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-heading",
-  display: "swap",
-});
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-sans",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-inter",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Soluciones W | Plataforma de Asistencia Familiar B2C",
+  title: "Soluciones W | Asistencias",
   description:
-    "Portal digital de autogestión de asistencias médicas, ambulancia, mascotas, hogar y odontología en Colombia. Activación en menos de 2 minutos.",
+    "Portal digital de autogestión de asistencias médicas, ambulancia, mascotas, hogar y odontología en Colombia.",
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
@@ -30,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${plusJakarta.variable} ${inter.variable} h-full scroll-smooth`}
+      className={`${inter.variable} h-full scroll-smooth`}
     >
       <body className="min-h-full flex flex-col font-sans antialiased bg-white text-slate-700">
         {children}

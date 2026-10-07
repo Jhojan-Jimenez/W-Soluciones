@@ -320,21 +320,31 @@ export default function HomeView() {
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           {/* Logo Oficial Soluciones W (Upscaled HD) */}
-          <div className="flex items-center gap-3.5">
+          <a
+            href="/"
+            onClick={(e) => {
+              if (window.location.pathname === "/") {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+            className="flex items-center gap-3.5 group cursor-pointer transition-opacity hover:opacity-95"
+            title="Soluciones W - Ir al Inicio"
+          >
             <img
               src="/images/logo-soluciones-w.png"
               alt="Soluciones W Logo"
-              className="h-10 sm:h-12 w-auto object-contain"
+              className="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-[1.02]"
             />
-            <div className="hidden sm:block border-l border-slate-200 pl-3">
-              <span className="text-[10px] font-extrabold text-[#167394] tracking-wider uppercase block">
+            <div className="hidden sm:flex flex-col justify-center border-l border-slate-200 pl-3.5 h-9 sm:h-10">
+              <span className="text-[11px] font-extrabold text-[#167394] tracking-wider uppercase leading-tight">
                 Plataforma de Afiliaciones
               </span>
-              <p className="text-[10px] text-slate-500 font-medium tracking-wide uppercase leading-none">
+              <p className="text-[10px] text-slate-500 font-medium tracking-wide uppercase leading-tight mt-0.5">
                 Asistencia Familiar & Hogar · Dir. Wilson Triana
               </p>
             </div>
-          </div>
+          </a>
 
           {/* Right Section: Member Hub Login + Phone + WhatsApp CTA */}
           <div className="flex items-center gap-3 sm:gap-5">
@@ -393,12 +403,6 @@ export default function HomeView() {
             
             {/* Left Content: Enterprise Typography & High Contrast */}
             <div className="lg:col-span-7 space-y-6">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-cyan-200 text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-xs backdrop-blur-md">
-                <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
-                <span>AFILIACIÓN DIGITAL INMEDIATA EN MENOS DE 2 MINUTOS</span>
-              </div>
-
               {/* H1 Headline */}
               <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-extrabold text-white leading-[1.12] tracking-tight">
                 Con Soluciones W, <br className="hidden sm:inline" />
@@ -770,11 +774,12 @@ export default function HomeView() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Carrusel horizontal en móvil / Grid en desktop */}
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible pb-6 md:pb-0 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0">
             {MODULES_LIST.map((mod) => (
               <div
                 key={mod.id}
-                className="beerp-card p-7 flex flex-col justify-between"
+                className="beerp-card p-6 sm:p-7 flex flex-col justify-between shrink-0 w-[85vw] max-w-[340px] md:w-auto md:max-w-none snap-center"
               >
                 <div>
                   {/* BeERP 3D Spherical Green Icon */}
@@ -813,7 +818,7 @@ export default function HomeView() {
             ))}
 
             {/* Banner card de contacto */}
-            <div className="bg-gradient-to-br from-[#0a5278] to-[#063a57] text-white rounded-2xl p-7 flex flex-col justify-between shadow-xl">
+            <div className="bg-gradient-to-br from-[#0a5278] to-[#063a57] text-white rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-xl shrink-0 w-[85vw] max-w-[340px] md:w-auto md:max-w-none snap-center">
               <div>
                 <span className="bg-[#167394] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
                   ATENCIÓN 24 HORAS
@@ -840,6 +845,11 @@ export default function HomeView() {
               </a>
             </div>
           </div>
+
+          {/* Indicador táctil en móvil */}
+          <div className="md:hidden flex items-center justify-center gap-2 mt-2 text-[11px] text-slate-400 font-medium">
+            <span>← Desliza horizontalmente para explorar coberturas →</span>
+          </div>
         </div>
       </section>
 
@@ -865,14 +875,12 @@ export default function HomeView() {
             <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-11 h-11 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center p-1">
-                    <svg className="w-8 h-8" viewBox="0 0 40 40" fill="none">
-                      <circle cx="20" cy="20" r="18" fill="#002D72" />
-                      <circle cx="20" cy="20" r="14" fill="#ffffff" />
-                      <circle cx="20" cy="20" r="12" fill="#005691" />
-                      <text x="20" y="23.5" textAnchor="middle" fill="#ffffff" fontWeight="900" fontSize="9" fontFamily="system-ui, sans-serif" letterSpacing="0.5">PSE</text>
-                      <circle cx="25.5" cy="14" r="1.8" fill="#E30613" />
-                    </svg>
+                  <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center p-1.5 shadow-xs">
+                    <img
+                      src="/images/payments/pse.png"
+                      alt="PSE Pagos Seguros en Línea"
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                   <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-blue-50 text-blue-700">
                     Débito ACH
@@ -895,10 +903,12 @@ export default function HomeView() {
             <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-11 h-11 rounded-lg bg-[#20002c] flex items-center justify-center p-1 shadow-xs">
-                    <span className="text-[#ff1a75] font-black text-sm tracking-tight" style={{ fontFamily: 'system-ui, sans-serif' }}>
-                      N<span className="text-white font-bold text-[10px]">eq</span>
-                    </span>
+                  <div className="h-12 px-3 rounded-xl bg-[#200020] flex items-center justify-center shadow-xs">
+                    <img
+                      src="/images/payments/nequi.svg"
+                      alt="Nequi Colombia"
+                      className="h-6 w-auto object-contain"
+                    />
                   </div>
                   <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-fuchsia-50 text-fuchsia-700">
                     Billetera Móvil
@@ -921,15 +931,18 @@ export default function HomeView() {
             <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div className="h-11 px-2.5 rounded-lg bg-slate-50 border border-slate-200 flex items-center gap-1.5">
-                    {/* Visa & Mastercard Logos */}
-                    <svg className="h-3.5 w-auto" viewBox="0 0 36 12" fill="none">
-                      <path d="M14.5 1.2L10.9 10.8H8.5L6.2 3.2C6.1 2.6 5.9 2.4 5.3 2.1C4.5 1.6 3.1 1.2 1.8 0.9L1.9 1.1H6.1C7 1.1 7.3 1.8 7.5 2.6L8.9 10.8H11.6L15.8 1.2H14.5ZM25 7.6C25 5 21.2 4.8 21.3 3.5C21.3 3 21.8 2.6 22.7 2.4C23.2 2.3 24.5 2.3 25.8 2.9L26.3 1.3C25.6 1.1 24.7 0.9 23.6 0.9C20.5 0.9 18.3 2.5 18.3 5C18.3 8.3 22.9 8.1 22.9 9.8C22.9 10.3 22.4 10.8 21.3 11C20.2 11.1 18.9 10.7 18.1 10.2L17.6 11.9C18.4 12.2 19.8 12.5 21.3 12.5C24.6 12.5 26.8 10.9 26.8 8.2L25 7.6ZM33.2 10.8H35.5L33.3 1.2H31.3C30.6 1.2 30 1.6 29.7 2.3L25.4 10.8H28L28.5 9.3H31.7L32 10.8H33.2ZM29.3 7.3L30.6 3.6L31.3 7.3H29.3ZM18.1 1.2L16 10.8H13.5L15.6 1.2H18.1Z" fill="#1434CB" />
-                    </svg>
-                    <svg className="w-6 h-4" viewBox="0 0 32 20" fill="none">
-                      <circle cx="12" cy="10" r="8" fill="#EB001B" />
-                      <circle cx="20" cy="10" r="8" fill="#F79E1B" fillOpacity="0.88" />
-                    </svg>
+                  <div className="h-12 px-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5 shadow-xs">
+                    <img
+                      src="/images/payments/visa.svg"
+                      alt="Visa"
+                      className="h-3.5 w-auto object-contain"
+                    />
+                    <div className="h-5 w-px bg-slate-200" />
+                    <img
+                      src="/images/payments/mastercard.svg"
+                      alt="Mastercard"
+                      className="h-6 w-auto object-contain"
+                    />
                   </div>
                   <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-emerald-50 text-emerald-700">
                     Todas las Franquicias
@@ -952,10 +965,12 @@ export default function HomeView() {
             <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-11 h-11 rounded-lg bg-[#ED1C24] flex items-center justify-center text-white shadow-xs">
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z" />
-                    </svg>
+                  <div className="h-12 px-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center shadow-xs">
+                    <img
+                      src="/images/payments/daviplata.svg"
+                      alt="DaviPlata"
+                      className="h-7 w-auto object-contain"
+                    />
                   </div>
                   <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-red-50 text-red-700">
                     Davivienda
@@ -1025,10 +1040,6 @@ export default function HomeView() {
 
         <div className="relative max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mx-auto text-center mb-10">
-            <span className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-md text-cyan-200 border border-white/20 px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3 shadow-xs">
-              <Search className="w-3.5 h-3.5" />
-              VERIFICADOR CENTRAL DE DESPACHO
-            </span>
             <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
               Búsqueda Rápida del Operador Telefónico
             </h2>

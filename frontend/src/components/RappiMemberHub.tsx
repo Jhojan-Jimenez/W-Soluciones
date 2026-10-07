@@ -229,21 +229,25 @@ export default function RappiMemberHub({ member, onLogout }: RappiMemberHubProps
       {/* 1. HEADER INSTITUCIONAL LIMPIO */}
       <header className="sticky top-0 z-40 bg-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <button
+            onClick={onLogout}
+            className="flex items-center gap-3 cursor-pointer group text-left transition-opacity hover:opacity-95"
+            title="Volver a la página principal de Soluciones W"
+          >
             <img
               src="/images/logo-soluciones-w.png"
               alt="Soluciones W"
-              className="h-9 w-auto object-contain"
+              className="h-9 w-auto object-contain transition-transform group-hover:scale-[1.02]"
             />
-            <div className="hidden sm:block border-l border-slate-200 pl-3">
-              <span className="text-[10px] font-bold tracking-widest text-[#167394] uppercase block">
+            <div className="hidden sm:flex flex-col justify-center border-l border-slate-200 pl-3 h-8">
+              <span className="text-[10px] font-bold tracking-widest text-[#167394] uppercase block leading-tight">
                 Portal de Afiliados
               </span>
-              <span className="text-xs font-semibold text-slate-700">
+              <span className="text-xs font-semibold text-slate-700 leading-tight mt-0.5">
                 Soluciones W
               </span>
             </div>
-          </div>
+          </button>
 
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Llamada Directa Emergencias */}
