@@ -35,7 +35,8 @@ import {
   Shield,
   User,
   Globe,
-  CheckSquare
+  CheckSquare,
+  Clock
 } from "lucide-react";
 
 interface AssistanceModule {
@@ -175,7 +176,16 @@ export default function HomeView() {
     address: "",
     city: "Bogotá D.C."
   });
-  const [paymentMethod, setPaymentMethod] = useState<"pse" | "card" | "nequi">("pse");
+  const [paymentMethod, setPaymentMethod] = useState<"pse" | "card" | "nequi">("card");
+  const [cardDetails, setCardDetails] = useState({
+    number: "",
+    name: "",
+    exp: "",
+    cvc: "",
+    installments: "1"
+  });
+  const [nequiPhone, setNequiPhone] = useState("");
+  const [pseBank, setPseBank] = useState("bancolombia");
   const [isProcessing, setIsProcessing] = useState(false);
   const [generatedPolicy, setGeneratedPolicy] = useState<{
     contractNumber: string;
@@ -1312,40 +1322,228 @@ export default function HomeView() {
                     <div className="grid grid-cols-3 gap-2">
                       <button
                         type="button"
-                        onClick={() => setPaymentMethod("pse")}
-                        className={`p-2.5 rounded-xl border text-center font-bold ${
-                          paymentMethod === "pse" ? "border-[#167394] bg-[#e8f4f8] text-[#167394]" : "border-slate-200"
+                        onClick={() => setPaymentMethod("card")}
+                        className={`p-2.5 rounded-xl border text-center font-bold transition flex items-center justify-center gap-1.5 ${
+                          paymentMethod === "card" ? "border-[#167394] bg-[#e8f4f8] text-[#167394] shadow-xs" : "border-slate-200 text-slate-600"
                         }`}
                       >
-                        PSE
+                        <CreditCard className="w-3.5 h-3.5" />
+                        <span>Tarjeta</span>
                       </button>
                       <button
                         type="button"
                         onClick={() => setPaymentMethod("nequi")}
-                        className={`p-2.5 rounded-xl border text-center font-bold ${
-                          paymentMethod === "nequi" ? "border-[#167394] bg-[#e8f4f8] text-[#167394]" : "border-slate-200"
+                        className={`p-2.5 rounded-xl border text-center font-bold transition flex items-center justify-center gap-1.5 ${
+                          paymentMethod === "nequi" ? "border-[#167394] bg-[#e8f4f8] text-[#167394] shadow-xs" : "border-slate-200 text-slate-600"
                         }`}
                       >
-                        Nequi / App
+                        <Zap className="w-3.5 h-3.5" />
+                        <span>Nequi</span>
                       </button>
                       <button
                         type="button"
-                        onClick={() => setPaymentMethod("card")}
-                        className={`p-2.5 rounded-xl border text-center font-bold ${
-                          paymentMethod === "card" ? "border-[#167394] bg-[#e8f4f8] text-[#167394]" : "border-slate-200"
+                        onClick={() => setPaymentMethod("pse")}
+                        className={`p-2.5 rounded-xl border text-center font-bold transition flex items-center justify-center gap-1.5 ${
+                          paymentMethod === "pse" ? "border-[#167394] bg-[#e8f4f8] text-[#167394] shadow-xs" : "border-slate-200 text-slate-600"
                         }`}
                       >
-                        Tarjeta
+                        <Building2 className="w-3.5 h-3.5" />
+                        <span>PSE</span>
                       </button>
                     </div>
                   </div>
 
+                  {/* FORMULARIO INTERACTIVO: TARJETA DE CRÉDITO / DÉBITO */}
+                  {paymentMethod === "card" && (
+                    <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-3 animate-in fade-in duration-150">
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-slate-800 text-[11px] uppercase tracking-wider">
+                          Datos de la Tarjeta
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setCardDetails({
+                              number: "4242 4242 4242 4242",
+                              name: formData.fullName || "CARLOS VILLAMIL",
+                              exp: "12/28",
+                              cvc: "123",
+                              installments: "1"
+                            })
+                          }
+                          className="text-[10px] font-bold text-[#167394] hover:underline flex items-center gap-1"
+                        >
+                          <Sparkles className="w-3 h-3" />
+                          <span>Autocompletar Tarjeta Test (4242...)</span>
+                        </button>
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-medium text-slate-600 mb-1">
+                          Número de Tarjeta *
+                        </label>
+                        <input
+                          type="text"
+                          maxLength={19}
+                          placeholder="4242 4242 4242 4242"
+                          value={cardDetails.number}
+                          onChange={(e) => setCardDetails({ ...cardDetails, number: e.target.value })}
+                          className="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-slate-900 font-mono tracking-wider focus:outline-none focus:border-[#167394]"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-medium text-slate-600 mb-1">
+                          Nombre en la Tarjeta *
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="Como aparece en la tarjeta"
+                          value={cardDetails.name || formData.fullName}
+                          onChange={(e) => setCardDetails({ ...cardDetails, name: e.target.value })}
+                          className="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-slate-900 uppercase focus:outline-none focus:border-[#167394]"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-2">
+                        <div>
+                          <label className="block text-[11px] font-medium text-slate-600 mb-1">
+                            Vence (MM/AA) *
+                          </label>
+                          <input
+                            type="text"
+                            maxLength={5}
+                            placeholder="12/28"
+                            value={cardDetails.exp}
+                            onChange={(e) => setCardDetails({ ...cardDetails, exp: e.target.value })}
+                            className="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-slate-900 text-center font-mono focus:outline-none focus:border-[#167394]"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[11px] font-medium text-slate-600 mb-1">
+                            CVC / CVV *
+                          </label>
+                          <input
+                            type="password"
+                            maxLength={4}
+                            placeholder="123"
+                            value={cardDetails.cvc}
+                            onChange={(e) => setCardDetails({ ...cardDetails, cvc: e.target.value })}
+                            className="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-slate-900 text-center font-mono focus:outline-none focus:border-[#167394]"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[11px] font-medium text-slate-600 mb-1">
+                            Cuotas
+                          </label>
+                          <select
+                            value={cardDetails.installments}
+                            onChange={(e) => setCardDetails({ ...cardDetails, installments: e.target.value })}
+                            className="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-slate-900 focus:outline-none focus:border-[#167394]"
+                          >
+                            <option value="1">1 Cuota</option>
+                            <option value="3">3 Cuotas</option>
+                            <option value="6">6 Cuotas</option>
+                            <option value="12">12 Cuotas</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* FORMULARIO INTERACTIVO: NEQUI */}
+                  {paymentMethod === "nequi" && (
+                    <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-3 animate-in fade-in duration-150">
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-slate-800 text-[11px] uppercase tracking-wider">
+                          Pago con Nequi
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setNequiPhone("3991111111")}
+                          className="text-[10px] font-bold text-[#167394] hover:underline flex items-center gap-1"
+                        >
+                          <Sparkles className="w-3 h-3" />
+                          <span>Autocompletar Nequi Test (399...)</span>
+                        </button>
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-medium text-slate-600 mb-1">
+                          Número de Celular Nequi *
+                        </label>
+                        <input
+                          type="tel"
+                          maxLength={10}
+                          placeholder="300 123 4567"
+                          value={nequiPhone || formData.phone}
+                          onChange={(e) => setNequiPhone(e.target.value)}
+                          className="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-slate-900 font-mono tracking-wider focus:outline-none focus:border-[#167394]"
+                        />
+                      </div>
+
+                      <p className="text-[10px] text-slate-500 leading-relaxed">
+                        📱 En Wompi real recibirás una notificación push en la aplicación Nequi para aprobar el débito de ${currentFinalPrice.toLocaleString("es-CO")} COP con tu clave dinámica.
+                      </p>
+                    </div>
+                  )}
+
+                  {/* FORMULARIO INTERACTIVO: PSE */}
+                  {paymentMethod === "pse" && (
+                    <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-3 animate-in fade-in duration-150">
+                      <span className="font-bold text-slate-800 text-[11px] uppercase tracking-wider block">
+                        Transferencia PSE (Débito en Cuenta)
+                      </span>
+
+                      <div>
+                        <label className="block text-[11px] font-medium text-slate-600 mb-1">
+                          Banco de Origen *
+                        </label>
+                        <select
+                          value={pseBank}
+                          onChange={(e) => setPseBank(e.target.value)}
+                          className="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-slate-900 focus:outline-none focus:border-[#167394] font-medium"
+                        >
+                          <option value="bancolombia">Bancolombia (Personas / Empresas)</option>
+                          <option value="davivienda">Banco Davivienda</option>
+                          <option value="bogota">Banco de Bogotá</option>
+                          <option value="bbva">BBVA Colombia</option>
+                          <option value="occidente">Banco de Occidente</option>
+                          <option value="popular">Banco Popular</option>
+                          <option value="falabella">Banco Falabella</option>
+                          <option value="lulobank">Lulo Bank</option>
+                          <option value="dale">Dale!</option>
+                        </select>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <label className="block text-[11px] font-medium text-slate-600 mb-1">
+                            Tipo de Cliente
+                          </label>
+                          <select className="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-slate-900">
+                            <option>Persona Natural</option>
+                            <option>Persona Jurídica</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-[11px] font-medium text-slate-600 mb-1">
+                            Email Registrado en PSE
+                          </label>
+                          <input
+                            type="email"
+                            defaultValue={formData.email}
+                            className="w-full bg-white border border-slate-300 rounded-lg p-2.5 text-slate-900"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-[11px] text-amber-900 flex items-start gap-2">
                     <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                     <span>
-                      <strong>Modo Sandbox Activo:</strong> Se simula el checkout de{" "}
-                      {paymentGateway === "wompi" ? "Wompi (pub_test_...)" : "Mercado Pago (TEST-...)"}.
-                      No se debitará dinero real en esta prueba.
+                      <strong>Ambiente Sandbox Activo:</strong> Puedes ingresar cualquier dato de prueba o usar los botones de autocompletado para testear el flujo de aprobación de {paymentGateway.toUpperCase()}. No se realizarán cobros reales.
                     </span>
                   </div>
 
@@ -1355,9 +1553,14 @@ export default function HomeView() {
                     className="w-full bg-[#167394] hover:bg-[#0a5278] text-white py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs flex items-center justify-center gap-2 mt-4 transition shadow-md"
                   >
                     {isProcessing ? (
-                      <span>Procesando pago en {paymentGateway === "wompi" ? "Wompi" : "Mercado Pago"}...</span>
+                      <span className="flex items-center gap-2">
+                        <Clock className="w-4 h-4 animate-spin" />
+                        Validando con {paymentGateway === "wompi" ? "Redeban / Wompi..." : "Mercado Pago..."}
+                      </span>
                     ) : (
-                      <span>Aprobar Pago en Sandbox ({paymentGateway.toUpperCase()})</span>
+                      <span>
+                        Pagar ${currentFinalPrice.toLocaleString("es-CO")} COP en Sandbox ({paymentGateway.toUpperCase()})
+                      </span>
                     )}
                   </button>
                 </div>
