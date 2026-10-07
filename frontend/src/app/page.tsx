@@ -867,23 +867,27 @@ export default function HomeView() {
         </div>
       </section>
 
-      {/* 6. OPERATOR LOOKUP DEMO (Wilson Triana's Call Center Validator - Clean Light UI) */}
-      <section id="operador" className="py-20 bg-gradient-to-b from-slate-50 via-white to-slate-50 border-t border-b border-slate-200">
-        <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
+      {/* 6. OPERATOR LOOKUP DEMO (Wilson Triana's Call Center Validator - Rich Blue Section Contrast with Crisp White Card) */}
+      <section id="operador" className="py-20 bg-gradient-to-br from-[#063a57] via-[#0a5278] to-[#167394] text-white relative overflow-hidden">
+        {/* Subtle decorative background glow */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#167394]/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="relative max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mx-auto text-center mb-10">
-            <span className="inline-flex items-center gap-1.5 bg-[#e8f4f8] text-[#167394] px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3 shadow-xs">
+            <span className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-md text-cyan-200 border border-white/20 px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3 shadow-xs">
               <Search className="w-3.5 h-3.5" />
               VERIFICADOR CENTRAL DE DESPACHO
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#063a57] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
               Búsqueda Rápida del Operador Telefónico
             </h2>
-            <p className="mt-3 text-sm text-slate-600 leading-relaxed">
+            <p className="mt-3 text-sm text-cyan-100/90 leading-relaxed">
               Así consulta el operador de Wilson Triana el estado del afiliado en menos de 1 segundo al recibir una llamada o mensaje de emergencia.
             </p>
           </div>
 
-          <div className="max-w-2xl mx-auto bg-white border border-slate-200 p-6 sm:p-8 rounded-2xl shadow-xl shadow-slate-200/60">
+          <div className="max-w-2xl mx-auto bg-white text-slate-800 border border-slate-200/80 p-6 sm:p-8 rounded-2xl shadow-2xl">
             <div className="flex flex-col sm:flex-row gap-2.5">
               <div className="relative flex-1">
                 <input
@@ -896,7 +900,7 @@ export default function HomeView() {
               </div>
               <button
                 onClick={handleOperatorSearch}
-                className="bg-[#167394] hover:bg-[#0a5278] text-white px-6 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition shadow-sm hover:shadow flex items-center justify-center gap-2 shrink-0"
+                className="bg-[#167394] hover:bg-[#0a5278] text-white px-6 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 shrink-0"
               >
                 <Search className="w-4 h-4 text-white" />
                 <span>Consultar</span>
