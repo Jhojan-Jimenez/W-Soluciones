@@ -27,6 +27,8 @@ import {
   Settings,
   ChevronDown,
   ChevronUp,
+  ChevronLeft,
+  ChevronRight,
   Phone,
   Layers,
   Sparkles,
@@ -152,6 +154,9 @@ const FAQS = [
 ];
 
 export default function HomeView() {
+  // Mobile Pillars Carousel Navigation
+  const [activePillarIndex, setActivePillarIndex] = useState(0);
+
   // Plan selection
   const [selectedPlan, setSelectedPlan] = useState<"virtual" | "tradicional" | "plus">("plus");
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "annual">("monthly");
@@ -331,10 +336,17 @@ export default function HomeView() {
             className="flex items-center gap-3.5 group cursor-pointer transition-opacity hover:opacity-95"
             title="Soluciones W - Ir al Inicio"
           >
+            {/* Mobile: Solo la W como isotipo */}
+            <img
+              src="/images/logo-w-symbol.png"
+              alt="Soluciones W"
+              className="h-8 w-auto object-contain sm:hidden transition-transform group-hover:scale-105"
+            />
+            {/* Desktop / Tablet: Logo completo con Soluciones */}
             <img
               src="/images/logo-soluciones-w.png"
               alt="Soluciones W Logo"
-              className="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+              className="hidden sm:block h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-[1.02]"
             />
             <div className="hidden sm:flex flex-col justify-center border-l border-slate-200 pl-3.5 h-9 sm:h-10">
               <span className="text-[11px] font-extrabold text-[#167394] tracking-wider uppercase leading-tight">
@@ -768,12 +780,147 @@ export default function HomeView() {
             </p>
           </div>
 
-          {/* Carrusel horizontal en móvil / Grid en desktop */}
-          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible pb-6 md:pb-0 snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0">
+          {/* VISTA MÓVIL: Carrusel guiado por botones interactivos (sin scroll libre) */}
+          <div className="md:hidden">
+            {/* Contenedor del Slide visible */}
+            <div className="overflow-hidden rounded-2xl">
+              <div
+                className="flex transition-transform duration-300 ease-out"
+                style={{ transform: `translateX(-${activePillarIndex * 100}%)` }}
+              >
+                {MODULES_LIST.map((mod) => (
+                  <div key={mod.id} className="w-full shrink-0 px-1">
+                    <div className="beerp-card p-6 flex flex-col justify-between h-full min-h-[460px]">
+                      <div>
+                        {/* BeERP 3D Spherical Green Icon */}
+                        <div className="beerp-icon-circle mb-5">
+                          {mod.id === "medica" && <Stethoscope className="w-10 h-10" />}
+                          {mod.id === "ambulancia" && <Ambulance className="w-10 h-10" />}
+                          {mod.id === "mascotas" && <Dog className="w-10 h-10" />}
+                          {mod.id === "hogar" && <Home className="w-10 h-10" />}
+                          {mod.id === "odontologica" && <Smile className="w-10 h-10" />}
+                        </div>
+
+                        <span className="text-xs font-bold text-[#167394] uppercase tracking-wide">
+                          {mod.category}
+                        </span>
+                        <h3 className="text-xl font-bold text-[#063a57] mt-1 mb-2">
+                          {mod.name}
+                        </h3>
+                        <p className="text-xs text-slate-500 leading-relaxed mb-4">
+                          {mod.description}
+                        </p>
+
+                        <ul className="space-y-2 text-xs text-slate-600 mb-6">
+                          {mod.features.map((feat, i) => (
+                            <li key={i} className="flex items-start gap-2">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-[#167394] shrink-0 mt-0.5" />
+                              <span>{feat}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-[11px] text-slate-600">
+                        <strong className="text-slate-800">Límite garantizado:</strong> {mod.limit}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                {/* 6ª Card: Banner card de contacto */}
+                <div className="w-full shrink-0 px-1">
+                  <div className="bg-gradient-to-br from-[#0a5278] to-[#063a57] text-white rounded-2xl p-6 flex flex-col justify-between h-full min-h-[460px] shadow-xl">
+                    <div>
+                      <span className="bg-[#167394] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                        ATENCIÓN 24 HORAS
+                      </span>
+                      <h3 className="text-2xl font-bold text-white mt-4 leading-snug">
+                        ¿Necesitas asistencia en este instante?
+                      </h3>
+                      <p className="text-xs text-slate-300 mt-2 leading-relaxed">
+                        Llama a nuestra central médica y técnica. Un operador verificará tu cédula y despachará el auxilio de inmediato.
+                      </p>
+                      <div className="my-6 pt-4 border-t border-white/20">
+                        <span className="text-xs text-slate-300 block">Línea Nacional</span>
+                        <p className="text-2xl font-bold text-white">+57 (601) 745-9000</p>
+                      </div>
+                    </div>
+
+                    <a
+                      href="https://wa.me/573134289397"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-full bg-[#167394] hover:bg-[#0a5278] text-white py-3.5 rounded-xl text-center font-bold text-xs uppercase tracking-wider block shadow-md transition"
+                    >
+                      Abrir WhatsApp de Emergencias
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Controles de Navegación del Carrusel Móvil */}
+            <div className="flex items-center justify-between gap-3 mt-5 px-1">
+              <button
+                type="button"
+                onClick={() => setActivePillarIndex((prev) => Math.max(0, prev - 1))}
+                disabled={activePillarIndex === 0}
+                className={`flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-bold transition border ${
+                  activePillarIndex === 0
+                    ? "bg-slate-100 text-slate-300 border-slate-200 cursor-not-allowed"
+                    : "bg-white text-[#063a57] border-slate-300 hover:bg-slate-50 shadow-xs active:scale-95"
+                }`}
+                aria-label="Pilar anterior"
+              >
+                <ChevronLeft className="w-4 h-4" />
+                <span>Anterior</span>
+              </button>
+
+              {/* Dots interactivos */}
+              <div className="flex items-center gap-1.5">
+                {[0, 1, 2, 3, 4, 5].map((idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setActivePillarIndex(idx)}
+                    className={`h-2.5 rounded-full transition-all duration-300 ${
+                      activePillarIndex === idx
+                        ? "w-6 bg-[#167394]"
+                        : "w-2.5 bg-slate-300 hover:bg-slate-400"
+                    }`}
+                    aria-label={`Ir a tarjeta ${idx + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setActivePillarIndex((prev) => Math.min(5, prev + 1))}
+                disabled={activePillarIndex === 5}
+                className={`flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-bold transition border ${
+                  activePillarIndex === 5
+                    ? "bg-slate-100 text-slate-300 border-slate-200 cursor-not-allowed"
+                    : "bg-white text-[#063a57] border-slate-300 hover:bg-slate-50 shadow-xs active:scale-95"
+                }`}
+                aria-label="Pilar siguiente"
+              >
+                <span>Siguiente</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            <p className="text-center text-[11px] text-slate-400 font-medium mt-2">
+              Pilar {activePillarIndex + 1} de 6
+            </p>
+          </div>
+
+          {/* VISTA DESKTOP / TABLET: Grid Estático */}
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {MODULES_LIST.map((mod) => (
               <div
                 key={mod.id}
-                className="beerp-card p-6 sm:p-7 flex flex-col justify-between shrink-0 w-[85vw] max-w-[340px] md:w-auto md:max-w-none snap-center"
+                className="beerp-card p-6 sm:p-7 flex flex-col justify-between"
               >
                 <div>
                   {/* BeERP 3D Spherical Green Icon */}
@@ -812,7 +959,7 @@ export default function HomeView() {
             ))}
 
             {/* Banner card de contacto */}
-            <div className="bg-gradient-to-br from-[#0a5278] to-[#063a57] text-white rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-xl shrink-0 w-[85vw] max-w-[340px] md:w-auto md:max-w-none snap-center">
+            <div className="bg-gradient-to-br from-[#0a5278] to-[#063a57] text-white rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-xl">
               <div>
                 <span className="bg-[#167394] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
                   ATENCIÓN 24 HORAS
@@ -839,11 +986,6 @@ export default function HomeView() {
               </a>
             </div>
           </div>
-
-          {/* Indicador táctil en móvil */}
-          <div className="md:hidden flex items-center justify-center gap-2 mt-2 text-[11px] text-slate-400 font-medium">
-            <span>← Desliza horizontalmente para explorar coberturas →</span>
-          </div>
         </div>
       </section>
 
@@ -859,13 +1001,13 @@ export default function HomeView() {
             </p>
           </div>
 
-          {/* Grid de Medios de Pago con Logos e Información Real */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {/* Grid de Medios de Pago en Móvil (2x2) y Desktop (4 cols) */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
             {/* 1. PSE Débito */}
-            <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
+            <div className="bg-white rounded-xl border border-slate-200 p-3.5 sm:p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center p-1.5 shadow-xs">
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center p-1 sm:p-1.5 shadow-xs">
                     <img
                       src="/images/payments/pse.png"
                       alt="PSE Pagos Seguros en Línea"
@@ -873,97 +1015,97 @@ export default function HomeView() {
                     />
                   </div>
                 </div>
-                <h4 className="text-sm font-bold text-slate-900 mb-1">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 mb-1 leading-snug">
                   PSE Débito Bancario
                 </h4>
-                <p className="text-xs text-slate-500 leading-relaxed">
-                  Paga al instante debitando de tu cuenta de ahorros o corriente de todos los bancos en Colombia.
+                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug sm:leading-relaxed">
+                  Paga al instante debitando de tu cuenta de ahorros o corriente en Colombia.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
+              <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-1 text-[10px] sm:text-[11px]">
                 <span className="font-semibold text-emerald-700">Sin comisiones</span>
-                <span className="text-slate-400 font-mono text-[10px]">Aprobación Inmediata</span>
+                <span className="text-slate-400 font-mono text-[9px] sm:text-[10px]">Aprobación Inmediata</span>
               </div>
             </div>
 
             {/* 2. Nequi */}
-            <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
+            <div className="bg-white rounded-xl border border-slate-200 p-3.5 sm:p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between mb-4 mx-auto">
-                  <div className="h-12 px-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5 shadow-xs">
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                  <div className="h-10 sm:h-12 px-2.5 sm:px-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center shadow-xs">
                     <img
                       src="/images/payments/nequi.svg"
                       alt="Nequi Colombia"
-                      className="h-6 w-auto object-contain"
+                      className="h-5 sm:h-6 w-auto object-contain"
                     />
                   </div>
                 </div>
-                <h4 className="text-sm font-bold text-slate-900 mb-1">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 mb-1 leading-snug">
                   Nequi
                 </h4>
-                <p className="text-xs text-slate-500 leading-relaxed">
-                  Pago rápido y seguro desde tu celular mediante notificación push o código dinámico de la app.
+                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug sm:leading-relaxed">
+                  Pago rápido y seguro desde tu celular mediante notificación push o código en la app.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
-                <span className="font-semibold text-emerald-700">100% Desde el móvil</span>
-                <span className="text-slate-400 font-mono text-[10px]">En 5 segundos</span>
+              <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-1 text-[10px] sm:text-[11px]">
+                <span className="font-semibold text-emerald-700">Desde el celular</span>
+                <span className="text-slate-400 font-mono text-[9px] sm:text-[10px]">En 5 segundos</span>
               </div>
             </div>
 
             {/* 3. Tarjetas Crédito & Débito */}
-            <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
+            <div className="bg-white rounded-xl border border-slate-200 p-3.5 sm:p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="h-12 px-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5 shadow-xs">
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                  <div className="h-10 sm:h-12 px-2 sm:px-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-1.5 sm:gap-2.5 shadow-xs">
                     <img
                       src="/images/payments/visa.svg"
                       alt="Visa"
-                      className="h-3.5 w-auto object-contain"
+                      className="h-3 sm:h-3.5 w-auto object-contain"
                     />
-                    <div className="h-5 w-px bg-slate-200" />
+                    <div className="h-4 sm:h-5 w-px bg-slate-200" />
                     <img
                       src="/images/payments/mastercard.svg"
                       alt="Mastercard"
-                      className="h-6 w-auto object-contain"
+                      className="h-5 sm:h-6 w-auto object-contain"
                     />
                   </div>
                 </div>
-                <h4 className="text-sm font-bold text-slate-900 mb-1">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 mb-1 leading-snug">
                   Visa & Mastercard
                 </h4>
-                <p className="text-xs text-slate-500 leading-relaxed">
-                  Tarjetas de crédito y débito con soporte para pago recurrente automático mensual sin interrupciones.
+                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug sm:leading-relaxed">
+                  Tarjetas crédito y débito con soporte para pago recurrente mensual.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
-                <span className="font-semibold text-emerald-700">Débito automático opcional</span>
-                <span className="text-slate-400 font-mono text-[10px]">Cifrado 3D Secure</span>
+              <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-1 text-[10px] sm:text-[11px]">
+                <span className="font-semibold text-emerald-700">Débito automático</span>
+                <span className="text-slate-400 font-mono text-[9px] sm:text-[10px]">Cifrado 3D Secure</span>
               </div>
             </div>
 
             {/* 4. Daviplata */}
-            <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
+            <div className="bg-white rounded-xl border border-slate-200 p-3.5 sm:p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="h-12 px-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center shadow-xs">
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                  <div className="h-10 sm:h-12 px-2.5 sm:px-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center shadow-xs">
                     <img
                       src="/images/payments/daviplata.svg"
                       alt="DaviPlata"
-                      className="h-7 w-auto object-contain"
+                      className="h-6 sm:h-7 w-auto object-contain"
                     />
                   </div>
                 </div>
-                <h4 className="text-sm font-bold text-slate-900 mb-1">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 mb-1 leading-snug">
                   Daviplata
                 </h4>
-                <p className="text-xs text-slate-500 leading-relaxed">
-                  Autorización rápida con saldo disponible en tu billetera digital Daviplata de forma confiable.
+                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug sm:leading-relaxed">
+                  Autorización rápida con saldo disponible en tu billetera digital Daviplata.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
+              <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-1 text-[10px] sm:text-[11px]">
                 <span className="font-semibold text-emerald-700">Sin trámites</span>
-                <span className="text-slate-400 font-mono text-[10px]">Inmediato</span>
+                <span className="text-slate-400 font-mono text-[9px] sm:text-[10px]">Inmediato</span>
               </div>
             </div>
           </div>

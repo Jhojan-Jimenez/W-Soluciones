@@ -234,10 +234,17 @@ export default function RappiMemberHub({ member, onLogout }: RappiMemberHubProps
             className="flex items-center gap-3 cursor-pointer group text-left transition-opacity hover:opacity-95"
             title="Volver a la página principal de Soluciones W"
           >
+            {/* Mobile: Solo la W */}
+            <img
+              src="/images/logo-w-symbol.png"
+              alt="Soluciones W"
+              className="h-7 w-auto object-contain sm:hidden transition-transform group-hover:scale-105"
+            />
+            {/* Desktop / Tablet: Logo completo */}
             <img
               src="/images/logo-soluciones-w.png"
               alt="Soluciones W"
-              className="h-9 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+              className="hidden sm:block h-9 w-auto object-contain transition-transform group-hover:scale-[1.02]"
             />
             <div className="hidden sm:flex flex-col justify-center border-l border-slate-200 pl-3 h-8">
               <span className="text-[10px] font-bold tracking-widest text-[#167394] uppercase block leading-tight">
