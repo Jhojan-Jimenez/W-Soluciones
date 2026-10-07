@@ -456,7 +456,7 @@ export default function HomeView() {
 
             {/* Right Card: Formulario ¡Afíliate en línea ya! */}
             <div className="lg:col-span-5">
-              <div className="bg-white text-slate-900 rounded-2xl p-6 sm:p-8 shadow-xl shadow-slate-200/60 border border-slate-200 relative">
+              <div className="bg-white text-slate-900 rounded-2xl p-6 sm:p-8 shadow-xl shadow-black/25 border border-slate-200 relative">
                 <div className="text-center mb-6">
                   <h2 className="text-2xl font-bold text-[#063a57]">
                     ¡Afíliate en línea ya!
@@ -554,9 +554,6 @@ export default function HomeView() {
       <section id="planes" className="py-20 lg:py-24 bg-[#f8fafc] border-b border-slate-200">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h6 className="text-[12px] font-bold tracking-[2px] text-[#167394] uppercase mb-2">
-              SUSCRIPCIONES MENSUALES TRANSPARENTES
-            </h6>
             <h2 className="text-[32px] sm:text-[38px] font-light text-[#063a57] leading-tight">
               Planes Soluciones W
             </h2>
@@ -763,9 +760,6 @@ export default function HomeView() {
       <section id="servicios" className="py-20 lg:py-24 bg-white">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h6 className="text-[13px] font-bold tracking-[2px] text-[#167394] uppercase mb-2">
-              COBERTURAS AL DETALLE
-            </h6>
             <h2 className="text-[32px] sm:text-[36px] font-light text-[#063a57] leading-tight">
               Los 5 Pilares de Asistencia en Soluciones W
             </h2>
@@ -857,10 +851,6 @@ export default function HomeView() {
       <section id="pagos" className="py-16 lg:py-20 bg-slate-50 border-t border-b border-slate-200">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="inline-flex items-center gap-1.5 bg-[#e8f4f8] text-[#0a5278] border border-cyan-300 px-3.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider mb-3">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#167394]" />
-              PAGOS SEGUROS EN LÍNEA · COLOMBIA
-            </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#063a57] tracking-tight">
               Paga fácil con tus medios favoritos en Colombia
             </h2>
@@ -882,9 +872,6 @@ export default function HomeView() {
                       className="w-full h-full object-contain"
                     />
                   </div>
-                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-blue-50 text-blue-700">
-                    Débito ACH
-                  </span>
                 </div>
                 <h4 className="text-sm font-bold text-slate-900 mb-1">
                   PSE Débito Bancario
@@ -902,17 +889,14 @@ export default function HomeView() {
             {/* 2. Nequi */}
             <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="h-12 px-3 rounded-xl bg-[#200020] flex items-center justify-center shadow-xs">
+                <div className="flex items-center justify-between mb-4 mx-auto">
+                  <div className="h-12 px-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5 shadow-xs">
                     <img
                       src="/images/payments/nequi.svg"
                       alt="Nequi Colombia"
                       className="h-6 w-auto object-contain"
                     />
                   </div>
-                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-fuchsia-50 text-fuchsia-700">
-                    Billetera Móvil
-                  </span>
                 </div>
                 <h4 className="text-sm font-bold text-slate-900 mb-1">
                   Nequi
@@ -944,9 +928,6 @@ export default function HomeView() {
                       className="h-6 w-auto object-contain"
                     />
                   </div>
-                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-emerald-50 text-emerald-700">
-                    Todas las Franquicias
-                  </span>
                 </div>
                 <h4 className="text-sm font-bold text-slate-900 mb-1">
                   Visa & Mastercard
@@ -972,9 +953,6 @@ export default function HomeView() {
                       className="h-7 w-auto object-contain"
                     />
                   </div>
-                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-red-50 text-red-700">
-                    Davivienda
-                  </span>
                 </div>
                 <h4 className="text-sm font-bold text-slate-900 mb-1">
                   Daviplata
