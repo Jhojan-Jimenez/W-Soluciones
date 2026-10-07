@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Stethoscope,
   Ambulance,
@@ -209,6 +209,13 @@ export default function RappiMemberHub({ member, onLogout }: RappiMemberHubProps
 
   const visibleOnDemand = filterList(ON_DEMAND_SERVICES);
   const visibleScheduled = filterList(SCHEDULED_SERVICES);
+
+  // Asegurar inicio al tope del dashboard al cargar la vista
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+  }, []);
 
   const handleOpenService = (service: ServiceItem) => {
     setSelectedService(service);

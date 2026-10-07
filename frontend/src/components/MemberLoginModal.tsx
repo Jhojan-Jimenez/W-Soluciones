@@ -47,6 +47,9 @@ export default function MemberLoginModal({
       validUntil: "04 de Noviembre, 2026",
       address: "Carrera 15 # 85-30, Bogotá"
     });
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
     onClose();
   };
 
@@ -61,6 +64,9 @@ export default function MemberLoginModal({
       validUntil: "04 de Noviembre, 2026",
       address: "Carrera 15 # 85-30, Bogotá"
     });
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
     onClose();
   };
 

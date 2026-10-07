@@ -17,6 +17,15 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## 📱 Especificaciones Clave de UX y Responsive
 1. **Identidad Móvil:** En dispositivos móviles (`< 640px`) se renderiza únicamente el isotipo oficial `W` (`/images/logo-w-symbol.png`), permitiendo que el header respire y los CTAs ("Soy Afiliado" y "WhatsApp") no colisionen.
-2. **Carrusel de Asistencias Móvil:** Los 5 Pilares de Asistencia en móvil cuentan con navegación guiada por botones interactivos (**Anterior** y **Siguiente**), dots de paginación directa y contador de estado (`Pilar X de 6`), eliminando el scroll libre accidental. En desktop se mantiene la cuadrícula completa de 3 columnas.
-3. **Grid 2x2 de Pasarelas de Pago:** En pantallas móviles, los métodos de pago (PSE, Nequi, Tarjetas Visa/Mastercard, Daviplata) se organizan en una cuadrícula simétrica de 2 columnas (`grid-cols-2`), optimizando el espacio visual vertical.
-4. **Línea WhatsApp:** Todo punto de contacto y cotización enlaza directamente a la línea oficial `+57 313 4289397`.
+2. **Carrusel de Asistencias Móvil:** Los 5 Pilares de Asistencia en móvil cuentan con navegación guiada por botones interactivos (**Anterior** y **Siguiente**), dots de paginación directa y contador de estado (`Pilar X de 5`), eliminando el scroll libre accidental. En desktop se mantiene la cuadrícula completa de 3 columnas.
+3. **Card de Emergencias Separada:** La tarjeta de Atención 24 Horas / Emergencias se presenta en una sección independiente destacada en móvil, no mezclada dentro del carrusel de los 5 pilares.
+4. **Grid 2x2 de Pasarelas de Pago:** En pantallas móviles, los métodos de pago (PSE, Nequi, Tarjetas Visa/Mastercard, Daviplata) se organizan en una cuadrícula simétrica de 2 columnas (`grid-cols-2`), optimizando el espacio visual vertical.
+5. **Scroll al tope en Dashboard:** Al autenticarse o entrar a la vista "Soy Afiliado", se fuerza `window.scrollTo({ top: 0, behavior: "instant" })` para que el usuario empiece siempre desde el encabezado superior.
+6. **Línea WhatsApp:** Todo punto de contacto y cotización enlaza directamente a la línea oficial `+57 313 4289397`.
+
+---
+
+## ⚠️ Regla Operativa Estricta: PRIMERO LOCAL (PROHIBIDO AUTO-PUSH Y DEPLOY)
+* **Primero Local:** Todas las modificaciones se programan, verifican y compilan exclusivamente en el entorno local (`pnpm run build` / servidor local).
+* **Cero Push Automático:** NO ejecutar `git push` ni disparar despliegues hacia Coolify / OCI a menos que el usuario lo solicite de manera explícita en su mensaje.
+

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RappiMemberHub from "@/components/RappiMemberHub";
 import MemberLoginModal from "@/components/MemberLoginModal";
 import {
@@ -217,6 +217,13 @@ export default function HomeView() {
   // Authentication & Member Hub (Rappi Style)
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
+  // Asegurar scroll al tope al ingresar al dashboard de afiliados
+  useEffect(() => {
+    if (isAuthenticated && typeof window !== "undefined") {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+  }, [isAuthenticated]);
   const [paymentGateway, setPaymentGateway] = useState<"wompi" | "mercadopago">("wompi");
   const [memberData, setMemberData] = useState({
     fullName: "Carlos Andrés Villamil",
@@ -780,106 +787,92 @@ export default function HomeView() {
             </p>
           </div>
 
-          {/* VISTA MÓVIL: Carrusel guiado por botones interactivos (sin scroll libre) */}
+          {/* VISTA MÓVIL: Carrusel guiado por botones laterales (sin scroll libre) */}
           <div className="md:hidden">
-            {/* Contenedor del Slide visible */}
-            <div className="overflow-hidden rounded-2xl">
-              <div
-                className="flex transition-transform duration-300 ease-out"
-                style={{ transform: `translateX(-${activePillarIndex * 100}%)` }}
-              >
-                {MODULES_LIST.map((mod) => (
-                  <div key={mod.id} className="w-full shrink-0 px-1">
-                    <div className="beerp-card p-6 flex flex-col justify-between h-full min-h-[460px]">
-                      <div>
-                        {/* BeERP 3D Spherical Green Icon */}
-                        <div className="beerp-icon-circle mb-5">
-                          {mod.id === "medica" && <Stethoscope className="w-10 h-10" />}
-                          {mod.id === "ambulancia" && <Ambulance className="w-10 h-10" />}
-                          {mod.id === "mascotas" && <Dog className="w-10 h-10" />}
-                          {mod.id === "hogar" && <Home className="w-10 h-10" />}
-                          {mod.id === "odontologica" && <Smile className="w-10 h-10" />}
-                        </div>
-
-                        <span className="text-xs font-bold text-[#167394] uppercase tracking-wide">
-                          {mod.category}
-                        </span>
-                        <h3 className="text-xl font-bold text-[#063a57] mt-1 mb-2">
-                          {mod.name}
-                        </h3>
-                        <p className="text-xs text-slate-500 leading-relaxed mb-4">
-                          {mod.description}
-                        </p>
-
-                        <ul className="space-y-2 text-xs text-slate-600 mb-6">
-                          {mod.features.map((feat, i) => (
-                            <li key={i} className="flex items-start gap-2">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-[#167394] shrink-0 mt-0.5" />
-                              <span>{feat}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-[11px] text-slate-600">
-                        <strong className="text-slate-800">Límite garantizado:</strong> {mod.limit}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-
-                {/* 6ª Card: Banner card de contacto */}
-                <div className="w-full shrink-0 px-1">
-                  <div className="bg-gradient-to-br from-[#0a5278] to-[#063a57] text-white rounded-2xl p-6 flex flex-col justify-between h-full min-h-[460px] shadow-xl">
-                    <div>
-                      <span className="bg-[#167394] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
-                        ATENCIÓN 24 HORAS
-                      </span>
-                      <h3 className="text-2xl font-bold text-white mt-4 leading-snug">
-                        ¿Necesitas asistencia en este instante?
-                      </h3>
-                      <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                        Llama a nuestra central médica y técnica. Un operador verificará tu cédula y despachará el auxilio de inmediato.
-                      </p>
-                      <div className="my-6 pt-4 border-t border-white/20">
-                        <span className="text-xs text-slate-300 block">Línea Nacional</span>
-                        <p className="text-2xl font-bold text-white">+57 (601) 745-9000</p>
-                      </div>
-                    </div>
-
-                    <a
-                      href="https://wa.me/573134289397"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="w-full bg-[#167394] hover:bg-[#0a5278] text-white py-3.5 rounded-xl text-center font-bold text-xs uppercase tracking-wider block shadow-md transition"
-                    >
-                      Abrir WhatsApp de Emergencias
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Controles de Navegación del Carrusel Móvil */}
-            <div className="flex items-center justify-between gap-3 mt-5 px-1">
+            <div className="relative flex items-center justify-between">
+              {/* Botón Anterior a la izquierda de la card */}
               <button
                 type="button"
                 onClick={() => setActivePillarIndex((prev) => Math.max(0, prev - 1))}
                 disabled={activePillarIndex === 0}
-                className={`flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-bold transition border ${
+                className={`absolute left-0 z-20 w-9 h-9 -ml-1 sm:-ml-2 rounded-full flex items-center justify-center transition border shadow-md ${
                   activePillarIndex === 0
-                    ? "bg-slate-100 text-slate-300 border-slate-200 cursor-not-allowed"
-                    : "bg-white text-[#063a57] border-slate-300 hover:bg-slate-50 shadow-xs active:scale-95"
+                    ? "bg-slate-100 text-slate-300 border-slate-200 cursor-not-allowed opacity-30"
+                    : "bg-white text-[#063a57] border-slate-300 hover:bg-slate-50 shadow-sm active:scale-90"
                 }`}
                 aria-label="Pilar anterior"
               >
-                <ChevronLeft className="w-4 h-4" />
-                <span>Anterior</span>
+                <ChevronLeft className="w-5 h-5" />
               </button>
 
-              {/* Dots interactivos */}
+              {/* Contenedor del Slide visible */}
+              <div className="w-full overflow-hidden rounded-2xl px-5 sm:px-6">
+                <div
+                  className="flex transition-transform duration-300 ease-out"
+                  style={{ transform: `translateX(-${activePillarIndex * 100}%)` }}
+                >
+                  {MODULES_LIST.map((mod) => (
+                    <div key={mod.id} className="w-full shrink-0 px-1">
+                      <div className="beerp-card p-6 flex flex-col justify-between items-center text-center h-full min-h-[460px]">
+                        <div className="w-full flex flex-col items-center">
+                          {/* BeERP 3D Spherical Green Icon */}
+                          <div className="beerp-icon-circle mb-5 mx-auto flex items-center justify-center">
+                            {mod.id === "medica" && <Stethoscope className="w-10 h-10" />}
+                            {mod.id === "ambulancia" && <Ambulance className="w-10 h-10" />}
+                            {mod.id === "mascotas" && <Dog className="w-10 h-10" />}
+                            {mod.id === "hogar" && <Home className="w-10 h-10" />}
+                            {mod.id === "odontologica" && <Smile className="w-10 h-10" />}
+                          </div>
+
+                          <span className="text-xs font-bold text-[#167394] uppercase tracking-wide block text-center">
+                            {mod.category}
+                          </span>
+                          <h3 className="text-xl font-bold text-[#063a57] mt-1 mb-2 text-center">
+                            {mod.name}
+                          </h3>
+                          <p className="text-xs text-slate-500 leading-relaxed mb-5 text-center max-w-xs mx-auto">
+                            {mod.description}
+                          </p>
+
+                          <ul className="space-y-2.5 text-xs text-slate-600 mb-6 text-center w-full">
+                            {mod.features.map((feat, i) => (
+                              <li key={i} className="flex items-center justify-center gap-2 text-center">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-[#167394] shrink-0" />
+                                <span>{feat}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div className="bg-slate-50 p-3 rounded-xl border border-slate-100 text-[11px] text-slate-600 text-center w-full">
+                          <strong className="text-slate-800">Límite garantizado:</strong> {mod.limit}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Botón Siguiente a la derecha de la card */}
+              <button
+                type="button"
+                onClick={() => setActivePillarIndex((prev) => Math.min(4, prev + 1))}
+                disabled={activePillarIndex === 4}
+                className={`absolute right-0 z-20 w-9 h-9 -mr-1 sm:-mr-2 rounded-full flex items-center justify-center transition border shadow-md ${
+                  activePillarIndex === 4
+                    ? "bg-slate-100 text-slate-300 border-slate-200 cursor-not-allowed opacity-30"
+                    : "bg-white text-[#063a57] border-slate-300 hover:bg-slate-50 shadow-sm active:scale-90"
+                }`}
+                aria-label="Pilar siguiente"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Dots y contador centrados abajo */}
+            <div className="flex flex-col items-center justify-center gap-2 mt-4">
               <div className="flex items-center gap-1.5">
-                {[0, 1, 2, 3, 4, 5].map((idx) => (
+                {[0, 1, 2, 3, 4].map((idx) => (
                   <button
                     key={idx}
                     type="button"
@@ -889,30 +882,44 @@ export default function HomeView() {
                         ? "w-6 bg-[#167394]"
                         : "w-2.5 bg-slate-300 hover:bg-slate-400"
                     }`}
-                    aria-label={`Ir a tarjeta ${idx + 1}`}
+                    aria-label={`Ir al pilar ${idx + 1}`}
                   />
                 ))}
               </div>
-
-              <button
-                type="button"
-                onClick={() => setActivePillarIndex((prev) => Math.min(5, prev + 1))}
-                disabled={activePillarIndex === 5}
-                className={`flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-bold transition border ${
-                  activePillarIndex === 5
-                    ? "bg-slate-100 text-slate-300 border-slate-200 cursor-not-allowed"
-                    : "bg-white text-[#063a57] border-slate-300 hover:bg-slate-50 shadow-xs active:scale-95"
-                }`}
-                aria-label="Pilar siguiente"
-              >
-                <span>Siguiente</span>
-                <ChevronRight className="w-4 h-4" />
-              </button>
+              <p className="text-center text-[11px] text-slate-400 font-medium">
+                Pilar {activePillarIndex + 1} de 5
+              </p>
             </div>
+          </div>
 
-            <p className="text-center text-[11px] text-slate-400 font-medium mt-2">
-              Pilar {activePillarIndex + 1} de 6
-            </p>
+          {/* SECCIÓN SEPARADA EN MÓVIL: Card de Emergencias 24 Horas */}
+          <div className="md:hidden mt-8">
+            <div className="bg-gradient-to-br from-[#0a5278] to-[#063a57] text-white rounded-2xl p-6 sm:p-7 shadow-xl border border-[#167394]/30">
+              <div>
+                <span className="bg-[#167394] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider inline-block mb-3">
+                  ATENCIÓN 24 HORAS
+                </span>
+                <h3 className="text-2xl font-bold text-white leading-snug">
+                  ¿Necesitas asistencia en este instante?
+                </h3>
+                <p className="text-xs text-slate-300 mt-2 leading-relaxed">
+                  Llama a nuestra central médica y técnica. Un operador verificará tu cédula y despachará el auxilio de inmediato.
+                </p>
+                <div className="my-5 pt-4 border-t border-white/20">
+                  <span className="text-xs text-slate-300 block">Línea Nacional</span>
+                  <p className="text-2xl font-bold text-white tracking-wide">+57 (601) 745-9000</p>
+                </div>
+              </div>
+
+              <a
+                href="https://wa.me/573134289397"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full bg-[#167394] hover:bg-[#0a5278] text-white py-3.5 rounded-xl text-center font-bold text-xs uppercase tracking-wider block shadow-md hover:shadow-lg transition"
+              >
+                Abrir WhatsApp de Emergencias
+              </a>
+            </div>
           </div>
 
           {/* VISTA DESKTOP / TABLET: Grid Estático */}
@@ -1004,9 +1011,9 @@ export default function HomeView() {
           {/* Grid de Medios de Pago en Móvil (2x2) y Desktop (4 cols) */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
             {/* 1. PSE Débito */}
-            <div className="bg-white rounded-xl border border-slate-200 p-3.5 sm:p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <div className="bg-white rounded-xl border border-slate-200 p-3.5 sm:p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between items-center text-center">
+              <div className="w-full flex flex-col items-center">
+                <div className="flex items-center justify-center mb-3 sm:mb-4">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center p-1 sm:p-1.5 shadow-xs">
                     <img
                       src="/images/payments/pse.png"
@@ -1015,23 +1022,23 @@ export default function HomeView() {
                     />
                   </div>
                 </div>
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900 mb-1 leading-snug">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 mb-1 leading-snug text-center">
                   PSE Débito Bancario
                 </h4>
-                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug sm:leading-relaxed">
+                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug sm:leading-relaxed text-center">
                   Paga al instante debitando de tu cuenta de ahorros o corriente en Colombia.
                 </p>
               </div>
-              <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-1 text-[10px] sm:text-[11px]">
+              <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-col items-center justify-center text-center gap-0.5 text-[10px] sm:text-[11px] w-full">
                 <span className="font-semibold text-emerald-700">Sin comisiones</span>
                 <span className="text-slate-400 font-mono text-[9px] sm:text-[10px]">Aprobación Inmediata</span>
               </div>
             </div>
 
             {/* 2. Nequi */}
-            <div className="bg-white rounded-xl border border-slate-200 p-3.5 sm:p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <div className="bg-white rounded-xl border border-slate-200 p-3.5 sm:p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between items-center text-center">
+              <div className="w-full flex flex-col items-center">
+                <div className="flex items-center justify-center mb-3 sm:mb-4">
                   <div className="h-10 sm:h-12 px-2.5 sm:px-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center shadow-xs">
                     <img
                       src="/images/payments/nequi.svg"
@@ -1040,23 +1047,23 @@ export default function HomeView() {
                     />
                   </div>
                 </div>
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900 mb-1 leading-snug">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 mb-1 leading-snug text-center">
                   Nequi
                 </h4>
-                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug sm:leading-relaxed">
+                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug sm:leading-relaxed text-center">
                   Pago rápido y seguro desde tu celular mediante notificación push o código en la app.
                 </p>
               </div>
-              <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-1 text-[10px] sm:text-[11px]">
+              <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-col items-center justify-center text-center gap-0.5 text-[10px] sm:text-[11px] w-full">
                 <span className="font-semibold text-emerald-700">Desde el celular</span>
                 <span className="text-slate-400 font-mono text-[9px] sm:text-[10px]">En 5 segundos</span>
               </div>
             </div>
 
             {/* 3. Tarjetas Crédito & Débito */}
-            <div className="bg-white rounded-xl border border-slate-200 p-3.5 sm:p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <div className="bg-white rounded-xl border border-slate-200 p-3.5 sm:p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between items-center text-center">
+              <div className="w-full flex flex-col items-center">
+                <div className="flex items-center justify-center mb-3 sm:mb-4">
                   <div className="h-10 sm:h-12 px-2 sm:px-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-1.5 sm:gap-2.5 shadow-xs">
                     <img
                       src="/images/payments/visa.svg"
@@ -1071,23 +1078,23 @@ export default function HomeView() {
                     />
                   </div>
                 </div>
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900 mb-1 leading-snug">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 mb-1 leading-snug text-center">
                   Visa & Mastercard
                 </h4>
-                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug sm:leading-relaxed">
+                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug sm:leading-relaxed text-center">
                   Tarjetas crédito y débito con soporte para pago recurrente mensual.
                 </p>
               </div>
-              <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-1 text-[10px] sm:text-[11px]">
+              <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-col items-center justify-center text-center gap-0.5 text-[10px] sm:text-[11px] w-full">
                 <span className="font-semibold text-emerald-700">Débito automático</span>
                 <span className="text-slate-400 font-mono text-[9px] sm:text-[10px]">Cifrado 3D Secure</span>
               </div>
             </div>
 
             {/* 4. Daviplata */}
-            <div className="bg-white rounded-xl border border-slate-200 p-3.5 sm:p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <div className="bg-white rounded-xl border border-slate-200 p-3.5 sm:p-5 shadow-xs hover:shadow-md hover:border-[#167394]/50 transition flex flex-col justify-between items-center text-center">
+              <div className="w-full flex flex-col items-center">
+                <div className="flex items-center justify-center mb-3 sm:mb-4">
                   <div className="h-10 sm:h-12 px-2.5 sm:px-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center shadow-xs">
                     <img
                       src="/images/payments/daviplata.svg"
@@ -1096,14 +1103,14 @@ export default function HomeView() {
                     />
                   </div>
                 </div>
-                <h4 className="text-xs sm:text-sm font-bold text-slate-900 mb-1 leading-snug">
+                <h4 className="text-xs sm:text-sm font-bold text-slate-900 mb-1 leading-snug text-center">
                   Daviplata
                 </h4>
-                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug sm:leading-relaxed">
+                <p className="text-[11px] sm:text-xs text-slate-500 leading-snug sm:leading-relaxed text-center">
                   Autorización rápida con saldo disponible en tu billetera digital Daviplata.
                 </p>
               </div>
-              <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-1 text-[10px] sm:text-[11px]">
+              <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-100 flex flex-col items-center justify-center text-center gap-0.5 text-[10px] sm:text-[11px] w-full">
                 <span className="font-semibold text-emerald-700">Sin trámites</span>
                 <span className="text-slate-400 font-mono text-[9px] sm:text-[10px]">Inmediato</span>
               </div>
@@ -1393,6 +1400,9 @@ export default function HomeView() {
         onLoginSuccess={(data) => {
           setMemberData(data);
           setIsAuthenticated(true);
+          if (typeof window !== "undefined") {
+            window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+          }
         }}
       />
 
