@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import RappiMemberHub from "@/components/RappiMemberHub";
+import MemberLoginModal from "@/components/MemberLoginModal";
 import {
   Stethoscope,
   Ambulance,
@@ -30,7 +32,10 @@ import {
   Sparkles,
   HelpCircle,
   CheckCheck,
-  Shield
+  Shield,
+  User,
+  Globe,
+  CheckSquare
 } from "lucide-react";
 
 interface AssistanceModule {
@@ -192,7 +197,22 @@ export default function HomeView() {
   } | null>(null);
 
   // FAQ Accordion
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+    const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  // Authentication & Member Hub (Rappi Style)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [paymentGateway, setPaymentGateway] = useState<"wompi" | "mercadopago">("wompi");
+  const [memberData, setMemberData] = useState({
+    fullName: "Carlos Andrés Villamil",
+    docNumber: "1018492031",
+    phone: "313 428 9397",
+    email: "carlos.villamil@gmail.com",
+    contractNumber: "SW-849102",
+    planName: "Plan Plus Familiar 360°",
+    validUntil: "04 de Noviembre, 2026",
+    address: "Carrera 15 # 85-30, Bogotá"
+  });
 
   // Pricing Matrix
   const planPrices = {
@@ -234,11 +254,22 @@ export default function HomeView() {
     setTimeout(() => {
       setIsProcessing(false);
       const randomContract = "SW-" + Math.floor(100000 + Math.random() * 900000);
-      setGeneratedPolicy({
+      const policyData = {
         contractNumber: randomContract,
         date: new Date().toLocaleDateString("es-CO", { year: "numeric", month: "long", day: "numeric" }),
         totalPaid: currentFinalPrice,
         planName: planPrices[selectedPlan].name
+      };
+      setGeneratedPolicy(policyData);
+      setMemberData({
+        fullName: formData.fullName || "Nuevo Afiliado",
+        docNumber: formData.docNumber || "1020304050",
+        phone: formData.phone || "300 123 4567",
+        email: formData.email || "afiliado@correo.com",
+        contractNumber: randomContract,
+        planName: planPrices[selectedPlan].name,
+        validUntil: "Noviembre 2026",
+        address: formData.address || "Bogotá D.C., Colombia"
       });
       setCheckoutStep(3);
     }, 1400);
@@ -264,56 +295,71 @@ export default function HomeView() {
     }
   };
 
+  if (isAuthenticated) {
+    return (
+      <RappiMemberHub
+        member={memberData}
+        onLogout={() => setIsAuthenticated(false)}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white text-slate-700 flex flex-col font-sans pb-16 md:pb-0">
       {/* 1. TOP NAVBAR (High contrast, professional and clean) */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-          {/* Logo with Green Striped Emblem and Navy Typography */}
+          {/* Logo Oficial Soluciones W (Upscaled HD) */}
           <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#77da00] via-[#5dab00] to-[#458500] flex items-center justify-center p-2.5 shadow-md shadow-[#5dab00]/25 shrink-0">
-              <svg viewBox="0 0 40 40" className="w-full h-full text-white fill-none stroke-current stroke-[3.5] stroke-linecap-round">
-                <path d="M12 8 L22 32" />
-                <path d="M20 8 L30 32" />
-                <circle cx="20" cy="20" r="18" strokeWidth="2.5" />
-              </svg>
-            </div>
-            <div>
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-2xl font-extrabold text-[#03056b] tracking-tight">ERP</span>
-                <span className="text-xl font-bold text-[#040a44]">Soluciones W</span>
-              </div>
-              <p className="text-[10px] text-slate-500 font-medium tracking-wider uppercase leading-none">
+            <img
+              src="/images/logo-soluciones-w.png"
+              alt="Soluciones W Logo"
+              className="h-10 sm:h-12 w-auto object-contain"
+            />
+            <div className="hidden sm:block border-l border-slate-200 pl-3">
+              <span className="text-[10px] font-extrabold text-[#167394] tracking-wider uppercase block">
+                Plataforma de Afiliaciones
+              </span>
+              <p className="text-[10px] text-slate-500 font-medium tracking-wide uppercase leading-none">
                 Asistencia Familiar & Hogar · Dir. Wilson Triana
               </p>
             </div>
           </div>
 
-          {/* Right Section: Phone Line + WhatsApp Action Button */}
-          <div className="flex items-center gap-5 sm:gap-7">
-            {/* Phone direct call */}
+          {/* Right Section: Member Hub Login + Phone + WhatsApp CTA */}
+          <div className="flex items-center gap-3 sm:gap-5">
+            {/* Direct Phone Call */}
             <a
               href="tel:6017459000"
-              className="hidden lg:flex items-center gap-3 text-left hover:opacity-90 transition"
+              className="hidden xl:flex items-center gap-2.5 text-left hover:opacity-90 transition"
             >
-              <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-[#03056b]">
-                <Phone className="w-5 h-5 stroke-[1.8]" />
+              <div className="w-9 h-9 rounded-full bg-[#e8f4f8] flex items-center justify-center text-[#167394]">
+                <Phone className="w-4 h-4" />
               </div>
               <div className="leading-tight">
-                <span className="block text-[11px] text-slate-500 font-medium">Línea de Afiliaciones 24/7</span>
-                <span className="block text-base font-bold text-[#040a44]">601 745 90 00</span>
+                <span className="block text-[10px] text-slate-500 font-medium">Central 24/7</span>
+                <span className="block text-xs font-bold text-[#0a5278]">601 745 90 00</span>
               </div>
             </a>
 
-            {/* WhatsApp CTA Button in BeERP lime green */}
+            {/* "Soy Afiliado" button -> Rappi Hub */}
+            <button
+              onClick={() => setIsLoginModalOpen(true)}
+              className="bg-white hover:bg-slate-50 text-[#167394] border border-[#167394]/30 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-xs transition"
+            >
+              <User className="w-4 h-4 text-[#167394]" />
+              <span>Soy Afiliado</span>
+            </button>
+
+            {/* WhatsApp CTA Button */}
             <a
               href="https://wa.me/573203282014"
               target="_blank"
               rel="noreferrer"
-              className="beerp-btn-green px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-sm hover:shadow-md transition"
+              className="bg-[#167394] hover:bg-[#0a5278] text-white px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 shadow-sm hover:shadow-md transition"
             >
               <MessageCircle className="w-4 h-4 text-white" />
-              <span className="hidden xs:inline">Asesoría por</span> WhatsApp
+              <span className="hidden xs:inline">Asesoría</span> WhatsApp
             </a>
           </div>
         </div>
@@ -338,16 +384,16 @@ export default function HomeView() {
             {/* Left Content: Enterprise Typography & High Contrast */}
             <div className="lg:col-span-7 space-y-6">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-[#5dab00]" />
+              <div className="inline-flex items-center gap-2 bg-[#e8f4f8] border border-cyan-300 text-[#0a5278] text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-[#167394]" />
                 <span>AFILIACIÓN DIGITAL INMEDIATA EN MENOS DE 2 MINUTOS</span>
               </div>
 
               {/* H1 Headline (Plus Jakarta Sans for corporate authority, lime green for highlight) */}
-              <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-bold text-[#040a44] leading-[1.12] tracking-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-bold text-[#063a57] leading-[1.12] tracking-tight">
                 Con Soluciones W <br />
                 estarás seguro y <br />
-                <strong className="text-[#5dab00] font-extrabold">protegido 24/7</strong>
+                <strong className="text-[#167394] font-extrabold">protegido 24/7</strong>
               </h1>
 
               {/* Subheading in Inter */}
@@ -370,9 +416,9 @@ export default function HomeView() {
 
                 <a
                   href="tel:6017459000"
-                  className="bg-white hover:bg-slate-50 text-[#040a44] border-2 border-slate-300 px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition shadow-sm hover:border-[#040a44]"
+                  className="bg-white hover:bg-slate-50 text-[#063a57] border-2 border-slate-300 px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition shadow-sm hover:border-[#063a57]"
                 >
-                  <Phone className="w-4 h-4 text-[#03056b]" />
+                  <Phone className="w-4 h-4 text-[#0a5278]" />
                   <span>Llamar a la Central</span>
                 </a>
               </div>
@@ -380,15 +426,15 @@ export default function HomeView() {
               {/* Trust Indicators */}
               <div className="pt-6 border-t border-slate-200 flex flex-wrap gap-6 text-xs text-slate-600 font-medium">
                 <div className="flex items-center gap-2">
-                  <CheckCheck className="w-4 h-4 text-[#5dab00]" />
+                  <CheckCheck className="w-4 h-4 text-[#167394]" />
                   <span>Sin períodos de carencia</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCheck className="w-4 h-4 text-[#5dab00]" />
+                  <CheckCheck className="w-4 h-4 text-[#167394]" />
                   <span>Sin exámenes médicos</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCheck className="w-4 h-4 text-[#5dab00]" />
+                  <CheckCheck className="w-4 h-4 text-[#167394]" />
                   <span>Sin permanencia</span>
                 </div>
               </div>
@@ -398,7 +444,7 @@ export default function HomeView() {
             <div className="lg:col-span-5">
               <div className="bg-white text-slate-900 rounded-2xl p-6 sm:p-8 shadow-xl shadow-slate-200/60 border border-slate-200 relative">
                 <div className="text-center mb-6">
-                  <h2 className="text-2xl font-bold text-[#040a44]">
+                  <h2 className="text-2xl font-bold text-[#063a57]">
                     ¡Afíliate en línea ya!
                   </h2>
                   <p className="text-xs text-slate-500 mt-1">
@@ -417,7 +463,7 @@ export default function HomeView() {
                       placeholder="Ingresa tu nombre completo"
                       value={quickLead.name}
                       onChange={(e) => setQuickLead({ ...quickLead, name: e.target.value })}
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00] focus:bg-white transition"
+                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#167394] focus:bg-white transition"
                     />
                   </div>
 
@@ -431,7 +477,7 @@ export default function HomeView() {
                       placeholder="ejemplo.correo@gmail.com"
                       value={quickLead.email}
                       onChange={(e) => setQuickLead({ ...quickLead, email: e.target.value })}
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00] focus:bg-white transition"
+                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#167394] focus:bg-white transition"
                     />
                   </div>
 
@@ -445,7 +491,7 @@ export default function HomeView() {
                       placeholder="300 000 00 00"
                       value={quickLead.phone}
                       onChange={(e) => setQuickLead({ ...quickLead, phone: e.target.value })}
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00] focus:bg-white transition"
+                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#167394] focus:bg-white transition"
                     />
                   </div>
 
@@ -456,7 +502,7 @@ export default function HomeView() {
                     <select
                       value={selectedPlan}
                       onChange={(e) => setSelectedPlan(e.target.value as any)}
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#5dab00] focus:bg-white transition font-medium"
+                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-xs text-slate-900 focus:outline-none focus:border-[#167394] focus:bg-white transition font-medium"
                     >
                       <option value="plus">Plan Plus Familiar 360° ($54.900/mes) - Recomendado</option>
                       <option value="tradicional">Plan Tradicional Hogar & Salud ($39.900/mes)</option>
@@ -466,7 +512,7 @@ export default function HomeView() {
 
                   <button
                     type="submit"
-                    className="w-full beerp-btn-green py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 mt-2"
+                    className="w-full bg-[#167394] hover:bg-[#0a5278] text-white py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 mt-2"
                   >
                     <span>Continuar Afiliación</span>
                     <ArrowRight className="w-4 h-4 text-white" />
@@ -476,7 +522,7 @@ export default function HomeView() {
                     <p>* Campos obligatorios</p>
                     <p>
                       Al continuar, estás aceptando nuestros{" "}
-                      <a href="#terminos" className="text-[#040a44] font-semibold underline">
+                      <a href="#terminos" className="text-[#063a57] font-semibold underline">
                         términos y condiciones
                       </a>{" "}
                       y política de Habeas Data.
@@ -494,10 +540,10 @@ export default function HomeView() {
       <section id="planes" className="py-20 lg:py-24 bg-[#f8fafc] border-b border-slate-200">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h6 className="text-[12px] font-bold tracking-[2px] text-[#5dab00] uppercase mb-2">
+            <h6 className="text-[12px] font-bold tracking-[2px] text-[#167394] uppercase mb-2">
               SUSCRIPCIONES MENSUALES TRANSPARENTES
             </h6>
-            <h2 className="text-[32px] sm:text-[38px] font-light text-[#040a44] leading-tight">
+            <h2 className="text-[32px] sm:text-[38px] font-light text-[#063a57] leading-tight">
               Planes Soluciones W
             </h2>
             <p className="mt-3 text-slate-600 text-sm">
@@ -509,7 +555,7 @@ export default function HomeView() {
               <button
                 onClick={() => setBillingPeriod("monthly")}
                 className={`px-4 py-2 text-xs font-semibold rounded-lg transition ${
-                  billingPeriod === "monthly" ? "bg-[#040a44] text-white shadow" : "text-slate-600 hover:text-slate-900"
+                  billingPeriod === "monthly" ? "bg-[#063a57] text-white shadow" : "text-slate-600 hover:text-slate-900"
                 }`}
               >
                 Pago Mensual
@@ -517,7 +563,7 @@ export default function HomeView() {
               <button
                 onClick={() => setBillingPeriod("annual")}
                 className={`px-4 py-2 text-xs font-semibold rounded-lg transition ${
-                  billingPeriod === "annual" ? "beerp-btn-green text-white shadow" : "text-slate-600 hover:text-slate-900"
+                  billingPeriod === "annual" ? "bg-[#167394] hover:bg-[#0a5278] text-white text-white shadow" : "text-slate-600 hover:text-slate-900"
                 }`}
               >
                 Pago Anual (2 Meses Gratis)
@@ -534,7 +580,7 @@ export default function HomeView() {
                 <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
                   Básico Individual
                 </span>
-                <h3 className="text-xl font-bold text-[#040a44]">{planPrices.virtual.name}</h3>
+                <h3 className="text-xl font-bold text-[#063a57]">{planPrices.virtual.name}</h3>
                 <p className="text-xs text-slate-500 mt-1 min-h-[34px]">
                   Atención médica 100% virtual sin esperas, ideal para personas jóvenes e independientes.
                 </p>
@@ -542,7 +588,7 @@ export default function HomeView() {
                 <div className="my-6 py-4 border-t border-b border-slate-100 text-center bg-slate-50 rounded-xl">
                   <span className="text-xs text-slate-500 block">Tarifa Neta</span>
                   <div className="flex items-baseline justify-center gap-1">
-                    <span className="text-3xl font-extrabold text-[#03056b]">
+                    <span className="text-3xl font-extrabold text-[#0a5278]">
                       ${(billingPeriod === "monthly" ? 24900 : 249000).toLocaleString("es-CO")}
                     </span>
                     <span className="text-xs text-slate-500 font-semibold">
@@ -554,15 +600,15 @@ export default function HomeView() {
 
                 <ul className="space-y-3 text-xs text-slate-600 mb-8">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#167394] shrink-0 mt-0.5" />
                     <span>Telemedicina ilimitada 24/7 con fórmula médica digital</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#167394] shrink-0 mt-0.5" />
                     <span>Orientación médica y pediátrica telefónica</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#167394] shrink-0 mt-0.5" />
                     <span>Odontología preventiva (1 profilaxis anual sin costo)</span>
                   </li>
                   <li className="flex items-start gap-2 text-slate-400">
@@ -574,7 +620,7 @@ export default function HomeView() {
 
               <button
                 onClick={() => handleSelectPlanAndCheckout("virtual")}
-                className="w-full bg-[#040a44] hover:bg-[#03056b] text-white py-3 rounded-xl font-bold uppercase tracking-wider text-xs transition"
+                className="w-full bg-[#063a57] hover:bg-[#0a5278] text-white py-3 rounded-xl font-bold uppercase tracking-wider text-xs transition"
               >
                 Elegir Plan Virtual
               </button>
@@ -586,7 +632,7 @@ export default function HomeView() {
                 <span className="text-[11px] font-bold uppercase tracking-wider text-blue-600 block mb-1">
                   Protección Hogar
                 </span>
-                <h3 className="text-xl font-bold text-[#040a44]">{planPrices.tradicional.name}</h3>
+                <h3 className="text-xl font-bold text-[#063a57]">{planPrices.tradicional.name}</h3>
                 <p className="text-xs text-slate-500 mt-1 min-h-[34px]">
                   Médico a domicilio, ambulancia y auxilio básico para reparaciones urgentes del hogar.
                 </p>
@@ -594,7 +640,7 @@ export default function HomeView() {
                 <div className="my-6 py-4 border-t border-b border-slate-100 text-center bg-slate-50 rounded-xl">
                   <span className="text-xs text-slate-500 block">Tarifa Neta</span>
                   <div className="flex items-baseline justify-center gap-1">
-                    <span className="text-3xl font-extrabold text-[#03056b]">
+                    <span className="text-3xl font-extrabold text-[#0a5278]">
                       ${(billingPeriod === "monthly" ? 39900 : 399000).toLocaleString("es-CO")}
                     </span>
                     <span className="text-xs text-slate-500 font-semibold">
@@ -606,19 +652,19 @@ export default function HomeView() {
 
                 <ul className="space-y-3 text-xs text-slate-600 mb-8">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#167394] shrink-0 mt-0.5" />
                     <span>Médico general presencial a domicilio (hasta 3 eventos)</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#167394] shrink-0 mt-0.5" />
                     <span>Traslado de ambulancia medicalizada y básica 24/7</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#167394] shrink-0 mt-0.5" />
                     <span>Plomería y cerrajería de urgencia en el hogar</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#167394] shrink-0 mt-0.5" />
                     <span>Telemedicina ilimitada + Odontología preventiva</span>
                   </li>
                 </ul>
@@ -626,62 +672,62 @@ export default function HomeView() {
 
               <button
                 onClick={() => handleSelectPlanAndCheckout("tradicional")}
-                className="w-full bg-[#040a44] hover:bg-[#03056b] text-white py-3 rounded-xl font-bold uppercase tracking-wider text-xs transition"
+                className="w-full bg-[#063a57] hover:bg-[#0a5278] text-white py-3 rounded-xl font-bold uppercase tracking-wider text-xs transition"
               >
                 Elegir Plan Tradicional
               </button>
             </div>
 
             {/* Plan 3: Plan Plus Familiar 360° (MÁS POPULAR / HIGHLIGHTED) */}
-            <div className="bg-white rounded-2xl p-7 flex flex-col justify-between shadow-xl relative border-2 border-[#5dab00] transform md:-translate-y-2">
+            <div className="bg-white rounded-2xl p-7 flex flex-col justify-between shadow-xl relative border-2 border-[#167394] transform md:-translate-y-2">
               {/* Badge EMI style */}
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#5dab00] text-white text-[11px] font-extrabold px-4 py-1 rounded-full uppercase tracking-wider shadow-sm">
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#167394] text-white text-[11px] font-extrabold px-4 py-1 rounded-full uppercase tracking-wider shadow-sm">
                 MÁS POPULAR · RECOMENDADO
               </div>
 
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#5dab00] block mb-1">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#167394] block mb-1">
                   Protección Integral 360°
                 </span>
-                <h3 className="text-xl font-bold text-[#040a44]">{planPrices.plus.name}</h3>
+                <h3 className="text-xl font-bold text-[#063a57]">{planPrices.plus.name}</h3>
                 <p className="text-xs text-slate-500 mt-1 min-h-[34px]">
                   Cobertura completa: Salud, Ambulancia, Mascotas, Hogar y Odontología.
                 </p>
 
-                <div className="my-6 py-4 border-t border-b border-slate-100 text-center bg-emerald-50/60 rounded-xl">
-                  <span className="text-xs text-emerald-800 font-semibold block">Tarifa Especial Combo</span>
+                <div className="my-6 py-4 border-t border-b border-slate-100 text-center bg-[#e8f4f8] rounded-xl">
+                  <span className="text-xs text-[#0a5278] font-semibold block">Tarifa Especial Combo</span>
                   <div className="flex items-baseline justify-center gap-1">
-                    <span className="text-4xl font-extrabold text-[#03056b]">
+                    <span className="text-4xl font-extrabold text-[#0a5278]">
                       ${(billingPeriod === "monthly" ? 54900 : 549000).toLocaleString("es-CO")}
                     </span>
                     <span className="text-xs text-slate-500 font-semibold">
                       COP / {billingPeriod === "monthly" ? "mes" : "año"}
                     </span>
                   </div>
-                  <span className="text-[11px] text-[#5dab00] font-bold block mt-1">
+                  <span className="text-[11px] text-[#167394] font-bold block mt-1">
                     Incluye las 5 Asistencias Esenciales
                   </span>
                 </div>
 
                 <ul className="space-y-3 text-xs text-slate-700 mb-8">
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#167394] shrink-0 mt-0.5" />
                     <span className="font-semibold text-slate-900">Médico a domicilio + Telemedicina 24/7</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#167394] shrink-0 mt-0.5" />
                     <span className="font-semibold text-slate-900">Ambulancia medicalizada prioritaria</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#167394] shrink-0 mt-0.5" />
                     <span className="font-semibold text-slate-900">Asistencia veterinaria para mascotas (urgencias y vacunas)</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#167394] shrink-0 mt-0.5" />
                     <span className="font-semibold text-slate-900">Plomería, cerrajería y electricidad en casa</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#5dab00] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#167394] shrink-0 mt-0.5" />
                     <span className="font-semibold text-slate-900">Odontología de urgencia + 1 limpieza profunda anual</span>
                   </li>
                 </ul>
@@ -689,7 +735,7 @@ export default function HomeView() {
 
               <button
                 onClick={() => handleSelectPlanAndCheckout("plus")}
-                className="w-full beerp-btn-green py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-md hover:shadow-lg transition text-white"
+                className="w-full bg-[#167394] hover:bg-[#0a5278] text-white py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs shadow-md hover:shadow-lg transition text-white"
               >
                 Activar Plan Plus 360°
               </button>
@@ -703,10 +749,10 @@ export default function HomeView() {
       <section id="servicios" className="py-20 lg:py-24 bg-white">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h6 className="text-[13px] font-bold tracking-[2px] text-[#5dab00] uppercase mb-2">
+            <h6 className="text-[13px] font-bold tracking-[2px] text-[#167394] uppercase mb-2">
               COBERTURAS AL DETALLE
             </h6>
-            <h2 className="text-[32px] sm:text-[36px] font-light text-[#040a44] leading-tight">
+            <h2 className="text-[32px] sm:text-[36px] font-light text-[#063a57] leading-tight">
               Los 5 Pilares de Asistencia en Soluciones W
             </h2>
             <p className="mt-3 text-sm text-slate-500">
@@ -730,10 +776,10 @@ export default function HomeView() {
                     {mod.id === "odontologica" && <Smile className="w-10 h-10" />}
                   </div>
 
-                  <span className="text-xs font-bold text-[#5dab00] uppercase tracking-wide">
+                  <span className="text-xs font-bold text-[#167394] uppercase tracking-wide">
                     {mod.category}
                   </span>
-                  <h3 className="text-xl font-bold text-[#040a44] mt-1 mb-2">
+                  <h3 className="text-xl font-bold text-[#063a57] mt-1 mb-2">
                     {mod.name}
                   </h3>
                   <p className="text-xs text-slate-500 leading-relaxed mb-4">
@@ -743,7 +789,7 @@ export default function HomeView() {
                   <ul className="space-y-2 text-xs text-slate-600 mb-6">
                     {mod.features.map((feat, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#5dab00] shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#167394] shrink-0 mt-0.5" />
                         <span>{feat}</span>
                       </li>
                     ))}
@@ -757,9 +803,9 @@ export default function HomeView() {
             ))}
 
             {/* Banner card de contacto */}
-            <div className="bg-gradient-to-br from-[#03056b] to-[#040a44] text-white rounded-2xl p-7 flex flex-col justify-between shadow-xl">
+            <div className="bg-gradient-to-br from-[#0a5278] to-[#063a57] text-white rounded-2xl p-7 flex flex-col justify-between shadow-xl">
               <div>
-                <span className="bg-[#5dab00] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                <span className="bg-[#167394] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
                   ATENCIÓN 24 HORAS
                 </span>
                 <h3 className="text-2xl font-bold text-white mt-4 leading-snug">
@@ -778,7 +824,7 @@ export default function HomeView() {
                 href="https://wa.me/573203282014"
                 target="_blank"
                 rel="noreferrer"
-                className="w-full beerp-btn-green py-3.5 rounded-xl text-center font-bold text-xs uppercase tracking-wider block text-white shadow-md hover:shadow-lg transition"
+                className="w-full bg-[#167394] hover:bg-[#0a5278] text-white py-3.5 rounded-xl text-center font-bold text-xs uppercase tracking-wider block text-white shadow-md hover:shadow-lg transition"
               >
                 Abrir WhatsApp de Emergencias
               </a>
@@ -790,10 +836,10 @@ export default function HomeView() {
       {/* 5. MEDIOS DE PAGO ACEPTADOS */}
       <section className="py-14 bg-slate-50 border-t border-b border-slate-200">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6 text-center">
-          <h6 className="text-[12px] font-bold tracking-[2px] text-[#040a44] uppercase mb-2">
+          <h6 className="text-[12px] font-bold tracking-[2px] text-[#063a57] uppercase mb-2">
             PAGOS SEGUROS EN LÍNEA
           </h6>
-          <h2 className="text-2xl sm:text-3xl font-light text-[#040a44]">
+          <h2 className="text-2xl sm:text-3xl font-light text-[#063a57]">
             Paga fácil con tus medios favoritos en Colombia
           </h2>
           <p className="text-xs text-slate-500 mt-2 max-w-lg mx-auto">
@@ -822,10 +868,10 @@ export default function HomeView() {
       </section>
 
       {/* 6. OPERATOR LOOKUP DEMO (Wilson Triana's Call Center Validator - High Contrast Elegance) */}
-      <section id="operador" className="py-20 bg-[#040a44] text-white">
+      <section id="operador" className="py-20 bg-[#063a57] text-white">
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="max-w-2xl mx-auto text-center mb-10">
-            <h6 className="text-[12px] font-bold tracking-[2px] text-[#5dab00] uppercase mb-2">
+            <h6 className="text-[12px] font-bold tracking-[2px] text-[#167394] uppercase mb-2">
               VERIFICADOR CENTRAL DE DESPACHO
             </h6>
             <h2 className="text-3xl font-light text-white">
@@ -843,11 +889,11 @@ export default function HomeView() {
                 value={searchCedula}
                 onChange={(e) => setSearchCedula(e.target.value)}
                 placeholder="Digita cualquier número de cédula (ej. 1020304050)..."
-                className="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#5dab00]"
+                className="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#167394]"
               />
               <button
                 onClick={handleOperatorSearch}
-                className="beerp-btn-green px-5 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition flex items-center gap-1.5"
+                className="bg-[#167394] hover:bg-[#0a5278] text-white px-5 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition flex items-center gap-1.5"
               >
                 <Search className="w-4 h-4 text-white" />
                 <span>Consultar</span>
@@ -857,15 +903,15 @@ export default function HomeView() {
             {operatorSearchResult && (
               <div className="mt-5 pt-5 border-t border-slate-800 animate-in fade-in duration-200">
                 {operatorSearchResult.found ? (
-                  <div className="bg-slate-950/80 border border-[#5dab00]/40 rounded-xl p-4 text-xs space-y-3">
+                  <div className="bg-slate-950/80 border border-[#167394]/40 rounded-xl p-4 text-xs space-y-3">
                     <div className="flex items-center justify-between pb-2 border-b border-slate-800">
                       <div>
                         <p className="text-slate-400">Titular:</p>
                         <p className="text-sm font-bold text-white">{operatorSearchResult.name}</p>
                         <p className="text-slate-400">C.C. {operatorSearchResult.cedula}</p>
                       </div>
-                      <span className="bg-[#5dab00]/20 text-[#5dab00] border border-[#5dab00]/40 font-bold px-3 py-1 rounded-full text-[11px] flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-[#5dab00]"></span>
+                      <span className="bg-[#167394]/20 text-[#167394] border border-[#167394]/40 font-bold px-3 py-1 rounded-full text-[11px] flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-[#167394]"></span>
                         {operatorSearchResult.status}
                       </span>
                     </div>
@@ -883,7 +929,7 @@ export default function HomeView() {
 
                     <button
                       onClick={() => alert("Simulación: Solicitud de despacho enviada a la red de proveedores.")}
-                      className="w-full bg-[#5dab00] hover:bg-[#509e00] text-white font-bold py-2.5 rounded-lg text-xs transition"
+                      className="w-full bg-[#167394] hover:bg-[#509e00] text-white font-bold py-2.5 rounded-lg text-xs transition"
                     >
                       Autorizar Despacho de Auxilio Inmediato
                     </button>
@@ -904,10 +950,10 @@ export default function HomeView() {
       <section className="py-20 bg-white border-b border-slate-200">
         <div className="max-w-[860px] mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
-            <h6 className="text-[12px] font-bold tracking-[2px] text-[#5dab00] uppercase mb-2">
+            <h6 className="text-[12px] font-bold tracking-[2px] text-[#167394] uppercase mb-2">
               RESOLVEMOS TUS DUDAS
             </h6>
-            <h2 className="text-3xl font-light text-[#040a44]">
+            <h2 className="text-3xl font-light text-[#063a57]">
               Preguntas Frecuentes
             </h2>
           </div>
@@ -924,11 +970,11 @@ export default function HomeView() {
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
                     className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 bg-white hover:bg-slate-50 transition"
                   >
-                    <span className="text-sm font-semibold text-[#040a44]">
+                    <span className="text-sm font-semibold text-[#063a57]">
                       {faq.q}
                     </span>
                     {isOpen ? (
-                      <ChevronUp className="w-5 h-5 text-[#5dab00] shrink-0" />
+                      <ChevronUp className="w-5 h-5 text-[#167394] shrink-0" />
                     ) : (
                       <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" />
                     )}
@@ -950,13 +996,13 @@ export default function HomeView() {
         <div className="max-w-[1180px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 pb-12 border-b border-slate-200">
             <div>
-              <h4 className="text-sm font-bold text-[#040a44] mb-3">Red de Asistencias Soluciones W</h4>
+              <h4 className="text-sm font-bold text-[#063a57] mb-3">Red de Asistencias Soluciones W</h4>
               <p className="leading-relaxed">
                 Médica domiciliaria, ambulancias de urgencia, atención veterinaria, cerrajería, plomería y odontología preventiva.
               </p>
             </div>
             <div>
-              <h4 className="text-sm font-bold text-[#040a44] mb-3">Atención al Usuario 24/7</h4>
+              <h4 className="text-sm font-bold text-[#063a57] mb-3">Atención al Usuario 24/7</h4>
               <p className="leading-relaxed">
                 Bogotá D.C., Colombia <br />
                 Línea PBX: +57 (601) 745-9000 <br />
@@ -964,7 +1010,7 @@ export default function HomeView() {
               </p>
             </div>
             <div>
-              <h4 className="text-sm font-bold text-[#040a44] mb-3">Marco Legal y Habeas Data</h4>
+              <h4 className="text-sm font-bold text-[#063a57] mb-3">Marco Legal y Habeas Data</h4>
               <p className="leading-relaxed">
                 Ley 1581 de 2012. Soluciones W ofrece programas de auxilio y asistencia operativa; no constituye entidad aseguradora ni EPS.
               </p>
@@ -982,9 +1028,9 @@ export default function HomeView() {
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 px-4 py-2 flex items-center justify-around shadow-2xl">
         <a
           href="tel:6017459000"
-          className="flex flex-col items-center gap-1 text-[11px] font-semibold text-[#040a44]"
+          className="flex flex-col items-center gap-1 text-[11px] font-semibold text-[#063a57]"
         >
-          <Phone className="w-5 h-5 text-[#03056b]" />
+          <Phone className="w-5 h-5 text-[#0a5278]" />
           <span>Llamar</span>
         </a>
 
@@ -1003,19 +1049,29 @@ export default function HomeView() {
             const el = document.getElementById("planes");
             el?.scrollIntoView({ behavior: "smooth" });
           }}
-          className="beerp-btn-green px-4 py-2 text-xs font-bold rounded-lg text-white"
+          className="bg-[#167394] hover:bg-[#0a5278] text-white px-4 py-2 text-xs font-bold rounded-lg text-white"
         >
           Ver Planes
         </button>
       </div>
 
+      {/* MODAL DE INGRESO DE AFILIADOS */}
+      <MemberLoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        onLoginSuccess={(data) => {
+          setMemberData(data);
+          setIsAuthenticated(true);
+        }}
+      />
+
       {/* 10. CHECKOUT & EMISSION MODAL */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
-            <div className="bg-[#040a44] text-white px-6 py-4 flex items-center justify-between">
+            <div className="bg-[#063a57] text-white px-6 py-4 flex items-center justify-between">
               <div>
-                <p className="text-[10px] text-[#5dab00] font-bold uppercase tracking-wider">
+                <p className="text-[10px] text-[#167394] font-bold uppercase tracking-wider">
                   PASO {checkoutStep} DE 3 · {planPrices[selectedPlan].name}
                 </p>
                 <h3 className="text-base font-bold text-white">
@@ -1121,14 +1177,14 @@ export default function HomeView() {
 
                   <div className="pt-2">
                     <label className="flex items-start gap-2 text-slate-600">
-                      <input type="checkbox" defaultChecked required className="mt-0.5 rounded text-[#5dab00]" />
+                      <input type="checkbox" defaultChecked required className="mt-0.5 rounded text-[#167394]" />
                       <span>Acepto términos de servicio y autorización de datos (Habeas Data Ley 1581).</span>
                     </label>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full beerp-btn-green py-3 rounded-xl font-bold uppercase tracking-wider mt-4"
+                    className="w-full bg-[#167394] hover:bg-[#0a5278] text-white py-3 rounded-xl font-bold uppercase tracking-wider mt-4"
                   >
                     Continuar al Pago Seguro
                   </button>
@@ -1139,53 +1195,119 @@ export default function HomeView() {
                 <div className="space-y-4 text-xs">
                   <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex justify-between">
                     <div>
-                      <p className="font-bold text-[#040a44]">{formData.fullName}</p>
+                      <p className="font-bold text-[#063a57]">{formData.fullName}</p>
                       <p className="text-slate-500">Plan: {planPrices[selectedPlan].name}</p>
                     </div>
                     <div className="text-right">
                       <span className="text-slate-400 block">Total a pagar:</span>
-                      <span className="text-base font-extrabold text-[#03056b]">
+                      <span className="text-base font-extrabold text-[#0a5278]">
                         ${currentFinalPrice.toLocaleString("es-CO")} COP
                       </span>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2">
-                    <button
-                      onClick={() => setPaymentMethod("pse")}
-                      className={`p-3 rounded-xl border text-center font-bold ${
-                        paymentMethod === "pse" ? "border-[#5dab00] bg-emerald-50 text-[#5dab00]" : "border-slate-200"
-                      }`}
-                    >
-                      PSE
-                    </button>
-                    <button
-                      onClick={() => setPaymentMethod("nequi")}
-                      className={`p-3 rounded-xl border text-center font-bold ${
-                        paymentMethod === "nequi" ? "border-[#5dab00] bg-emerald-50 text-[#5dab00]" : "border-slate-200"
-                      }`}
-                    >
-                      Nequi
-                    </button>
-                    <button
-                      onClick={() => setPaymentMethod("card")}
-                      className={`p-3 rounded-xl border text-center font-bold ${
-                        paymentMethod === "card" ? "border-[#5dab00] bg-emerald-50 text-[#5dab00]" : "border-slate-200"
-                      }`}
-                    >
-                      Tarjeta
-                    </button>
+                  {/* Selector de Pasarela: Wompi vs Mercado Pago */}
+                  <div>
+                    <label className="block font-semibold text-slate-700 mb-2">
+                      Selecciona la Pasarela de Pago:
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setPaymentGateway("wompi")}
+                        className={`p-3 rounded-xl border text-left transition ${
+                          paymentGateway === "wompi"
+                            ? "border-[#167394] bg-[#e8f4f8] text-[#0a5278]"
+                            : "border-slate-200 hover:bg-slate-50 text-slate-600"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="font-extrabold text-xs">Wompi (Bancolombia)</span>
+                          <span className="bg-amber-100 text-amber-800 text-[9px] font-bold px-1.5 py-0.5 rounded">
+                            Sandbox
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-slate-500 mt-0.5">
+                          Bancolombia, Nequi, PSE, Tarjetas
+                        </p>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setPaymentGateway("mercadopago")}
+                        className={`p-3 rounded-xl border text-left transition ${
+                          paymentGateway === "mercadopago"
+                            ? "border-[#167394] bg-[#e8f4f8] text-[#0a5278]"
+                            : "border-slate-200 hover:bg-slate-50 text-slate-600"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="font-extrabold text-xs">Mercado Pago</span>
+                          <span className="bg-amber-100 text-amber-800 text-[9px] font-bold px-1.5 py-0.5 rounded">
+                            Sandbox
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-slate-500 mt-0.5">
+                          Tarjetas Débito/Crédito, PSE, Efecty
+                        </p>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Submétodos de Pago */}
+                  <div>
+                    <label className="block font-semibold text-slate-700 mb-1.5">
+                      Método específico:
+                    </label>
+                    <div className="grid grid-cols-3 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setPaymentMethod("pse")}
+                        className={`p-2.5 rounded-xl border text-center font-bold ${
+                          paymentMethod === "pse" ? "border-[#167394] bg-[#e8f4f8] text-[#167394]" : "border-slate-200"
+                        }`}
+                      >
+                        PSE
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setPaymentMethod("nequi")}
+                        className={`p-2.5 rounded-xl border text-center font-bold ${
+                          paymentMethod === "nequi" ? "border-[#167394] bg-[#e8f4f8] text-[#167394]" : "border-slate-200"
+                        }`}
+                      >
+                        Nequi / App
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setPaymentMethod("card")}
+                        className={`p-2.5 rounded-xl border text-center font-bold ${
+                          paymentMethod === "card" ? "border-[#167394] bg-[#e8f4f8] text-[#167394]" : "border-slate-200"
+                        }`}
+                      >
+                        Tarjeta
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-[11px] text-amber-900 flex items-start gap-2">
+                    <ShieldCheck className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                    <span>
+                      <strong>Modo Sandbox Activo:</strong> Se simula el checkout de{" "}
+                      {paymentGateway === "wompi" ? "Wompi (pub_test_...)" : "Mercado Pago (TEST-...)"}.
+                      No se debitará dinero real en esta prueba.
+                    </span>
                   </div>
 
                   <button
                     onClick={handlePaymentSimulation}
                     disabled={isProcessing}
-                    className="w-full beerp-btn-green py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs flex items-center justify-center gap-2 mt-4"
+                    className="w-full bg-[#167394] hover:bg-[#0a5278] text-white py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs flex items-center justify-center gap-2 mt-4 transition shadow-md"
                   >
                     {isProcessing ? (
-                      <span>Emitiendo certificado oficial...</span>
+                      <span>Procesando pago en {paymentGateway === "wompi" ? "Wompi" : "Mercado Pago"}...</span>
                     ) : (
-                      <span>Simular Aprobación de Pago</span>
+                      <span>Aprobar Pago en Sandbox ({paymentGateway.toUpperCase()})</span>
                     )}
                   </button>
                 </div>
@@ -1193,18 +1315,18 @@ export default function HomeView() {
 
               {checkoutStep === 3 && generatedPolicy && (
                 <div className="text-center space-y-4 text-xs">
-                  <div className="w-14 h-14 bg-emerald-100 text-[#5dab00] rounded-full flex items-center justify-center mx-auto">
+                  <div className="w-14 h-14 bg-[#e8f4f8] text-[#167394] rounded-full flex items-center justify-center mx-auto">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-bold text-[#040a44]">¡Afiliación Activa!</h4>
+                    <h4 className="text-lg font-bold text-[#063a57]">¡Afiliación Activa!</h4>
                     <p className="text-slate-500">Emisión digital automática completada en menos de 2 minutos.</p>
                   </div>
 
                   <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-left space-y-2">
                     <div className="flex justify-between items-center">
                       <span className="text-slate-500">Contrato:</span>
-                      <span className="font-mono font-bold text-[#03056b]">{generatedPolicy.contractNumber}</span>
+                      <span className="font-mono font-bold text-[#0a5278]">{generatedPolicy.contractNumber}</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-slate-500">Plan:</span>
@@ -1220,19 +1342,32 @@ export default function HomeView() {
                     </div>
                   </div>
 
-                  <div className="space-y-2 pt-2">
+                  <div className="space-y-2.5 pt-2">
+                    {/* Botón principal para ir al Rappi Hub */}
+                    <button
+                      onClick={() => {
+                        setIsModalOpen(false);
+                        setIsAuthenticated(true);
+                      }}
+                      className="w-full bg-[#167394] hover:bg-[#0a5278] text-white py-3.5 rounded-xl font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition text-xs"
+                    >
+                      <Sparkles className="w-4 h-4 text-cyan-200" />
+                      <span>Ir a Mi Hub de Asistencias (Estilo Rappi)</span>
+                    </button>
+
                     <button
                       onClick={() => alert(`Certificado ${generatedPolicy.contractNumber}.pdf descargado exitosamente.`)}
-                      className="w-full beerp-btn-green py-3 rounded-xl font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+                      className="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 py-3 rounded-xl font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition text-xs"
                     >
-                      <Download className="w-4 h-4 text-white" />
+                      <Download className="w-4 h-4 text-slate-600" />
                       <span>Descargar Certificado PDF</span>
                     </button>
+
                     <a
                       href={`https://wa.me/573203282014?text=Hola%20Soluciones%20W,%20acabo%20de%20afiliarme%20al%20${generatedPolicy.planName}%20con%20contrato%20${generatedPolicy.contractNumber}.`}
                       target="_blank"
                       rel="noreferrer"
-                      className="w-full bg-[#040a44] hover:bg-[#03056b] text-white py-3 rounded-xl font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition"
+                      className="w-full bg-[#063a57] hover:bg-[#0a5278] text-white py-3 rounded-xl font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition text-xs"
                     >
                       <MessageCircle className="w-4 h-4" />
                       <span>Guardar Central en WhatsApp</span>

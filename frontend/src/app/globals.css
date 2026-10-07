@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --color-theme: #5dab00;
-  --color-theme-hover: #509e00;
-  --color-navy: #040a44;
-  --color-navy-dark: #03056b;
+  --color-primary: #167394;
+  --color-primary-hover: #125e79;
+  --color-primary-dark: #0a5278;
+  --color-primary-deep: #063a57;
+  --color-primary-light: #e8f4f8;
   --font-heading: var(--font-heading), 'Plus Jakarta Sans', -apple-system, sans-serif;
   --font-body: var(--font-sans), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
@@ -14,7 +15,7 @@ body {
   color: #4b5563;
   background-color: #ffffff;
   font-size: 14px;
-  line-height: 25px;
+  line-height: 24px;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
 }
@@ -24,46 +25,83 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.02em;
 }
 
-.beerp-btn-green {
-  background-color: #5dab00;
+/* Primary Brand Button */
+.btn-soluciones {
+  background-color: #167394;
   color: #ffffff !important;
   font-weight: 600;
   transition: all 0.2s ease-in-out;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
-.beerp-btn-green:hover {
-  background-color: #509e00;
+.btn-soluciones:hover {
+  background-color: #115c77;
+  box-shadow: 0 4px 14px rgba(22, 115, 148, 0.3);
 }
 
-.beerp-card {
+/* Secondary Corporate Button */
+.btn-soluciones-dark {
+  background-color: #0a5278;
+  color: #ffffff !important;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  border-radius: 10px;
+}
+
+.btn-soluciones-dark:hover {
+  background-color: #073f5d;
+}
+
+/* Custom Card with soft corporate shadow */
+.soluciones-card {
   background-color: #ffffff;
-  border: 1px solid #eef1f6;
-  border-radius: 18px;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(10, 82, 120, 0.04);
 }
 
-.beerp-card:hover {
-  transform: translateY(-4px);
-  border-color: #4d70d4;
-  box-shadow: 0 16px 36px rgba(77, 112, 212, 0.12);
+.soluciones-card:hover {
+  transform: translateY(-3px);
+  border-color: #167394;
+  box-shadow: 0 12px 30px rgba(22, 115, 148, 0.12);
 }
 
-/* 3D Green Spherical Icon with soft glow */
-.beerp-icon-circle {
-  width: 90px;
-  height: 90px;
+/* 3D Circular Brand Icon (matching the #167394 palette) */
+.brand-icon-circle {
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #78da00 0%, #5dab00 60%, #468600 100%);
+  background: linear-gradient(135deg, #1fa0cc 0%, #167394 60%, #0a5278 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffffff;
-  box-shadow: 0 12px 24px -4px rgba(93, 171, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4);
-  transition: transform 0.3s ease;
+  box-shadow: 0 10px 22px -4px rgba(22, 115, 148, 0.38), inset 0 2px 4px rgba(255, 255, 255, 0.35);
+  transition: transform 0.25s ease;
 }
 
-.beerp-card:hover .beerp-icon-circle {
-  transform: scale(1.04);
+.soluciones-card:hover .brand-icon-circle {
+  transform: scale(1.05);
+}
+
+/* Rappi-style grid tiles */
+.rappi-tile {
+  background: #ffffff;
+  border: 1px solid #edf2f7;
+  border-radius: 18px;
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.rappi-tile:hover {
+  border-color: #167394;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(22, 115, 148, 0.12);
 }
