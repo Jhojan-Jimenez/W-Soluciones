@@ -376,7 +376,7 @@ export default function HomeView() {
       </header>
 
       {/* 2. HERO BANNER WITH PROFESSIONAL ENTERPRISE BACKGROUND IMAGE */}
-      <section className="relative overflow-hidden border-b border-slate-200 py-14 lg:py-24 bg-slate-50">
+      <section className="relative overflow-hidden border-b border-slate-200 py-14 lg:py-24 bg-[#063a57]">
         {/* Background Image of Computers / Modern Workspace with Soft Protective Overlay */}
         <div
           className="absolute inset-0 bg-cover bg-right lg:bg-center bg-no-repeat"
@@ -385,7 +385,7 @@ export default function HomeView() {
           }}
         >
           {/* Luminous gradient overlay ensuring 100% contrast for text and visibility of computers */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 sm:via-white/90 to-white/75 backdrop-blur-[1px]"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#063a57]/95 via-[#063a57]/85 to-[#0a5278]/60 lg:to-[#0a5278]/35 backdrop-blur-[0.5px]"></div>
         </div>
 
         <div className="relative max-w-[1180px] mx-auto px-4 sm:px-6">
@@ -394,20 +394,20 @@ export default function HomeView() {
             {/* Left Content: Enterprise Typography & High Contrast */}
             <div className="lg:col-span-7 space-y-6">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-[#e8f4f8] border border-cyan-300 text-[#0a5278] text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-[#167394]" />
+              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-cyan-200 text-xs font-semibold px-3.5 py-1.5 rounded-full shadow-xs backdrop-blur-md">
+                <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
                 <span>AFILIACIÓN DIGITAL INMEDIATA EN MENOS DE 2 MINUTOS</span>
               </div>
 
-              {/* H1 Headline (Plus Jakarta Sans for corporate authority, lime green for highlight) */}
-              <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-bold text-[#063a57] leading-[1.12] tracking-tight">
-                Con Soluciones W <br />
-                estarás seguro y <br />
-                <strong className="text-[#167394] font-extrabold">protegido 24/7</strong>
+              {/* H1 Headline */}
+              <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-extrabold text-white leading-[1.12] tracking-tight">
+                Con Soluciones W, <br className="hidden sm:inline" />
+                estarás seguro y <br className="hidden sm:inline" />
+                <span className="text-cyan-300">protegido 24/7</span>
               </h1>
 
               {/* Subheading in Inter */}
-              <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-xl">
+              <p className="text-base sm:text-lg text-slate-100 font-normal leading-relaxed max-w-xl">
                 Atención médica domiciliaria, ambulancia, asistencia para mascotas y auxilio en el hogar 
                 para ti y tus seres queridos en una sola suscripción mensual sin intermediarios.
               </p>
@@ -426,25 +426,25 @@ export default function HomeView() {
 
                 <a
                   href="tel:6017459000"
-                  className="bg-white hover:bg-slate-50 text-[#063a57] border-2 border-slate-300 px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition shadow-sm hover:border-[#063a57]"
+                  className="bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-sm px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition shadow-sm"
                 >
-                  <Phone className="w-4 h-4 text-[#0a5278]" />
+                  <Phone className="w-4 h-4 text-cyan-300" />
                   <span>Llamar a la Central</span>
                 </a>
               </div>
 
               {/* Trust Indicators */}
-              <div className="pt-6 border-t border-slate-200 flex flex-wrap gap-6 text-xs text-slate-600 font-medium">
+              <div className="pt-6 border-t border-white/15 flex flex-wrap gap-6 text-xs text-slate-200 font-medium">
                 <div className="flex items-center gap-2">
-                  <CheckCheck className="w-4 h-4 text-[#167394]" />
+                  <CheckCheck className="w-4 h-4 text-cyan-300" />
                   <span>Sin períodos de carencia</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCheck className="w-4 h-4 text-[#167394]" />
+                  <CheckCheck className="w-4 h-4 text-cyan-300" />
                   <span>Sin exámenes médicos</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCheck className="w-4 h-4 text-[#167394]" />
+                  <CheckCheck className="w-4 h-4 text-cyan-300" />
                   <span>Sin permanencia</span>
                 </div>
               </div>
