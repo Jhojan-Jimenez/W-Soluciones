@@ -26,8 +26,43 @@ export default function MemberLoginModal({
   const [docNumber, setDocNumber] = useState("");
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   if (!isOpen) return null;
+
+  const performLogin = async (doc: string, tel?: string) => {
+    setError("");
+    setIsLoading(true);
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ docNumber: doc.trim(), phone: tel?.trim() })
+      });
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        setError(data.error || "No se pudo iniciar sesión. Verifica tu documento.");
+        return;
+      }
+
+      // Persistir JWT seguro en localStorage
+      if (data.token && typeof window !== "undefined") {
+        localStorage.setItem("soluciones_w_token", data.token);
+      }
+
+      onLoginSuccess(data.affiliate);
+      if (typeof window !== "undefined") {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      }
+      onClose();
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Error de red al conectar con el servidor de autenticación.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,39 +70,12 @@ export default function MemberLoginModal({
       setError("Por favor ingresa tu número de documento.");
       return;
     }
-
-    // Authenticate member
-    onLoginSuccess({
-      fullName: "Carlos Andrés Villamil",
-      docNumber: docNumber,
-      phone: phone || "313 428 9397",
-      email: "carlos.villamil@gmail.com",
-      contractNumber: "SW-849102",
-      planName: "Plan Plus Familiar 360°",
-      validUntil: "04 de Noviembre, 2026",
-      address: "Carrera 15 # 85-30, Bogotá"
-    });
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    }
-    onClose();
+    performLogin(docNumber, phone);
   };
 
-  const handleDemoLogin = () => {
-    onLoginSuccess({
-      fullName: "Carlos Andrés Villamil",
-      docNumber: "1018492031",
-      phone: "313 428 9397",
-      email: "carlos.villamil@gmail.com",
-      contractNumber: "SW-849102",
-      planName: "Plan Plus Familiar 360°",
-      validUntil: "04 de Noviembre, 2026",
-      address: "Carrera 15 # 85-30, Bogotá"
-    });
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    }
-    onClose();
+  const handleQuickTestUser = (cedula: string) => {
+    setDocNumber(cedula);
+    performLogin(cedula);
   };
 
   return (
@@ -140,21 +148,56 @@ export default function MemberLoginModal({
 
             <button
               type="submit"
-              className="w-full bg-[#063a57] hover:bg-[#0a5278] text-white py-3 rounded-md font-bold uppercase tracking-wider text-xs shadow transition flex items-center justify-center gap-2 mt-2"
+              disabled={isLoading}
+              className="w-full bg-[#063a57] hover:bg-[#0a5278] disabled:opacity-60 text-white py-3 rounded-md font-bold uppercase tracking-wider text-xs shadow transition flex items-center justify-center gap-2 mt-2"
             >
-              <span>Acceder al Portal de Afiliados</span>
+              <span>{isLoading ? "Verificando afiliación..." : "Acceder al Portal de Afiliados"}</span>
               <ArrowRight className="w-4 h-4 text-white" />
             </button>
 
-            <div className="pt-2 border-t border-slate-100 mt-4">
-              <button
-                type="button"
-                onClick={handleDemoLogin}
-                className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 rounded-md font-semibold text-xs transition flex items-center justify-center gap-1.5"
-              >
-                <UserCheck className="w-4 h-4 text-[#167394]" />
-                <span>Ingreso Rápido de Prueba (Demo Afiliado)</span>
-              </button>
+            {/* Cuentas de prueba rápidas */}
+            <div className="pt-3 border-t border-slate-100 mt-4 space-y-2">
+              <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                Usuarios de prueba disponibles:
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  disabled={isLoading}
+                  onClick={() => handleQuickTestUser("1018492031")}
+                  className="p-2 text-left bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded text-[11px] transition"
+                >
+                  <p className="font-bold text-slate-800">C.C. 1018492031</p>
+                  <p className="text-[10px] text-emerald-700">Carlos Villamil (Plus 360°)</p>
+                </button>
+                <button
+                  type="button"
+                  disabled={isLoading}
+                  onClick={() => handleQuickTestUser("1020304050")}
+                  className="p-2 text-left bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded text-[11px] transition"
+                >
+                  <p className="font-bold text-slate-800">C.C. 1020304050</p>
+                  <p className="text-[10px] text-[#167394]">María F. Gómez (Tradicional)</p>
+                </button>
+                <button
+                  type="button"
+                  disabled={isLoading}
+                  onClick={() => handleQuickTestUser("80123456")}
+                  className="p-2 text-left bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded text-[11px] transition"
+                >
+                  <p className="font-bold text-slate-800">C.C. 80123456</p>
+                  <p className="text-[10px] text-amber-700">Wilson Triana (Director)</p>
+                </button>
+                <button
+                  type="button"
+                  disabled={isLoading}
+                  onClick={() => handleQuickTestUser("52987654")}
+                  className="p-2 text-left bg-red-50/60 hover:bg-red-50 border border-red-200 rounded text-[11px] transition"
+                >
+                  <p className="font-bold text-red-900">C.C. 52987654</p>
+                  <p className="text-[10px] text-red-700">Laura Pérez (En Mora)</p>
+                </button>
+              </div>
             </div>
 
             <p className="text-[11px] text-center text-slate-500 pt-1">

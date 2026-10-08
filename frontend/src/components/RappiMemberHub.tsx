@@ -191,6 +191,8 @@ export default function RappiMemberHub({ member, onLogout }: RappiMemberHubProps
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
   const [confirmedSuccess, setConfirmedSuccess] = useState(false);
+  const [radicadoCode, setRadicadoCode] = useState<string>("");
+  const [isSubmittingAssistance, setIsSubmittingAssistance] = useState(false);
 
   const firstName = member.fullName.split(" ")[0] || "Afiliado";
 
@@ -220,12 +222,38 @@ export default function RappiMemberHub({ member, onLogout }: RappiMemberHubProps
   const handleOpenService = (service: ServiceItem) => {
     setSelectedService(service);
     setConfirmedSuccess(false);
+    setRadicadoCode("");
   };
 
-  const handleWhatsAppRequest = () => {
+  const handleWhatsAppRequest = async () => {
     if (!selectedService) return;
+    setIsSubmittingAssistance(true);
+    let assignedRadicado = "";
+    try {
+      const res = await fetch("/api/assistances/request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          docNumber: member.docNumber,
+          serviceId: selectedService.id,
+          serviceTitle: selectedService.title,
+          address: member.address || "Bogotá D.C."
+        })
+      });
+      const data = await res.json();
+      if (data.success && data.radicadoNumber) {
+        assignedRadicado = data.radicadoNumber;
+        setRadicadoCode(data.radicadoNumber);
+      }
+    } catch (err) {
+      console.error("Error registrando asistencia:", err);
+    } finally {
+      setIsSubmittingAssistance(false);
+    }
+
+    const radicadoText = assignedRadicado ? ` (Radicado #${assignedRadicado})` : "";
     const text = encodeURIComponent(
-      `Hola Soluciones W, soy el afiliado ${member.fullName} (C.C. ${member.docNumber}, Contrato ${member.contractNumber}) y requiero solicitar la asistencia de *${selectedService.title}* en la dirección ${member.address || "Bogotá D.C."}.`
+      `Hola Soluciones W, soy el afiliado ${member.fullName} (C.C. ${member.docNumber}, Contrato ${member.contractNumber}) y requiero solicitar la asistencia de *${selectedService.title}*${radicadoText} en la dirección ${member.address || "Bogotá D.C."}.`
     );
     window.open(`https://wa.me/573134289397?text=${text}`, "_blank");
     setConfirmedSuccess(true);
@@ -624,12 +652,20 @@ export default function RappiMemberHub({ member, onLogout }: RappiMemberHubProps
                   <h4 className="text-sm font-bold text-emerald-900">
                     Solicitud Enlazada con la Central
                   </h4>
+                  {radicadoCode && (
+                    <div className="inline-block bg-white border border-emerald-300 px-3 py-1.5 rounded-md text-xs font-mono font-bold text-emerald-800 my-1 shadow-xs">
+                      Radicado Asignado: #{radicadoCode}
+                    </div>
+                  )}
                   <p className="text-xs text-emerald-800">
                     Se abrió tu chat de WhatsApp oficial con los datos de tu contrato. La central de Soluciones W coordinará el despacho de inmediato.
                   </p>
                   <button
-                    onClick={() => setSelectedService(null)}
-                    className="mt-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-4 py-2 rounded-md text-xs"
+                    onClick={() => {
+                      setSelectedService(null);
+                      setRadicadoCode("");
+                    }}
+                    className="mt-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold px-4 py-2 rounded-md text-xs transition"
                   >
                     Entendido / Cerrar
                   </button>

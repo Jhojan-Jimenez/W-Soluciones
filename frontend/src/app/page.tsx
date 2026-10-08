@@ -224,6 +224,56 @@ export default function HomeView() {
       window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     }
   }, [isAuthenticated]);
+
+  // Detección automática de sesión: token en URL (?token=...) o en localStorage
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlToken = urlParams.get("token");
+    const storedToken = localStorage.getItem("soluciones_w_token");
+    const token = urlToken || storedToken;
+
+    if (!token) return;
+
+    fetch("/api/auth/verify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token })
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.valid && data.affiliate) {
+          localStorage.setItem("soluciones_w_token", token);
+          setMemberData({
+            fullName: data.affiliate.fullName,
+            docNumber: data.affiliate.docNumber,
+            phone: data.affiliate.phone,
+            email: data.affiliate.email,
+            contractNumber: data.affiliate.contractNumber,
+            planName: data.affiliate.planName,
+            validUntil: data.affiliate.validUntil,
+            address: data.affiliate.address || "Bogotá D.C."
+          });
+          setIsAuthenticated(true);
+
+          // Limpiar el parámetro token de la URL sin recargar la página
+          if (urlToken) {
+            const cleanUrl = window.location.pathname;
+            window.history.replaceState({}, document.title, cleanUrl);
+          }
+        } else {
+          // Token inválido o expirado
+          if (!urlToken) {
+            localStorage.removeItem("soluciones_w_token");
+          }
+        }
+      })
+      .catch((err) => {
+        console.error("Error verificando token de sesión:", err);
+      });
+  }, []);
+
   const [paymentGateway, setPaymentGateway] = useState<"wompi" | "mercadopago">("wompi");
   const [memberData, setMemberData] = useState({
     fullName: "Carlos Andrés Villamil",
@@ -271,45 +321,84 @@ export default function HomeView() {
     setIsModalOpen(true);
   };
 
-  const handlePaymentSimulation = () => {
+  const handlePaymentSimulation = async () => {
     setIsProcessing(true);
-    setTimeout(() => {
-      setIsProcessing(false);
-      const randomContract = "SW-" + Math.floor(100000 + Math.random() * 900000);
-      const policyData = {
-        contractNumber: randomContract,
-        date: new Date().toLocaleDateString("es-CO", { year: "numeric", month: "long", day: "numeric" }),
-        totalPaid: currentFinalPrice,
-        planName: planPrices[selectedPlan].name
-      };
-      setGeneratedPolicy(policyData);
-      setMemberData({
-        fullName: formData.fullName || "Nuevo Afiliado",
-        docNumber: formData.docNumber || "1020304050",
-        phone: formData.phone || "300 123 4567",
-        email: formData.email || "afiliado@correo.com",
-        contractNumber: randomContract,
-        planName: planPrices[selectedPlan].name,
-        validUntil: "Noviembre 2026",
-        address: formData.address || "Bogotá D.C., Colombia"
+    try {
+      const res = await fetch("/api/checkout/demo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: formData.fullName || "Nuevo Afiliado",
+          docNumber: formData.docNumber || "1020304050",
+          phone: formData.phone || "300 123 4567",
+          email: formData.email || "afiliado@correo.com",
+          address: formData.address || "Bogotá D.C., Colombia",
+          city: formData.city || "Bogotá D.C.",
+          planKey: selectedPlan,
+          billingPeriod,
+          paymentMethod
+        })
       });
-      setCheckoutStep(3);
-    }, 1400);
+
+      const data = await res.json();
+      if (data.success && data.affiliate) {
+        if (data.token && typeof window !== "undefined") {
+          localStorage.setItem("soluciones_w_token", data.token);
+        }
+        setGeneratedPolicy({
+          contractNumber: data.affiliate.contractNumber,
+          date: new Date().toLocaleDateString("es-CO", { year: "numeric", month: "long", day: "numeric" }),
+          totalPaid: data.affiliate.totalPaid || currentFinalPrice,
+          planName: data.affiliate.planName
+        });
+        setMemberData({
+          fullName: data.affiliate.fullName,
+          docNumber: data.affiliate.docNumber,
+          phone: data.affiliate.phone,
+          email: data.affiliate.email,
+          contractNumber: data.affiliate.contractNumber,
+          planName: data.affiliate.planName,
+          validUntil: data.affiliate.validUntil,
+          address: data.affiliate.address
+        });
+        setCheckoutStep(3);
+      } else {
+        alert("Error procesando pago: " + (data.error || "Intenta nuevamente."));
+      }
+    } catch (err) {
+      console.error("Error en checkout demo:", err);
+      alert("Error de conexión al procesar el pago.");
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
-  const handleOperatorSearch = () => {
+  const handleOperatorSearch = async () => {
     if (!searchCedula.trim()) return;
-    if (searchCedula.length >= 7) {
-      setOperatorSearchResult({
-        found: true,
-        name: "Carlos Andrés Villamil",
-        cedula: searchCedula,
-        status: "ACTIVO Y VIGENTE",
-        plan: planPrices[selectedPlan].name,
-        validUntil: "04 de Noviembre, 2026",
-        eventsRemaining: 3
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ docNumber: searchCedula.trim() })
       });
-    } else {
+      const data = await res.json();
+      if (data.success && data.affiliate) {
+        setOperatorSearchResult({
+          found: true,
+          name: data.affiliate.fullName,
+          cedula: data.affiliate.docNumber,
+          status: data.affiliate.status === "active" ? "ACTIVO Y VIGENTE" : data.affiliate.status.toUpperCase(),
+          plan: data.affiliate.planName,
+          validUntil: data.affiliate.validUntil,
+          eventsRemaining: data.affiliate.eventsRemaining ?? 3
+        });
+      } else {
+        setOperatorSearchResult({
+          found: false,
+          cedula: searchCedula
+        });
+      }
+    } catch {
       setOperatorSearchResult({
         found: false,
         cedula: searchCedula
@@ -321,7 +410,12 @@ export default function HomeView() {
     return (
       <RappiMemberHub
         member={memberData}
-        onLogout={() => setIsAuthenticated(false)}
+        onLogout={() => {
+          if (typeof window !== "undefined") {
+            localStorage.removeItem("soluciones_w_token");
+          }
+          setIsAuthenticated(false);
+        }}
       />
     );
   }

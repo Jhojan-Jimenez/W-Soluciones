@@ -82,6 +82,59 @@ pnpm run build
 
 ---
 
+---
+
+## 🔐 Autenticación Criptográfica & Tokens de Sesión (JWT)
+* **Biblioteca:** `jose` (Web Crypto API, compatible con Edge runtime y Node.js ARM64).
+* **Firma:** Algoritmo HMAC SHA-256 (`HS256`).
+* **Secreto:** `process.env.AUTH_JWT_SECRET` (con fallback de desarrollo).
+* **Vigencia:** 30 días.
+* **Acceso Directo por URL:** El sistema intercepta `?token=...` en la URL (por ejemplo enlaces mágicos generados desde el bot de WhatsApp), valida la firma criptográfica en el backend vía `/api/auth/verify`, persiste el token en `localStorage("soluciones_w_token")`, limpia el parámetro de la URL sin recargar mediante `window.history.replaceState`, y presenta de inmediato el dashboard del afiliado.
+* **Persistencia en Local:** Si el usuario cierra y vuelve a abrir el navegador, el `useEffect` detecta el token guardado en `localStorage` y restaura su sesión al instante. Al cerrar sesión, el token se destruye.
+
+---
+
+## 🗄️ Base de Datos & Almacenamiento Persistente (`src/lib/db.ts`)
+* **Archivo:** `frontend/data/soluciones_w.json` (operaciones atómicas de lectura/escritura).
+* **Colecciones:**
+  1. `affiliates`: Pólizas y afiliados activos, estado (`active`, `past_due`, `cancelled`), datos de contacto, saldo de eventos restantes y método de pago.
+  2. `assistances`: Solicitudes radicadas con código de despacho (`AUX-XXXX`), canal de origen (`web` o `whatsapp`), fecha y estado del despacho.
+  3. `leads`: Prospectos capturados desde el formulario rápido de cotización.
+
+### 👥 Cuentas de Afiliados de Prueba (Seeded):
+| Cédula | Nombre | Plan | Estado | Contrato | Notas |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`1018492031`** | Carlos Andrés Villamil | Plan Plus Familiar 360° | `active` | `SW-849102` | Cuenta principal con asistencias disponibles |
+| **`1020304050`** | María Fernanda Gómez | Plan Tradicional Hogar & Salud | `active` | `SW-551029` | Plan intermedio |
+| **`80123456`** | Wilson Triana | Plan Plus Familiar 360° | `active` | `SW-902144` | Cuenta corporativa / director |
+| **`52987654`** | Laura Camila Pérez | Plan Básico Digital | `past_due` | `SW-432187` | Caso de prueba: afiliación en mora (bloquea acceso con mensaje orientador) |
+
+---
+
+## 🌐 Endpoints de API Implementados (`src/app/api/`)
+
+| Método | Ruta | Descripción | Payload / Parámetros |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/auth/login` | Login por número de cédula | `{ docNumber, phone? }` → Retorna JWT + datos del afiliado |
+| `POST` | `/api/auth/verify` | Validación de token de sesión | `{ token }` o `Authorization: Bearer <token>` |
+| `POST` | `/api/checkout/demo` | Simulación y persistencia de afiliación | `{ fullName, docNumber, phone, email, address, city, planKey, billingPeriod, paymentMethod }` → Emite contrato `SW-XXXXXX` y JWT |
+| `POST` | `/api/assistances/request` | Radicación de solicitudes de asistencia | `{ docNumber, serviceId, serviceTitle, address }` → Genera radicado `AUX-XXXX` |
+| `GET` | `/api/whatsapp/webhook` | Verificación de Webhook de Meta | `hub.mode=subscribe`, `hub.challenge`, `hub.verify_token` |
+| `POST` | `/api/whatsapp/webhook` | Receptor de eventos de WhatsApp Cloud API | Procesa mensajes de texto con cédulas y respuestas de listas interactivas |
+
+---
+
+## 💬 Flujo de WhatsApp Cloud API (List Messages & Bot Nativo)
+* **Verify Token:** `process.env.WHATSAPP_VERIFY_TOKEN` (default: `soluciones_w_webhook_verify_token_2026`).
+* **Mensajes Interactivos:** Utiliza el tipo `interactive` con `type: "list"` oficial de Meta (hasta 10 filas divididas en secciones).
+* **Flujo del Afiliado por WhatsApp:**
+  1. El usuario envía su número de cédula al bot.
+  2. El webhook consulta la base de datos `soluciones_w.json`.
+  3. Si la cédula existe y está activa, genera un JWT y responde con una **Lista Interactiva** de 5 asistencias con botón *"Seleccionar Asistencia"* y un link mágico para entrar al portal web sin contraseña (`https://w-soluciones.jhojan.cloud/?token=...`).
+  4. Al seleccionar un servicio en la lista, el webhook radicará automáticamente la asistencia en la base de datos (`AUX-XXXX`) y enviará un mensaje de confirmación con el código de despacho y los minutos de llegada.
+
+---
+
 ## ⚠️ Regla Operativa Estricta: PRIMERO LOCAL (PROHIBIDO AUTO-PUSH Y DEPLOY)
 * **Primero Local:** Todas las modificaciones se programan, verifican y compilan exclusivamente en el entorno local (`pnpm run build` / servidor local).
 * **Cero Push Automático:** NO ejecutar `git push` ni disparar despliegues hacia Coolify / OCI a menos que el usuario lo solicite de manera explícita en su mensaje.
