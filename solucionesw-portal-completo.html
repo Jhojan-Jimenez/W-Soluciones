@@ -1,0 +1,3205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soluciones W – Plataforma de Asistencias & Afiliaciones</title>
+    <link rel="icon" href="/images/logo-w-symbol.png" type="image/png">
+    
+    <!-- Google Fonts: Spartan & Libre Baskerville (Identidad Oficial Soluciones W) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Spartan:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome 4.7 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        /* ==========================================================
+           RESET & TIPOGRAFÍA BASE (100% ESTILO SOLUCIONES W)
+           ========================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Spartan', sans-serif;
+            font-size: 15px;
+            line-height: 1.7;
+            font-weight: 400;
+            background: #ffffff;
+            color: #0b5278;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Libre Baskerville', serif;
+            font-weight: 400;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        button {
+            font-family: 'Spartan', sans-serif;
+        }
+
+        /* Utilidades de Contenedor */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .container-narrow {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Botón de Acción Oficial Soluciones W (.rev-btn) */
+        .rev-btn {
+            background-color: #4b722d;
+            color: #ffffff !important;
+            padding: 13px 30px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .rev-btn:hover {
+            background-color: #0b5278;
+            color: #ffffff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(11, 82, 120, 0.25);
+        }
+
+        .rev-btn-blue {
+            background-color: #0b5278;
+        }
+
+        .rev-btn-blue:hover {
+            background-color: #4b722d;
+        }
+
+        .rev-btn-outline {
+            background: transparent;
+            border: 2px solid #0b5278;
+            color: #0b5278 !important;
+            box-shadow: none;
+        }
+
+        .rev-btn-outline:hover {
+            background: #0b5278;
+            color: #ffffff !important;
+        }
+
+        /* Títulos de Sección Oficiales (h2.sub) */
+        h2.sub {
+            text-align: center;
+            font-size: 35px;
+            margin: 80px 0 20px 0;
+            text-transform: uppercase;
+            color: #0b5278;
+            letter-spacing: -0.5px;
+            position: relative;
+        }
+
+        .sub-desc {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 55px auto;
+            color: #555555;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        /* ==========================================================
+           HEADER INSTITUCIONAL (#e89-header)
+           ========================================================== */
+        #e89-header {
+            background: #ffffff;
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        .e89-header-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            min-height: 80px;
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .e89-header-logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-shrink: 0;
+        }
+
+        .e89-header-logo img {
+            max-width: 220px;
+            height: auto;
+            display: block;
+        }
+
+        .e89-header-logo-text {
+            border-left: 1px solid #e0e0e0;
+            padding-left: 15px;
+            display: flex;
+            flex-direction: column;
+            white-space: nowrap;
+        }
+
+        .e89-header-logo-text span {
+            font-size: 11px;
+            font-weight: 700;
+            color: #0b5278;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .e89-header-logo-text small {
+            font-size: 10px;
+            color: #888888;
+            font-weight: 500;
+        }
+
+        #e89-header-nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .e89-menu {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .e89-menu li a {
+            color: #0b5278;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 4px;
+            position: relative;
+            display: block;
+            white-space: nowrap;
+        }
+
+        .e89-menu li a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #0b5278;
+            transition: width 0.3s ease;
+        }
+
+        .e89-menu li.current-menu-item a:after,
+        .e89-menu li a:hover:after {
+            width: 100%;
+        }
+
+        /* Botones de acción en Header alineados y consistentes */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-left: 20px;
+            border-left: 1px solid #e0e0e0;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .header-btn-affiliate {
+            background: transparent;
+            color: #0b5278;
+            border: 1.5px solid #0b5278;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            height: 38px;
+            line-height: 1;
+        }
+
+        .header-btn-affiliate:hover {
+            background: #0b5278;
+            color: #ffffff;
+        }
+
+        .header-btn-whatsapp {
+            background: #4b722d;
+            color: #ffffff;
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            box-shadow: 0 2px 6px rgba(75, 114, 45, 0.25);
+            transition: all 0.3s;
+            white-space: nowrap;
+            height: 38px;
+            line-height: 1;
+        }
+
+        .header-btn-whatsapp:hover {
+            background: #0b5278;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(11, 82, 120, 0.25);
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 24px;
+            color: #0b5278;
+            cursor: pointer;
+        }
+
+        /* ==========================================================
+           SLIDER HERO CON FORMULARIO INTEGRADO DE AFILIACIÓN EXPRESS
+           ========================================================== */
+        .hero-section {
+            position: relative;
+            min-height: 620px;
+            background: #0b5278;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-backgrounds {
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(11, 82, 120, 0.95) 0%, rgba(11, 82, 120, 0.85) 55%, rgba(11, 82, 120, 0.55) 100%);
+            z-index: 1;
+        }
+
+        .hero-content-wrapper {
+            position: relative;
+            z-index: 2;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 60px 25px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-text {
+            color: #ffffff;
+        }
+
+        .slide-tag {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #dd9933;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .slide-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 42px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .slide-desc {
+            font-size: 16px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.92);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .hero-trust-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 12px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .hero-trust-badges span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-trust-badges i {
+            color: #dd9933;
+        }
+
+        /* Card Formulario Express de Afiliación */
+        .hero-form-card {
+            background: #ffffff;
+            border-radius: 6px;
+            padding: 35px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            border-top: 5px solid #4b722d;
+            position: relative;
+        }
+
+        .hero-form-card h3 {
+            font-family: 'Libre Baskerville', serif;
+            color: #0b5278;
+            font-size: 24px;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .hero-form-card p {
+            color: #555555;
+            font-size: 13px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #0b5278;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-control-w {
+            width: 100%;
+            border: 1px solid #d0d7de;
+            border-bottom: 2px solid #0b5278;
+            border-radius: 3px;
+            padding: 12px 14px;
+            font-family: 'Spartan', sans-serif;
+            font-size: 13px;
+            color: #0b5278;
+            background: #fdfdfd;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-control-w:focus {
+            border-color: #4b722d;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(75, 114, 45, 0.1);
+        }
+
+        .form-select-w {
+            width: 100%;
+            border: 1px solid #d0d7de;
+            border-bottom: 2px solid #0b5278;
+            border-radius: 3px;
+            padding: 12px 14px;
+            font-family: 'Spartan', sans-serif;
+            font-size: 13px;
+            color: #0b5278;
+            background: #fdfdfd;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .form-legal {
+            font-size: 10px;
+            color: #777777;
+            line-height: 1.5;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        /* Slider Controls */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 46px;
+            height: 46px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-arrow:hover {
+            background: #4b722d;
+        }
+
+        .slider-arrow.prev { left: 15px; }
+        .slider-arrow.next { right: 15px; }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: #ffffff;
+            transform: scale(1.3);
+        }
+
+        /* ==========================================================
+           SECCIÓN ¿QUÉ ES UNA ASISTENCIA? (.about)
+           ========================================================== */
+        .about {
+            text-align: center;
+            max-width: 1100px;
+            margin: 70px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .about h2 {
+            position: relative;
+            background-color: #0b5278;
+            color: #fff;
+            display: inline-block;
+            padding: 14px 45px 11px 20px;
+            font-family: 'Spartan', sans-serif;
+            font-size: 16px;
+            text-transform: uppercase;
+            margin-right: 20px;
+            letter-spacing: 1px;
+            border-radius: 3px;
+        }
+
+        .about h2 .fa {
+            position: absolute;
+            right: -17px;
+            top: 50%;
+            background: #4b722d;
+            width: 34px;
+            line-height: 30px;
+            margin-top: -17px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            text-align: center;
+        }
+
+        .about p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: #0b5278;
+            max-width: 950px;
+            margin: 25px auto 0 auto;
+            font-weight: 400;
+        }
+
+        /* ==========================================================
+           SECCIÓN DE PLANES Y TARIFAS NETAS
+           ========================================================== */
+        .planes-section {
+            background: #fbfbfb;
+            padding: 70px 0 90px 0;
+            border-top: 1px solid #eeeeee;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .billing-toggle-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 50px;
+        }
+
+        .billing-toggle {
+            background: #ffffff;
+            border: 1px solid #0b5278;
+            border-radius: 30px;
+            padding: 4px;
+            display: inline-flex;
+        }
+
+        .billing-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 22px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #0b5278;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .billing-btn.active {
+            background: #0b5278;
+            color: #ffffff;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .plan-card {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 35px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(11, 82, 120, 0.12);
+        }
+
+        .plan-card.featured {
+            border: 2px solid #4b722d;
+            box-shadow: 0 8px 25px rgba(75, 114, 45, 0.15);
+        }
+
+        .plan-badge-popular {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4b722d;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 5px 18px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(75, 114, 45, 0.3);
+        }
+
+        .plan-category {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #dd9933;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .plan-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 22px;
+            color: #0b5278;
+            margin-bottom: 10px;
+        }
+
+        .plan-desc {
+            font-size: 13px;
+            color: #666666;
+            line-height: 1.5;
+            min-height: 40px;
+            margin-bottom: 20px;
+        }
+
+        .plan-price-box {
+            background: #f7fafc;
+            border-top: 1px solid #edf2f7;
+            border-bottom: 1px solid #edf2f7;
+            padding: 18px 0;
+            text-align: center;
+            margin-bottom: 25px;
+            border-radius: 3px;
+        }
+
+        .price-currency {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0b5278;
+            vertical-align: top;
+        }
+
+        .price-number {
+            font-family: 'Spartan', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            color: #0b5278;
+            line-height: 1;
+        }
+
+        .price-period {
+            font-size: 12px;
+            color: #777777;
+            font-weight: 500;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .plan-features-list {
+            list-style: none;
+            margin-bottom: 30px;
+            font-size: 13px;
+        }
+
+        .plan-features-list li {
+            padding: 8px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: #333333;
+            line-height: 1.4;
+        }
+
+        .plan-features-list li i.fa-check {
+            color: #4b722d;
+            margin-top: 2px;
+        }
+
+        .plan-features-list li i.fa-times {
+            color: #cccccc;
+            margin-top: 2px;
+        }
+
+        .plan-features-list li.disabled {
+            color: #999999;
+        }
+
+        /* ==========================================================
+           SECCIÓN PROGRAMAS DE PROTECCIÓN (.servicios)
+           ========================================================== */
+        .servicios {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1300px;
+            margin: auto;
+            padding: 0 10px;
+        }
+
+        .servicios .box {
+            width: 100%;
+            max-width: 320px;
+            height: 380px;
+            padding: 10px;
+            text-align: center;
+            line-height: 1.3;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .servicios .wrapper {
+            display: block;
+            background: #ccc;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            color: #0b5278;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 4px;
+        }
+
+        .servicios .wrapper:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-image: linear-gradient(180deg, transparent 20%, #0b5278 100%);
+        }
+
+        .servicios h2 {
+            line-height: 20px;
+            margin: 0;
+            min-height: 60px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            transition: all .4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+        }
+
+        .servicios .wrapper:hover h2 {
+            color: #0b5278;
+        }
+
+        .servicios .float {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            margin-top: -100px;
+            padding: 40px 20px 0 20px;
+            height: 360px;
+            transition: all .4s ease;
+        }
+
+        .servicios .wrapper:hover .float {
+            top: 180px;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .servicios .float p {
+            color: #0b5278;
+            font-size: 13px;
+            line-height: 1.4;
+            margin-top: 10px;
+        }
+
+        .servicios .float .limit-badge {
+            display: inline-block;
+            background: #0b5278;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 3px;
+            margin-top: 12px;
+        }
+
+        .servicios .float span {
+            opacity: 0;
+            position: absolute;
+            top: -52px;
+            left: 50%;
+            margin-left: -52px;
+            width: 104px;
+            height: 104px;
+            background: #fff;
+            border: 2px solid #0b5278;
+            background-size: 70px;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 50%;
+            transition: all .4s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            color: #0b5278;
+        }
+
+        .servicios .wrapper:hover .float span {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* ==========================================================
+           SECCIÓN MEDIOS DE PAGO Y PASARELAS DE CONFIANZA
+           ========================================================== */
+        .pagos-section {
+            background: #ffffff;
+            padding: 70px 0 80px 0;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .payment-methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .payment-method-card {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .payment-method-card:hover {
+            border-color: #0b5278;
+            box-shadow: 0 6px 18px rgba(11, 82, 120, 0.1);
+        }
+
+        .payment-logo-box {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .payment-logo-box img {
+            max-height: 44px;
+            max-width: 140px;
+            object-contain: contain;
+        }
+
+        .payment-method-card h4 {
+            font-family: 'Spartan', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #0b5278;
+            margin-bottom: 8px;
+        }
+
+        .payment-method-card p {
+            font-size: 12px;
+            color: #666666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .payment-tag {
+            font-size: 11px;
+            font-weight: 700;
+            color: #4b722d;
+            text-transform: uppercase;
+            padding-top: 10px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        /* Banner de respaldo pasarelas */
+        .gateway-trust-banner {
+            max-width: 1200px;
+            margin: 40px auto 0 auto;
+            background: #fbfbfb;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 20px 30px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .gateway-badges {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #0b5278;
+        }
+
+        .security-badges {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 12px;
+            color: #555555;
+        }
+
+        .security-badges span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .security-badges i {
+            color: #4b722d;
+        }
+
+        /* ==========================================================
+           VALIDADOR CENTRAL OPERADOR DEMO (WILSON TRIANA)
+           ========================================================== */
+        .operador-section {
+            background: #0b5278;
+            color: #ffffff;
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .operador-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            color: #0b5278;
+            border-radius: 6px;
+            padding: 40px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        .operador-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .operador-title h3 {
+            font-size: 26px;
+            color: #0b5278;
+            margin-bottom: 8px;
+        }
+
+        .operador-title p {
+            color: #666666;
+            font-size: 14px;
+        }
+
+        .search-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .search-input-group input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 1px solid #d0d7de;
+            border-bottom: 2px solid #0b5278;
+            border-radius: 3px;
+            font-family: 'Spartan', sans-serif;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-input-group input:focus {
+            border-color: #4b722d;
+        }
+
+        .quick-demo-links {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #888888;
+            margin-bottom: 25px;
+        }
+
+        .quick-demo-links a {
+            color: #4b722d;
+            font-weight: 700;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .operator-result-card {
+            background: #f7fafc;
+            border: 1px solid #0b5278;
+            border-radius: 4px;
+            padding: 25px;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .operator-result-card.show {
+            display: block;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .status-pill {
+            background: #4b722d;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .result-grid-item span {
+            color: #888888;
+            font-size: 11px;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        .result-grid-item strong {
+            color: #0b5278;
+            font-size: 14px;
+        }
+
+        /* ==========================================================
+           SECCIÓN PREGUNTAS FRECUENTES (FAQ ACCORDION)
+           ========================================================== */
+        .faq-section {
+            padding: 80px 0 90px 0;
+            background: #ffffff;
+        }
+
+        .faq-list {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-question {
+            width: 100%;
+            background: #ffffff;
+            padding: 20px 25px;
+            text-align: left;
+            font-family: 'Spartan', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: #0b5278;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #fbfbfb;
+        }
+
+        .faq-question i {
+            color: #4b722d;
+            font-size: 14px;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            background: #fdfdfd;
+            border-top: 1px solid transparent;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+            padding: 0 25px;
+            color: #555555;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 250px;
+            padding: 15px 25px 25px 25px;
+            border-top-color: #eeeeee;
+        }
+
+        /* ==========================================================
+           SECCIÓN BLOG / ACTUALIDAD (.home-blog)
+           ========================================================== */
+        .home-blog {
+            max-width: 1260px;
+            margin: 0 auto;
+            padding: 0 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .home-blog .box {
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            box-shadow: 3px 3px 12px 0px rgba(0, 0, 0, 0.08);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #eeeeee;
+        }
+
+        .home-blog .box:hover {
+            transform: translateY(-5px);
+            box-shadow: 3px 8px 20px 0px rgba(0, 0, 0, 0.15);
+        }
+
+        .home-blog .img {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .home-blog .info {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex: 1;
+        }
+
+        .home-blog h3 {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.35;
+            color: #0b5278;
+            margin-bottom: 12px;
+        }
+
+        .home-blog .post-excerpt {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #555555;
+            margin-bottom: 20px;
+        }
+
+        .home-blog .more-link {
+            text-transform: none;
+            text-align: right;
+            margin-top: auto;
+            color: #4b722d;
+            font-weight: 700;
+            font-size: 14px;
+            display: block;
+        }
+
+        .home-blog .more-link:hover {
+            color: #0b5278;
+        }
+
+        /* ==========================================================
+           SECCIÓN CONTACTO (.contacto)
+           ========================================================== */
+        .contacto {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            max-width: 1260px;
+            margin: 90px auto 70px auto;
+            padding: 0 25px;
+        }
+
+        .contacto .title {
+            flex: 0 0 auto;
+            width: 100%;
+        }
+
+        .contacto .title h2 {
+            margin: 0;
+            text-align: left;
+            font-size: 38px;
+            line-height: 1.15;
+            color: #0b5278;
+            text-transform: uppercase;
+        }
+
+        .contacto .info {
+            flex: 1;
+            margin-top: 30px;
+        }
+
+        .contacto-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .contacto-form .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .contacto input[type=text],
+        .contacto input[type=email],
+        .contacto textarea {
+            width: 100%;
+            border: 0;
+            border-bottom: 1px solid #0b5278;
+            padding: 12px 5px;
+            font-family: 'Spartan', sans-serif;
+            font-size: 14px;
+            color: #0b5278;
+            background: transparent;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .contacto input[type=text]:focus,
+        .contacto input[type=email]:focus,
+        .contacto textarea:focus {
+            border-bottom-color: #4b722d;
+        }
+
+        .contacto textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .contacto button {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            background: transparent;
+            color: #4b722d;
+            border: 0;
+            cursor: pointer;
+            padding: 15px 0;
+            font-family: 'Spartan', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin-left: auto;
+            transition: color 0.3s;
+        }
+
+        .contacto button:hover {
+            color: #0b5278;
+        }
+
+        @media (min-width: 768px) {
+            .contacto .title {
+                width: 300px;
+            }
+            .contacto .info {
+                margin-top: 0;
+                border-left: 1px solid #0b5278;
+                margin-left: 6%;
+                padding: 30px 0 30px 6%;
+            }
+        }
+
+        /* ==========================================================
+           FOOTER INSTITUCIONAL (#e89-footer)
+           ========================================================== */
+        #e89-footer {
+            color: #ffffff;
+            background: #0b5278;
+            padding-top: 60px;
+            border-top: 5px solid #4b722d;
+        }
+
+        #e89-footer-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .footer-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 40px;
+            padding-bottom: 50px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .footer-widget .widget-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-widget ul {
+            list-style: none;
+        }
+
+        .footer-widget ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-widget ul li a {
+            color: #ffffff;
+            font-size: 14px;
+            transition: color 0.2s, padding-left 0.2s;
+        }
+
+        .footer-widget ul li a:hover {
+            color: #dd9933;
+            padding-left: 5px;
+        }
+
+        .footer-contact a {
+            color: #ffffff;
+            font-size: 14px;
+            display: block;
+            margin-top: 6px;
+        }
+
+        .footer-contact a:hover {
+            color: #dd9933;
+        }
+
+        .footer-social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .footer-social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .footer-social-links a:hover {
+            background: #4b722d;
+        }
+
+        .copyright-area {
+            padding: 25px 0;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* ==========================================================
+           BARRA FLOTANTE MÓVIL (MOBILE BOTTOM BAR)
+           ========================================================== */
+        .mobile-bottom-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border-top: 1px solid #e0e0e0;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
+            z-index: 999;
+            padding: 10px 15px;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .mobile-bottom-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #0b5278;
+        }
+
+        .mobile-bottom-btn i {
+            font-size: 18px;
+        }
+
+        .mobile-bottom-btn.whatsapp i {
+            color: #4b722d;
+        }
+
+        /* ==========================================================
+           MODALES (CHECKOUT & LOGIN & MEMBER HUB)
+           ========================================================== */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(11, 82, 120, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+        }
+
+        .modal-container {
+            background: #ffffff;
+            border-radius: 6px;
+            max-width: 580px;
+            width: 100%;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            background: #0b5278;
+            color: #ffffff;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #4b722d;
+        }
+
+        .modal-header h4 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 25px 30px;
+        }
+
+        /* Steps Indicator */
+        .checkout-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .checkout-steps:after {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: 30px;
+            right: 30px;
+            height: 2px;
+            background: #eeeeee;
+            z-index: 1;
+        }
+
+        .step-circle {
+            position: relative;
+            z-index: 2;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #eeeeee;
+            color: #777777;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .step-circle.active {
+            background: #4b722d;
+            color: #ffffff;
+        }
+
+        .step-circle.done {
+            background: #0b5278;
+            color: #ffffff;
+        }
+
+        .tab-gateway-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            background: #fdfdfd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            color: #0b5278;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .tab-gateway-btn.active {
+            border-color: #4b722d;
+            background: #f6faf2;
+            color: #4b722d;
+        }
+
+        /* ==========================================================
+           PORTAL DE AFILIADOS HUB (VISTA PRIVADA CONDICIONAL)
+           ========================================================== */
+        #member-hub-view {
+            display: none;
+            min-height: 100vh;
+            background: #f8fafc;
+        }
+
+        .hub-banner {
+            background: linear-gradient(135deg, #0b5278 0%, #063a57 100%);
+            color: #ffffff;
+            padding: 40px 25px;
+            border-bottom: 4px solid #4b722d;
+        }
+
+        .hub-banner-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .hub-filter-pills {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .hub-pill {
+            padding: 8px 20px;
+            border-radius: 20px;
+            background: #ffffff;
+            border: 1px solid #0b5278;
+            color: #0b5278;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .hub-pill.active {
+            background: #0b5278;
+            color: #ffffff;
+        }
+
+        .services-on-demand-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto 50px auto;
+        }
+
+        .hub-service-card {
+            background: #ffffff;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            padding: 22px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s;
+        }
+
+        .hub-service-card:hover {
+            transform: translateY(-4px);
+            border-color: #0b5278;
+            box-shadow: 0 10px 20px rgba(11, 82, 120, 0.12);
+        }
+
+        /* ==========================================================
+           RESPONSIVE MOBILE
+           ========================================================== */
+        @media (max-width: 900px) {
+            #e89-header-nav {
+                display: none;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .mobile-bottom-bar {
+                display: flex;
+            }
+            body {
+                padding-bottom: 60px;
+            }
+            .hero-content-wrapper {
+                grid-template-columns: 1fr;
+                padding: 40px 20px;
+            }
+            .slide-title {
+                font-size: 30px;
+            }
+            h2.sub {
+                font-size: 26px;
+                margin: 50px 0 20px 0;
+            }
+            .servicios .box {
+                max-width: 100%;
+                height: 360px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========================================================
+         VISTA PÚBLICA / LANDING INSTITUCIONAL
+         ======================================================== -->
+    <div id="public-landing-view">
+
+        <!-- HEADER INSTITUCIONAL (#e89-header) -->
+        <header id="e89-header">
+            <div class="e89-header-wrapper">
+                
+                <!-- Logo Oficial Soluciones W -->
+                <div class="e89-header-logo">
+                    <a href="#" title="Soluciones W">
+                        <img src="https://solucionesw.com/wp-content/uploads/2022/09/logo.png" alt="Soluciones W" onerror="this.src='/images/logo-soluciones-w.png'">
+                    </a>
+                    <div class="e89-header-logo-text">
+                        <span>Plataforma de Afiliaciones</span>
+                        <small>Dir. Wilson Triana</small>
+                    </div>
+                </div>
+
+                <!-- Menú y Acciones Institucionales Optimizadas -->
+                <div id="e89-header-nav">
+                    <ul class="e89-menu">
+                        <li class="current-menu-item"><a href="#planes">Planes</a></li>
+                        <li><a href="#servicios">Coberturas</a></li>
+                        <li><a href="#faq">Preguntas</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+
+                    <div class="header-actions">
+                        <!-- Botón Soy Afiliado (Abre Login Modal) -->
+                        <button class="header-btn-affiliate" onclick="openLoginModal()" title="Ingreso al portal de afiliados">
+                            <i class="fa fa-user-circle"></i> Soy Afiliado
+                        </button>
+
+                        <!-- Botón WhatsApp Oficial Limpio -->
+                        <a href="https://wa.me/573134289397" target="_blank" class="header-btn-whatsapp" title="Atención directa por WhatsApp">
+                            <i class="fa fa-whatsapp"></i> WhatsApp 24/7
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mobile-toggle" onclick="toggleMobileMenu()">
+                    <i class="fa fa-bars"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- ========================================================
+             HERO SLIDER CON FORMULARIO INTEGRADO DE AFILIACIÓN EXPRESS
+             ======================================================== -->
+        <section class="hero-section" id="inicio">
+            <!-- Slides fotográficos de fondo -->
+            <div class="hero-backgrounds" id="heroSlides">
+                <div class="hero-slide active" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/10/1.jpg');"></div>
+                <div class="hero-slide" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/10/s1.jpg');"></div>
+                <div class="hero-slide" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/10/s2.jpg');"></div>
+                <div class="hero-slide" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/10/s3.jpg');"></div>
+            </div>
+
+            <div class="hero-overlay"></div>
+
+            <div class="hero-content-wrapper">
+                
+                <!-- Columna Izquierda: Mensaje y Propuesta de Valor -->
+                <div class="hero-text">
+                    <span class="slide-tag">Siempre presente en cualquier momento</span>
+                    <h1 class="slide-title">Protección integral médica, del hogar y tus mascotas</h1>
+                    <p class="slide-desc">
+                        Construimos programas de protección robustos con atención médica domiciliaria, ambulancia 24/7 y auxilio técnico de urgencia sin copagos ni cláusulas de permanencia.
+                    </p>
+                    
+                    <div class="hero-buttons">
+                        <a href="#planes" class="rev-btn">Ver Planes y Tarifas</a>
+                        <a href="tel:6017459000" class="rev-btn rev-btn-blue">
+                            <i class="fa fa-phone"></i> Central (601) 745-9000
+                        </a>
+                    </div>
+
+                    <div class="hero-trust-badges">
+                        <span><i class="fa fa-check-circle"></i> Sin periodos de carencia</span>
+                        <span><i class="fa fa-check-circle"></i> Sin exámenes médicos</span>
+                        <span><i class="fa fa-check-circle"></i> Activación digital en 2 min</span>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Formulario de Afiliación Express en Línea -->
+                <div class="hero-form-card">
+                    <h3>¡Afíliate en línea ya!</h3>
+                    <p>Completa tus datos y activa tu plan en menos de 2 minutos.</p>
+
+                    <form id="expressLeadForm" onsubmit="handleExpressLead(event)">
+                        <div class="form-group">
+                            <label>Nombre y Apellido *</label>
+                            <input type="text" id="leadName" class="form-control-w" placeholder="Ingresa tu nombre completo" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Correo Electrónico *</label>
+                            <input type="email" id="leadEmail" class="form-control-w" placeholder="correo@ejemplo.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Teléfono Celular / WhatsApp *</label>
+                            <input type="tel" id="leadPhone" class="form-control-w" placeholder="320 000 0000" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Plan de Interés</label>
+                            <select id="leadPlan" class="form-select-w">
+                                <option value="plus">Plan Plus Familiar 360° ($54.900/mes) - Recomendado</option>
+                                <option value="tradicional">Plan Tradicional Hogar & Salud ($39.900/mes)</option>
+                                <option value="virtual">Plan Básico Digital ($24.900/mes)</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="rev-btn" style="width: 100%; margin-top: 10px;">
+                            <span>Continuar al Pago Seguro</span> <i class="fa fa-arrow-right"></i>
+                        </button>
+
+                        <p class="form-legal">
+                            * Campos obligatorios. Al continuar aceptas nuestros términos de servicio y autorización de datos (Ley 1581 Habeas Data).
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Controles del Slider -->
+            <button class="slider-arrow prev" onclick="prevHeroSlide()"><i class="fa fa-chevron-left"></i></button>
+            <button class="slider-arrow next" onclick="nextHeroSlide()"><i class="fa fa-chevron-right"></i></button>
+            <div class="slider-dots" id="heroDots">
+                <div class="dot active" onclick="setHeroSlide(0)"></div>
+                <div class="dot" onclick="setHeroSlide(1)"></div>
+                <div class="dot" onclick="setHeroSlide(2)"></div>
+                <div class="dot" onclick="setHeroSlide(3)"></div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+             SECCIÓN ¿QUÉ ES UNA ASISTENCIA? (.about)
+             ======================================================== -->
+        <div class="about">
+            <h2>¿Qué es una asistencia? <i class="fa fa-arrow-down"></i></h2>
+            <p>
+                La Asistencia es un producto de Protección flexible, que se contrata con servicios y coberturas sólidas, robustas, con atención profesional, cuyo objetivo primordial es proteger a las personas y su grupo familiar ante eventos no esperados, sin copagos ni trámites burocráticos.
+            </p>
+        </div>
+
+        <!-- ========================================================
+             SECCIÓN DE PLANES Y TARIFAS NETAS
+             ======================================================== -->
+        <section class="planes-section" id="planes">
+            <div class="container">
+                <h2 class="sub">Planes Soluciones W</h2>
+                <p class="sub-desc">
+                    Elige el plan ideal para tu familia y recibe tu certificado digital de cobertura inmediatamente con débito automático sin permanencia.
+                </p>
+
+                <!-- Toggle Mensual / Anual -->
+                <div class="billing-toggle-wrapper">
+                    <div class="billing-toggle">
+                        <button class="billing-btn active" id="btnMonthly" onclick="setBilling('monthly')">Pago Mensual</button>
+                        <button class="billing-btn" id="btnAnnual" onclick="setBilling('annual')">Pago Anual (2 Meses Gratis)</button>
+                    </div>
+                </div>
+
+                <div class="plans-grid">
+                    
+                    <!-- Plan 1: Básico Digital -->
+                    <div class="plan-card">
+                        <div>
+                            <span class="plan-category">Básico Individual</span>
+                            <h3 class="plan-title">Plan Digital Básico</h3>
+                            <p class="plan-desc">Telemedicina 24/7 y orientación pediátrica sin filas, ideal para jóvenes e independientes.</p>
+
+                            <div class="plan-price-box">
+                                <span class="price-currency">$</span>
+                                <span class="price-number" id="priceVirtual">24.900</span>
+                                <span class="price-period" id="periodVirtual">COP / mes · Sin copagos</span>
+                            </div>
+
+                            <ul class="plan-features-list">
+                                <li><i class="fa fa-check"></i> Telemedicina 24/7 ilimitada con fórmula digital</li>
+                                <li><i class="fa fa-check"></i> Orientación médica y pediátrica telefónica</li>
+                                <li><i class="fa fa-check"></i> Odontología preventiva (1 profilaxis anual gratis)</li>
+                                <li class="disabled"><i class="fa fa-times"></i> Sin médico presencial domiciliario</li>
+                                <li class="disabled"><i class="fa fa-times"></i> Sin ambulancia medicalizada</li>
+                            </ul>
+                        </div>
+
+                        <button class="rev-btn rev-btn-outline" style="width: 100%;" onclick="startCheckout('virtual')">
+                            Elegir Plan Digital
+                        </button>
+                    </div>
+
+                    <!-- Plan 2: Tradicional Hogar & Salud -->
+                    <div class="plan-card">
+                        <div>
+                            <span class="plan-category">Protección Hogar</span>
+                            <h3 class="plan-title">Plan Tradicional</h3>
+                            <p class="plan-desc">Médico a domicilio, ambulancia y auxilio técnico para reparaciones de urgencia.</p>
+
+                            <div class="plan-price-box">
+                                <span class="price-currency">$</span>
+                                <span class="price-number" id="priceTradicional">39.900</span>
+                                <span class="price-period" id="periodTradicional">COP / mes · Sin copagos</span>
+                            </div>
+
+                            <ul class="plan-features-list">
+                                <li><i class="fa fa-check"></i> Médico general a domicilio (hasta 3 consultas)</li>
+                                <li><i class="fa fa-check"></i> Traslado en ambulancia básica y medicalizada 24/7</li>
+                                <li><i class="fa fa-check"></i> Plomería y cerrajería de urgencia en el hogar</li>
+                                <li><i class="fa fa-check"></i> Telemedicina 24/7 + Profilaxis dental</li>
+                                <li class="disabled"><i class="fa fa-times"></i> Sin cobertura veterinaria para mascotas</li>
+                            </ul>
+                        </div>
+
+                        <button class="rev-btn rev-btn-outline" style="width: 100%;" onclick="startCheckout('tradicional')">
+                            Elegir Plan Tradicional
+                        </button>
+                    </div>
+
+                    <!-- Plan 3: Plan Plus Familiar 360° (Destacado) -->
+                    <div class="plan-card featured">
+                        <div class="plan-badge-popular">★ Más Popular · Recomendado</div>
+                        <div>
+                            <span class="plan-category">Protección Integral 360°</span>
+                            <h3 class="plan-title">Plan Plus Familiar</h3>
+                            <p class="plan-desc">La cobertura total de Soluciones W: Salud, Ambulancia, Mascotas, Hogar y Odontología.</p>
+
+                            <div class="plan-price-box" style="background: #f4f8f1;">
+                                <span class="price-currency">$</span>
+                                <span class="price-number" id="pricePlus">54.900</span>
+                                <span class="price-period" id="periodPlus">COP / mes · Los 5 Pilares Esenciales</span>
+                            </div>
+
+                            <ul class="plan-features-list">
+                                <li><i class="fa fa-check"></i> <strong>Médico a domicilio + Telemedicina 24/7</strong></li>
+                                <li><i class="fa fa-check"></i> <strong>Ambulancia medicalizada prioritaria</strong></li>
+                                <li><i class="fa fa-check"></i> <strong>Asistencia veterinaria para mascotas (urgencias y vacunas)</strong></li>
+                                <li><i class="fa fa-check"></i> <strong>Plomería, cerrajería y electricidad en casa</strong></li>
+                                <li><i class="fa fa-check"></i> <strong>Urgencia dental + Limpieza profunda anual</strong></li>
+                            </ul>
+                        </div>
+
+                        <button class="rev-btn" style="width: 100%;" onclick="startCheckout('plus')">
+                            Activar Plan Plus 360°
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+             PROGRAMAS DE PROTECCIÓN (.servicios)
+             ======================================================== -->
+        <section id="servicios">
+            <h2 class="sub">Programas de protección</h2>
+            <p class="sub-desc">
+                Pasa el cursor sobre cada programa para conocer las coberturas y límites específicos garantizados.
+            </p>
+
+            <div class="servicios">
+                
+                <!-- Box 1: Salud -->
+                <div class="box">
+                    <a href="#planes" class="wrapper" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/08/10.jpg');">
+                        <div class="float">
+                            <span><i class="fa fa-user-md"></i></span>
+                            <h2>Asistencia salud</h2>
+                            <p>Te protegemos y atendemos incluido tu grupo familiar ante emergencias en Salud y médico a domicilio.</p>
+                            <div class="limit-badge">Hasta $250.000 COP / consulta</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Box 2: Ambulancia & Urgencias -->
+                <div class="box">
+                    <a href="#planes" class="wrapper" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/08/6.jpg');">
+                        <div class="float">
+                            <span><i class="fa fa-ambulance"></i></span>
+                            <h2>Ambulancia 24/7</h2>
+                            <p>Traslados medicalizados y básicos prioritarios con paramédicos certificados ante crisis agudas.</p>
+                            <div class="limit-badge">2 traslados 100% cubiertos</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Box 3: Mascotas -->
+                <div class="box">
+                    <a href="#planes" class="wrapper" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/08/3.jpg');">
+                        <div class="float">
+                            <span><i class="fa fa-paw"></i></span>
+                            <h2>Asistencia mascotas</h2>
+                            <p>Atención médica veterinaria para perros y gatos ante accidentes, intoxicaciones y vacunas.</p>
+                            <div class="limit-badge">Hasta $200.000 COP / evento</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Box 4: Hogar -->
+                <div class="box">
+                    <a href="#planes" class="wrapper" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/08/5.jpg');">
+                        <div class="float">
+                            <span><i class="fa fa-wrench"></i></span>
+                            <h2>Asistencia hogar</h2>
+                            <p>Técnicos calificados para solucionar fugas de agua, roturas de tuberías, cortos y cerraduras.</p>
+                            <div class="limit-badge">Hasta $220.000 COP / evento</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Box 5: Odontología -->
+                <div class="box">
+                    <a href="#planes" class="wrapper" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/10/7.jpg');">
+                        <div class="float">
+                            <span><i class="fa fa-smile-o"></i></span>
+                            <h2>Odontología</h2>
+                            <p>Alivio del dolor agudo en centros odontológicos aliados y profilaxis profunda anual sin costo.</p>
+                            <div class="limit-badge">1 Urgencia + 1 Profilaxis</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Box 6: Tenderos & Comercio -->
+                <div class="box">
+                    <a href="#planes" class="wrapper" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/08/9.jpg');">
+                        <div class="float">
+                            <span><i class="fa fa-shopping-cart"></i></span>
+                            <h2>Tenderos</h2>
+                            <p>Protección al comerciante independiente ante imprevistos de salud y daños en su establecimiento.</p>
+                            <div class="limit-badge">Protección Integral Pyme</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Box 7: Movilidad & Bici -->
+                <div class="box">
+                    <a href="#planes" class="wrapper" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/08/2-1.jpg');">
+                        <div class="float">
+                            <span><i class="fa fa-bicycle"></i></span>
+                            <h2>Bicicleta</h2>
+                            <p>Asistencia ante imprevistos viales, caídas y traslados seguros para el ciclista y su bicicleta.</p>
+                            <div class="limit-badge">Auxilio Vial Urbano</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Box 8: Vehicular / Motos -->
+                <div class="box">
+                    <a href="#planes" class="wrapper" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/08/1-1.jpg');">
+                        <div class="float">
+                            <span><i class="fa fa-motorcycle"></i></span>
+                            <h2>Motos & Autos</h2>
+                            <p>Acompañamiento ante accidentes de tránsito y grúa de rescate en perímetro urbano.</p>
+                            <div class="limit-badge">Respaldo en Carretera</div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================
+             VALIDADOR DE AFILIADOS / OPERADOR DEMO (WILSON TRIANA)
+             ======================================================== -->
+        <section class="operador-section" id="operador">
+            <div class="container">
+                <div class="operador-box">
+                    <div class="operador-title">
+                        <h3>Búsqueda Rápida del Operador Telefónico</h3>
+                        <p>Así consulta el operador de Wilson Triana el estado del afiliado en menos de 1 segundo al recibir una llamada de auxilio.</p>
+                    </div>
+
+                    <div class="search-input-group">
+                        <input type="text" id="operatorCedulaInput" placeholder="Digita cualquier número de cédula (ej. 1018492031)...">
+                        <button class="rev-btn" onclick="consultarOperador()">
+                            <i class="fa fa-search"></i> Consultar
+                        </button>
+                    </div>
+
+                    <div class="quick-demo-links">
+                        <span>Tip: Digita 7 o más dígitos para simular un afiliado en la base de datos oficial.</span>
+                        <a onclick="testCedulaDemo('1018492031')">Probar con C.C. Demo (Carlos Villamil)</a>
+                    </div>
+
+                    <!-- Tarjeta de Resultado Dinámico -->
+                    <div class="operator-result-card" id="operatorResult">
+                        <div class="result-header">
+                            <div>
+                                <h4 id="resName" style="color: #0b5278; font-size: 18px; font-weight: 700;">Carlos Andrés Villamil</h4>
+                                <span id="resDoc" style="font-size: 12px; color: #666;">C.C. 1018492031 · Contrato SW-849102</span>
+                            </div>
+                            <span class="status-pill" id="resStatus"><i class="fa fa-check"></i> ACTIVO Y VIGENTE</span>
+                        </div>
+
+                        <div class="result-grid">
+                            <div class="result-grid-item">
+                                <span>Plan Contratado</span>
+                                <strong id="resPlan">Plan Plus Familiar 360°</strong>
+                            </div>
+                            <div class="result-grid-item">
+                                <span>Vigencia Oficial</span>
+                                <strong id="resDate">04 de Noviembre, 2026</strong>
+                            </div>
+                            <div class="result-grid-item">
+                                <span>Eventos Disponibles</span>
+                                <strong>10 Coberturas Activas</strong>
+                            </div>
+                            <div class="result-grid-item">
+                                <span>Copago Exigido</span>
+                                <strong>$0 COP (Sin Copagos)</strong>
+                            </div>
+                        </div>
+
+                        <button class="rev-btn" style="width: 100%;" onclick="alert('✅ Solicitud autorizada: Operador despachó asistencia técnica y médica a la dirección del titular.')">
+                            <i class="fa fa-check-circle"></i> Autorizar Despacho de Auxilio Inmediato
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+             MEDIOS DE PAGO Y PASARELAS DE CONFIANZA
+             ======================================================== -->
+        <section class="pagos-section" id="pagos">
+            <div class="container">
+                <h2 class="sub">Paga fácil con tus medios favoritos</h2>
+                <p class="sub-desc">
+                    Emisión 100% digital respaldada con cifrado bancario SSL de 256 bits y sin cláusulas de permanencia mínima.
+                </p>
+
+                <div class="payment-methods-grid">
+                    
+                    <!-- PSE -->
+                    <div class="payment-method-card">
+                        <div>
+                            <div class="payment-logo-box">
+                                <img src="/images/payments/pse.png" alt="PSE" onerror="this.src='https://solucionesw.com/wp-content/uploads/2022/09/logo.png'">
+                            </div>
+                            <h4>PSE Débito</h4>
+                            <p>Paga al instante debitando directamente de tu cuenta de ahorros o corriente en Colombia.</p>
+                        </div>
+                        <span class="payment-tag">Sin Comisiones</span>
+                    </div>
+
+                    <!-- Nequi -->
+                    <div class="payment-method-card">
+                        <div>
+                            <div class="payment-logo-box">
+                                <img src="/images/payments/nequi.svg" alt="Nequi" onerror="this.src='https://solucionesw.com/wp-content/uploads/2022/09/logo.png'">
+                            </div>
+                            <h4>Nequi</h4>
+                            <p>Aprobación rápida desde tu celular mediante notificación push en la aplicación.</p>
+                        </div>
+                        <span class="payment-tag">En 5 Segundos</span>
+                    </div>
+
+                    <!-- Tarjetas Visa/Mastercard -->
+                    <div class="payment-method-card">
+                        <div>
+                            <div class="payment-logo-box">
+                                <span style="font-size: 26px; font-weight: 800; color: #0b5278;"><i class="fa fa-cc-visa"></i> <i class="fa fa-cc-mastercard"></i></span>
+                            </div>
+                            <h4>Tarjetas Crédito y Débito</h4>
+                            <p>Soporte para débito automático mensual con tarjetas nacionales e internacionales.</p>
+                        </div>
+                        <span class="payment-tag">Cifrado 3D Secure</span>
+                    </div>
+
+                    <!-- Daviplata -->
+                    <div class="payment-method-card">
+                        <div>
+                            <div class="payment-logo-box">
+                                <img src="/images/payments/daviplata.svg" alt="Daviplata" onerror="this.src='https://solucionesw.com/wp-content/uploads/2022/09/logo.png'">
+                            </div>
+                            <h4>Daviplata</h4>
+                            <p>Pago seguro con saldo disponible en tu billetera digital Daviplata sin trámites.</p>
+                        </div>
+                        <span class="payment-tag">Inmediato</span>
+                    </div>
+
+                </div>
+
+                <!-- Respaldo Wompi y Mercado Pago -->
+                <div class="gateway-trust-banner">
+                    <div class="gateway-badges">
+                        <span><i class="fa fa-shield"></i> Pasarelas Oficiales:</span>
+                        <span><strong>Wompi</strong> (Bancolombia)</span>
+                        <span><strong>Mercado Pago</strong></span>
+                    </div>
+                    <div class="security-badges">
+                        <span><i class="fa fa-lock"></i> Cifrado SSL 256-Bit</span>
+                        <span><i class="fa fa-refresh"></i> Cero Permanencia</span>
+                        <span><i class="fa fa-file-text-o"></i> Factura Electrónica DIAN</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================
+             PREGUNTAS FRECUENTES (FAQ ACCORDION)
+             ======================================================== -->
+        <section class="faq-section" id="faq">
+            <div class="container">
+                <h2 class="sub">Preguntas Frecuentes</h2>
+                <p class="sub-desc">Resolvemos las principales inquietudes sobre la contratación y operación de Soluciones W.</p>
+
+                <div class="faq-list">
+                    
+                    <div class="faq-item active">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>¿Tengo que pagar copagos o cuotas moderadoras al usar el servicio?</span>
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            No. A diferencia de las EPS o medicinas prepagadas tradicionales, en Soluciones W los eventos cubiertos dentro del tope anual no tienen copagos ni cuotas adicionales. Solo pagas tu suscripción mensual.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>¿Cuánto tiempo tarda en activarse la cobertura tras pagar en línea?</span>
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            La activación es instantánea. Nuestro motor digital emite tu certificado oficial de cobertura en menos de 2 minutos tras la confirmación del pago, y quedas inmediatamente registrado en la central de emergencias.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>¿Cómo solicito una ambulancia, un médico o un cerrajero ante una urgencia?</span>
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            Muy fácil: marcas a nuestra línea directa de emergencias (601) 745-9000 o abres nuestro chat de WhatsApp oficial. El operador digita tu número de cédula en el sistema y despacha la asistencia de inmediato sin pedirte papeles físicos.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>¿Hay cláusula de permanencia mínima?</span>
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            Ninguna. Puedes cancelar tu suscripción mensual cuando lo desees directamente desde tu panel o escribiendo a nuestro WhatsApp de atención sin penalizaciones ni cobros retroactivos.
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <span>¿Qué incluye la asistencia veterinaria para mascotas?</span>
+                            <i class="fa fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            Cubre consultas de urgencia ante enfermedades agudas o accidentes para perros y gatos, teleorientación veterinaria 24 horas y un procedimiento preventivo (vacuna o desparasitación) al año.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================
+             SECCIÓN BLOG / ACTUALIDAD (.home-blog)
+             ======================================================== -->
+        <section id="blog">
+            <h2 class="sub">Actualidad & Blog</h2>
+            <div class="home-blog">
+                
+                <!-- Post 1 -->
+                <div class="box">
+                    <div class="img" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/11/Captura-de-Pantalla-2022-11-16-a-las-9.58.40-a.-m.-300x200.png');"></div>
+                    <div class="info">
+                        <div>
+                            <h3>Calcular los intereses, entre las claves para manejar tarjetas de crédito.</h3>
+                            <p class="post-excerpt">Una tarjeta de crédito es un medio de pago para emergencias y liquidez que debe manejarse con rigor preventivo.</p>
+                        </div>
+                        <a href="https://solucionesw.com/" class="more-link">Leer artículo completo →</a>
+                    </div>
+                </div>
+
+                <!-- Post 2 -->
+                <div class="box">
+                    <div class="img" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/11/Captura-de-Pantalla-2022-11-16-a-las-9.56.01-a.-m.-300x200.png');"></div>
+                    <div class="info">
+                        <div>
+                            <h3>Tasas de interés para créditos educativos: conozca las opciones</h3>
+                            <p class="post-excerpt">En Colombia muchos jóvenes acceden a créditos educativos como palanca de crecimiento personal.</p>
+                        </div>
+                        <a href="https://solucionesw.com/" class="more-link">Leer artículo completo →</a>
+                    </div>
+                </div>
+
+                <!-- Post 3 -->
+                <div class="box">
+                    <div class="img" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/11/Economia-300x200.jpeg');"></div>
+                    <div class="info">
+                        <div>
+                            <h3>Ley de Insolvencia, un salvavidas en tiempos de incertidumbre</h3>
+                            <p class="post-excerpt">Por Wilson Triana: cómo las familias colombianas logran acuerdos de protección financiera y tranquilidad.</p>
+                        </div>
+                        <a href="https://solucionesw.com/" class="more-link">Leer artículo completo →</a>
+                    </div>
+                </div>
+
+                <!-- Post 4 -->
+                <div class="box">
+                    <div class="img" style="background-image: url('https://solucionesw.com/wp-content/uploads/2022/11/mercado-300x200.jpeg');"></div>
+                    <div class="info">
+                        <div>
+                            <h3>La cultura de protección debe ser parte de la canasta básica familiar</h3>
+                            <p class="post-excerpt">La importancia de contar con auxilios operativos inmediatos ante un siniestro o enfermedad repentina.</p>
+                        </div>
+                        <a href="https://solucionesw.com/" class="more-link">Leer artículo completo →</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================
+             CONSÚLTANOS AQUÍ (.contacto)
+             ======================================================== -->
+        <div class="contacto" id="contacto">
+            <div class="title">
+                <h2 class="sub">Consúltanos<br>aquí</h2>
+            </div>
+            <div class="info">
+                <form class="contacto-form" onsubmit="event.preventDefault(); alert('Gracias por escribirnos. Nuestro equipo se comunicará contigo de inmediato.');">
+                    <div>
+                        <input type="text" placeholder="Nombre completo" required>
+                    </div>
+                    <div>
+                        <input type="email" placeholder="Correo electrónico" required>
+                    </div>
+                    <div class="full-width">
+                        <input type="text" placeholder="Asunto de la consulta">
+                    </div>
+                    <div class="full-width">
+                        <textarea placeholder="Mensaje" rows="3" required></textarea>
+                    </div>
+                    <button type="submit">
+                        <span>Enviar Mensaje</span>
+                        <i class="fa fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ========================================================
+             FOOTER INSTITUCIONAL (#e89-footer)
+             ======================================================== -->
+        <footer id="e89-footer">
+            <div id="e89-footer-wrapper">
+                <div class="footer-columns">
+                    
+                    <!-- Columna 1: Servicios -->
+                    <div class="footer-widget">
+                        <div class="widget-title">Servicios</div>
+                        <ul>
+                            <li><a href="#planes">Asistencia salud y medicina domiciliaria</a></li>
+                            <li><a href="#planes">Ambulancia medicalizada 24/7</a></li>
+                            <li><a href="#planes">Asistencia para mascotas (perros y gatos)</a></li>
+                            <li><a href="#planes">Asistencia hogar (plomería y cerrajería)</a></li>
+                            <li><a href="#planes">Odontología de urgencia y prevención</a></li>
+                            <li><a href="#planes">Asistencia a tenderos y microempresas</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Columna 2: Contacto Oficial -->
+                    <div class="footer-widget footer-contact">
+                        <div class="widget-title">Atención 24/7</div>
+                        <p style="font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.85);">
+                            Bogotá D.C., Colombia <br>
+                            Línea PBX Nacional: <strong>+57 (601) 745-9000</strong> <br>
+                            WhatsApp Oficial: <strong>+57 313 428 9397</strong>
+                        </p>
+                        <a href="mailto:info@solucionesw.com"><i class="fa fa-envelope"></i> info@solucionesw.com</a>
+                    </div>
+
+                    <!-- Columna 3: Marco Legal & Respaldo -->
+                    <div class="footer-widget">
+                        <div class="widget-title">Dirección General</div>
+                        <p style="font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.85); margin-bottom: 15px;">
+                            Dirección General: <strong>Wilson Triana</strong>. Cumplimiento de la Ley 1581 de Habeas Data y protección al consumidor en Colombia.
+                        </p>
+                        <div class="footer-social-links">
+                            <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
+                            <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="#" target="_blank"><i class="fa fa-youtube"></i></a>
+                            <a href="https://wa.me/573134289397" target="_blank"><i class="fa fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Copyright -->
+                <div class="copyright-area">
+                    <p>Soluciones W © 2026 · Todos los derechos reservados.</p>
+                    <p>Siempre presente en cualquier momento</p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- BARRA MÓVIL FIJA AL FONDO -->
+        <div class="mobile-bottom-bar">
+            <a href="tel:6017459000" class="mobile-bottom-btn">
+                <i class="fa fa-phone"></i>
+                <span>Llamar PBX</span>
+            </a>
+            <a href="https://wa.me/573134289397" target="_blank" class="mobile-bottom-btn whatsapp">
+                <i class="fa fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </a>
+            <button class="rev-btn" style="padding: 8px 18px; font-size: 11px;" onclick="location.href='#planes'">
+                Ver Planes
+            </button>
+        </div>
+
+    </div>
+
+    <!-- ========================================================
+         VISTA PRIVADA: HUB DE AFILIADOS (ESTILO RAPPI MEMBER HUB)
+         ======================================================== -->
+    <div id="member-hub-view">
+        
+        <!-- Header Privado -->
+        <header style="background: #ffffff; border-bottom: 1px solid #e0e0e0; padding: 15px 25px; sticky; top: 0; z-index: 100;">
+            <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <img src="https://solucionesw.com/wp-content/uploads/2022/09/logo.png" alt="Soluciones W" style="max-height: 40px;" onerror="this.src='/images/logo-soluciones-w.png'">
+                    <span style="font-size: 11px; font-weight: 700; color: #0b5278; text-transform: uppercase; border-left: 1px solid #ddd; padding-left: 12px;">Portal de Afiliados</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <a href="tel:6017459000" class="rev-btn" style="background: #c53030; padding: 8px 16px; font-size: 11px;">
+                        <i class="fa fa-exclamation-triangle"></i> Urgencias: (601) 745-9000
+                    </a>
+                    <button class="rev-btn rev-btn-outline" style="padding: 8px 16px; font-size: 11px;" onclick="logoutMember()">
+                        <i class="fa fa-sign-out"></i> Cerrar Sesión
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Banner Titular -->
+        <div class="hub-banner">
+            <div class="hub-banner-content">
+                <div>
+                    <span style="font-size: 11px; font-weight: 700; color: #dd9933; text-transform: uppercase;" id="hubContractTag">CONTRATO SW-849102</span>
+                    <h2 style="font-size: 26px; font-family: 'Libre Baskerville', serif; margin: 6px 0;" id="hubWelcomeName">Bienvenido, Carlos Villamil</h2>
+                    <p style="font-size: 13px; opacity: 0.9;" id="hubPlanName">Plan Plus Familiar 360° · Póliza Vigente y Activa</p>
+                </div>
+                <div>
+                    <button class="rev-btn" onclick="openRequestAssistanceModal('Ambulancia Medicalizada de Urgencia')">
+                        <i class="fa fa-ambulance"></i> Solicitar Asistencia Inmediata
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="padding-top: 30px;">
+            <!-- Píldoras de Filtro -->
+            <div class="hub-filter-pills">
+                <button class="hub-pill active" onclick="filterHubServices('all', this)">Todos los Servicios</button>
+                <button class="hub-pill" onclick="filterHubServices('salud', this)">Salud & Médicos</button>
+                <button class="hub-pill" onclick="filterHubServices('hogar', this)">Auxilio en el Hogar</button>
+                <button class="hub-pill" onclick="filterHubServices('mascotas', this)">Mascotas (Pet Care)</button>
+                <button class="hub-pill" onclick="filterHubServices('dental', this)">Odontología</button>
+            </div>
+
+            <!-- Grilla de Servicios On-Demand -->
+            <div class="services-on-demand-grid" id="hubServicesGrid">
+                
+                <!-- 1. Médico en Casa -->
+                <div class="hub-service-card" data-cat="salud">
+                    <div>
+                        <div style="font-size: 28px; color: #0b5278; margin-bottom: 10px;"><i class="fa fa-user-md"></i></div>
+                        <h4 style="font-size: 17px; font-weight: 700; color: #0b5278; margin-bottom: 6px;">Médico General en Casa</h4>
+                        <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Consulta médica presencial en tu domicilio con fórmula digital médica sin copagos.</p>
+                        <span style="display: block; font-size: 11px; font-weight: 700; color: #4b722d; margin-bottom: 15px;">
+                            <i class="fa fa-clock-o"></i> Llegada estimada: 45 - 60 min
+                        </span>
+                    </div>
+                    <button class="rev-btn" style="width: 100%; font-size: 11px; padding: 10px;" onclick="openRequestAssistanceModal('Médico General en Casa')">
+                        Solicitar Médico
+                    </button>
+                </div>
+
+                <!-- 2. Ambulancia Medicalizada -->
+                <div class="hub-service-card" data-cat="salud">
+                    <div>
+                        <div style="font-size: 28px; color: #c53030; margin-bottom: 10px;"><i class="fa fa-ambulance"></i></div>
+                        <h4 style="font-size: 17px; font-weight: 700; color: #0b5278; margin-bottom: 6px;">Ambulancia de Urgencia</h4>
+                        <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Despacho prioritario de unidad medicalizada con paramédicos para traslado hospitalario.</p>
+                        <span style="display: block; font-size: 11px; font-weight: 700; color: #c53030; margin-bottom: 15px;">
+                            <i class="fa fa-bolt"></i> Despacho Inmediato: 15 - 20 min
+                        </span>
+                    </div>
+                    <button class="rev-btn" style="width: 100%; font-size: 11px; padding: 10px; background: #c53030;" onclick="openRequestAssistanceModal('Ambulancia de Urgencia')">
+                        Solicitar Ambulancia
+                    </button>
+                </div>
+
+                <!-- 3. Plomería Urgente -->
+                <div class="hub-service-card" data-cat="hogar">
+                    <div>
+                        <div style="font-size: 28px; color: #0b5278; margin-bottom: 10px;"><i class="fa fa-wrench"></i></div>
+                        <h4 style="font-size: 17px; font-weight: 700; color: #0b5278; margin-bottom: 6px;">Plomería por Inundación</h4>
+                        <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Técnico calificado para reparar tuberías rotas y filtraciones con materiales cubiertos.</p>
+                        <span style="display: block; font-size: 11px; font-weight: 700; color: #4b722d; margin-bottom: 15px;">
+                            <i class="fa fa-clock-o"></i> Llegada estimada: 45 min
+                        </span>
+                    </div>
+                    <button class="rev-btn" style="width: 100%; font-size: 11px; padding: 10px;" onclick="openRequestAssistanceModal('Plomería de Urgencia')">
+                        Pedir Plomero
+                    </button>
+                </div>
+
+                <!-- 4. Cerrajería -->
+                <div class="hub-service-card" data-cat="hogar">
+                    <div>
+                        <div style="font-size: 28px; color: #0b5278; margin-bottom: 10px;"><i class="fa fa-key"></i></div>
+                        <h4 style="font-size: 17px; font-weight: 700; color: #0b5278; margin-bottom: 6px;">Cerrajería de Emergencia</h4>
+                        <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Apertura inmediata por llaves olvidadas adentro, pérdida o cerradura trabada.</p>
+                        <span style="display: block; font-size: 11px; font-weight: 700; color: #4b722d; margin-bottom: 15px;">
+                            <i class="fa fa-clock-o"></i> Llegada estimada: 35 min
+                        </span>
+                    </div>
+                    <button class="rev-btn" style="width: 100%; font-size: 11px; padding: 10px;" onclick="openRequestAssistanceModal('Cerrajería de Emergencia')">
+                        Pedir Cerrajero
+                    </button>
+                </div>
+
+                <!-- 5. Urgencia Mascotas -->
+                <div class="hub-service-card" data-cat="mascotas">
+                    <div>
+                        <div style="font-size: 28px; color: #0b5278; margin-bottom: 10px;"><i class="fa fa-paw"></i></div>
+                        <h4 style="font-size: 17px; font-weight: 700; color: #0b5278; margin-bottom: 6px;">Urgencia Veterinaria</h4>
+                        <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Atención médica veterinaria inmediata para tu perro o gato ante accidentes o heridas.</p>
+                        <span style="display: block; font-size: 11px; font-weight: 700; color: #4b722d; margin-bottom: 15px;">
+                            <i class="fa fa-clock-o"></i> Llegada estimada: 45 - 60 min
+                        </span>
+                    </div>
+                    <button class="rev-btn" style="width: 100%; font-size: 11px; padding: 10px;" onclick="openRequestAssistanceModal('Urgencia Veterinaria')">
+                        Pedir Veterinario
+                    </button>
+                </div>
+
+                <!-- 6. Odontología -->
+                <div class="hub-service-card" data-cat="dental">
+                    <div>
+                        <div style="font-size: 28px; color: #0b5278; margin-bottom: 10px;"><i class="fa fa-smile-o"></i></div>
+                        <h4 style="font-size: 17px; font-weight: 700; color: #0b5278; margin-bottom: 6px;">Urgencia Odontológica</h4>
+                        <p style="font-size: 12px; color: #666; margin-bottom: 15px;">Alivio clínico inmediato del dolor agudo y valoración en centros odontológicos aliados.</p>
+                        <span style="display: block; font-size: 11px; font-weight: 700; color: #4b722d; margin-bottom: 15px;">
+                            <i class="fa fa-check"></i> Red aliada disponible
+                        </span>
+                    </div>
+                    <button class="rev-btn" style="width: 100%; font-size: 11px; padding: 10px;" onclick="openRequestAssistanceModal('Urgencia Odontológica')">
+                        Ubicar Consultorio
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         MODAL 1: CHECKOUT EN 3 PASOS
+         ======================================================== -->
+    <div class="modal-backdrop" id="checkoutModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h4 id="checkoutModalTitle">Afiliación Digital a Soluciones W</h4>
+                <button class="modal-close" onclick="closeModal('checkoutModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                
+                <!-- Indicador de Pasos -->
+                <div class="checkout-steps">
+                    <div class="step-circle active" id="stepIndicator1">1</div>
+                    <div class="step-circle" id="stepIndicator2">2</div>
+                    <div class="step-circle" id="stepIndicator3">3</div>
+                </div>
+
+                <!-- PASO 1: Registro del Titular -->
+                <div id="checkoutStep1">
+                    <h5 style="color: #0b5278; font-size: 16px; margin-bottom: 15px;">Paso 1: Datos del Titular de la Póliza</h5>
+                    <form onsubmit="goToCheckoutStep2(event)">
+                        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 10px;" class="form-group">
+                            <div>
+                                <label>Tipo Doc.</label>
+                                <select class="form-select-w" id="coDocType">
+                                    <option value="CC">C.C.</option>
+                                    <option value="CE">C.E.</option>
+                                    <option value="NIT">NIT</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Número de Documento *</label>
+                                <input type="text" class="form-control-w" id="coDocNumber" placeholder="Ej: 1018492031" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Nombre Completo del Titular *</label>
+                            <input type="text" class="form-control-w" id="coFullName" placeholder="Ej: Wilson Andrés Triana" required>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;" class="form-group">
+                            <div>
+                                <label>Celular / WhatsApp *</label>
+                                <input type="tel" class="form-control-w" id="coPhone" placeholder="320 123 4567" required>
+                            </div>
+                            <div>
+                                <label>Correo Electrónico *</label>
+                                <input type="email" class="form-control-w" id="coEmail" placeholder="correo@ejemplo.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Dirección de Residencia y Ciudad *</label>
+                            <input type="text" class="form-control-w" id="coAddress" placeholder="Carrera 15 # 85-30, Bogotá D.C." required>
+                        </div>
+
+                        <div style="margin: 15px 0;">
+                            <label style="font-size: 11px; color: #555; display: flex; align-items: flex-start; gap: 8px;">
+                                <input type="checkbox" checked required style="margin-top: 2px;">
+                                <span>Acepto términos de servicio y autorización de datos (Habeas Data Ley 1581 de Colombia).</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="rev-btn" style="width: 100%;">
+                            Continuar al Pago Seguro <i class="fa fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- PASO 2: Pasarela y Medios de Pago -->
+                <div id="checkoutStep2" style="display: none;">
+                    <div style="background: #f7fafc; border: 1px solid #e0e0e0; border-radius: 4px; padding: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong style="color: #0b5278;" id="summaryPlanName">Plan Plus Familiar 360°</strong>
+                            <p style="font-size: 12px; color: #666;" id="summaryHolder">Titular: Carlos Villamil</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="font-size: 11px; color: #888;">Total a Pagar:</span>
+                            <div style="font-size: 20px; font-weight: 800; color: #0b5278;" id="summaryPrice">$54.900 COP</div>
+                        </div>
+                    </div>
+
+                    <label style="font-size: 12px; font-weight: 700; color: #0b5278; text-transform: uppercase; margin-bottom: 8px; display: block;">
+                        Selecciona Pasarela:
+                    </label>
+                    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                        <button type="button" class="tab-gateway-btn active" id="tabWompi" onclick="selectGateway('wompi')">
+                            <i class="fa fa-shield"></i> Wompi (Bancolombia)
+                        </button>
+                        <button type="button" class="tab-gateway-btn" id="tabMP" onclick="selectGateway('mp')">
+                            <i class="fa fa-credit-card"></i> Mercado Pago
+                        </button>
+                    </div>
+
+                    <label style="font-size: 12px; font-weight: 700; color: #0b5278; text-transform: uppercase; margin-bottom: 8px; display: block;">
+                        Método de Pago:
+                    </label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 20px;">
+                        <button type="button" class="billing-btn active" id="btnMethodCard" onclick="selectMethod('card')">💳 Tarjeta</button>
+                        <button type="button" class="billing-btn" id="btnMethodNequi" onclick="selectMethod('nequi')">📱 Nequi</button>
+                        <button type="button" class="billing-btn" id="btnMethodPSE" onclick="selectMethod('pse')">🏦 PSE</button>
+                    </div>
+
+                    <!-- Campos de Tarjeta -->
+                    <div id="methodFieldsCard">
+                        <div class="form-group">
+                            <label>Número de Tarjeta *</label>
+                            <input type="text" class="form-control-w" value="4242 •••• •••• 4242" placeholder="4242 4242 4242 4242">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;" class="form-group">
+                            <div>
+                                <label>Vencimiento *</label>
+                                <input type="text" class="form-control-w" value="12/28" placeholder="MM/AA">
+                            </div>
+                            <div>
+                                <label>CVC *</label>
+                                <input type="text" class="form-control-w" value="123" placeholder="123">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Campos de Nequi -->
+                    <div id="methodFieldsNequi" style="display: none;">
+                        <div class="form-group">
+                            <label>Celular Nequi *</label>
+                            <input type="tel" class="form-control-w" id="coNequiPhone" placeholder="320 123 4567">
+                        </div>
+                        <p style="font-size: 11px; color: #666; margin-bottom: 15px;">
+                            Recibirás una notificación push en tu App Nequi para autorizar el débito seguro con clave dinámica.
+                        </p>
+                    </div>
+
+                    <!-- Campos de PSE -->
+                    <div id="methodFieldsPSE" style="display: none;">
+                        <div class="form-group">
+                            <label>Banco de Origen *</label>
+                            <select class="form-select-w">
+                                <option>Bancolombia</option>
+                                <option>Davivienda</option>
+                                <option>Banco de Bogotá</option>
+                                <option>BBVA Colombia</option>
+                                <option>Lulo Bank</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="background: #fefcf3; border: 1px solid #f6e05e; padding: 10px 14px; border-radius: 4px; font-size: 11px; color: #744210; margin-bottom: 20px;">
+                        <i class="fa fa-info-circle"></i> <strong>Modo Sandbox Oficial:</strong> Transacción simulada en entorno de pruebas bancarias.
+                    </div>
+
+                    <button type="button" class="rev-btn" style="width: 100%;" id="btnSubmitPayment" onclick="processPaymentSimulation()">
+                        Pagar y Emitir Certificado Digital
+                    </button>
+                </div>
+
+                <!-- PASO 3: Emisión Exitosa del Certificado -->
+                <div id="checkoutStep3" style="display: none; text-align: center;">
+                    <div style="width: 60px; height: 60px; background: #eef6ec; color: #4b722d; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 15px auto;">
+                        <i class="fa fa-check"></i>
+                    </div>
+                    <h4 style="font-family: 'Libre Baskerville', serif; color: #0b5278; font-size: 22px; margin-bottom: 8px;">¡Afiliación Activa y Exitosa!</h4>
+                    <p style="font-size: 13px; color: #555; margin-bottom: 20px;">Tu póliza de asistencia fue emitida en el sistema oficial.</p>
+
+                    <div style="background: #f7fafc; border: 1px solid #e0e0e0; border-radius: 4px; padding: 18px; text-align: left; font-size: 13px; margin-bottom: 25px; line-height: 1.8;">
+                        <div><strong>Número de Contrato:</strong> <span id="coFinalContract" style="color: #0b5278; font-weight: 700;">SW-849102</span></div>
+                        <div><strong>Titular:</strong> <span id="coFinalName">Carlos Andrés Villamil</span></div>
+                        <div><strong>Documento:</strong> <span id="coFinalDoc">C.C. 1018492031</span></div>
+                        <div><strong>Plan Contratado:</strong> <span id="coFinalPlan">Plan Plus Familiar 360°</span></div>
+                    </div>
+
+                    <button class="rev-btn" style="width: 100%; margin-bottom: 10px;" onclick="enterMemberHub()">
+                        <i class="fa fa-tachometer"></i> Entrar a Mi Portal de Afiliados
+                    </button>
+
+                    <button class="rev-btn rev-btn-outline" style="width: 100%;" onclick="alert('Descargando Certificado Oficial en formato PDF...')">
+                        <i class="fa fa-file-pdf-o"></i> Descargar Certificado PDF
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         MODAL 2: LOGIN DE AFILIADOS ("SOY AFILIADO")
+         ======================================================== -->
+    <div class="modal-backdrop" id="loginModal">
+        <div class="modal-container" style="max-width: 440px;">
+            <div class="modal-header">
+                <h4>Portal de Afiliados · Ingreso</h4>
+                <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 13px; color: #666; margin-bottom: 20px;">
+                    Ingresa tu número de documento de identidad para acceder a tu catálogo de asistencias y solicitar despachos.
+                </p>
+
+                <form onsubmit="handleLoginSubmit(event)">
+                    <div class="form-group">
+                        <label>Número de Cédula o Documento *</label>
+                        <input type="text" id="loginDocNumber" class="form-control-w" placeholder="Ej: 1018492031" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Teléfono Registrado (Opcional)</label>
+                        <input type="tel" id="loginPhone" class="form-control-w" placeholder="320 123 4567">
+                    </div>
+
+                    <button type="submit" class="rev-btn" style="width: 100%; margin-top: 10px;">
+                        Ingresar a Mi Portal <i class="fa fa-sign-in"></i>
+                    </button>
+
+                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; text-align: center; font-size: 12px;">
+                        <span style="color: #888;">¿Quieres probar una cuenta demo?</span><br>
+                        <a onclick="fillLoginDemo('1018492031')" style="color: #4b722d; font-weight: 700; cursor: pointer;">
+                            Autocompletar Cédula Demo (Carlos Villamil)
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         MODAL 3: SOLICITUD DE ASISTENCIA (DESPACHO WHATSAPP)
+         ======================================================== -->
+    <div class="modal-backdrop" id="requestModal">
+        <div class="modal-container" style="max-width: 480px;">
+            <div class="modal-header">
+                <h4 id="requestModalServiceTitle">Solicitar Asistencia</h4>
+                <button class="modal-close" onclick="closeModal('requestModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="background: #f7fafc; border: 1px solid #0b5278; border-radius: 4px; padding: 15px; margin-bottom: 20px; font-size: 13px; line-height: 1.6;">
+                    <div><strong>Afiliado:</strong> <span id="reqHolderName">Carlos Andrés Villamil</span></div>
+                    <div><strong>Contrato:</strong> <span id="reqContract">SW-849102</span></div>
+                    <div><strong>Servicio:</strong> <span id="reqService">Médico en Casa</span></div>
+                    <div><strong>Dirección:</strong> <span id="reqAddress">Carrera 15 # 85-30, Bogotá D.C.</span></div>
+                </div>
+
+                <p style="font-size: 12px; color: #666; margin-bottom: 20px;">
+                    Al confirmar, nuestro sistema generará un número de radicado oficial y abrirá WhatsApp con el operador médico para despachar la unidad inmediatamente.
+                </p>
+
+                <button class="rev-btn" style="width: 100%;" onclick="confirmDispatchWhatsApp()">
+                    <i class="fa fa-whatsapp"></i> Confirmar Despacho por WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         JAVASCRIPT REACTIVO INTERACTIVO (SIN DEPENDENCIAS)
+         ======================================================== -->
+    <script>
+        // ESTADO GLOBAL DE LA APLICACIÓN
+        let currentSlide = 0;
+        const heroSlides = document.querySelectorAll('.hero-slide');
+        const heroDots = document.querySelectorAll('.dot');
+        let heroTimer = null;
+
+        let billingMode = "monthly"; // 'monthly' | 'annual'
+        let selectedPlanKey = "plus";
+        let activeGateway = "wompi";
+        let activePaymentMethod = "card";
+        let currentAssistanceRequested = "";
+
+        // Datos del Afiliado Activo (con persistencia local)
+        let activeMember = {
+            fullName: "Carlos Andrés Villamil",
+            docNumber: "1018492031",
+            contractNumber: "SW-849102",
+            planName: "Plan Plus Familiar 360°",
+            phone: "313 428 9397",
+            email: "carlos.villamil@gmail.com",
+            address: "Carrera 15 # 85-30, Bogotá D.C."
+        };
+
+        // MATRIZ DE PRECIOS
+        const planPrices = {
+            virtual: { monthly: 24900, annual: 249000, name: "Plan Digital Básico" },
+            tradicional: { monthly: 39900, annual: 399000, name: "Plan Tradicional Hogar & Salud" },
+            plus: { monthly: 54900, annual: 549000, name: "Plan Plus Familiar 360°" }
+        };
+
+        // 1. CONTROL DEL SLIDER HERO
+        function showHeroSlide(index) {
+            if (index >= heroSlides.length) index = 0;
+            if (index < 0) index = heroSlides.length - 1;
+
+            heroSlides.forEach((s, i) => s.classList.toggle('active', i === index));
+            heroDots.forEach((d, i) => d.classList.toggle('active', i === index));
+            currentSlide = index;
+        }
+
+        function nextHeroSlide() {
+            showHeroSlide(currentSlide + 1);
+            resetHeroTimer();
+        }
+
+        function prevHeroSlide() {
+            showHeroSlide(currentSlide - 1);
+            resetHeroTimer();
+        }
+
+        function setHeroSlide(idx) {
+            showHeroSlide(idx);
+            resetHeroTimer();
+        }
+
+        function resetHeroTimer() {
+            clearInterval(heroTimer);
+            heroTimer = setInterval(() => {
+                showHeroSlide(currentSlide + 1);
+            }, 6000);
+        }
+
+        resetHeroTimer();
+
+        // 2. TOGGLE MENSUAL / ANUAL
+        function setBilling(mode) {
+            billingMode = mode;
+            document.getElementById('btnMonthly').classList.toggle('active', mode === 'monthly');
+            document.getElementById('btnAnnual').classList.toggle('active', mode === 'annual');
+
+            if (mode === 'monthly') {
+                document.getElementById('priceVirtual').textContent = "24.900";
+                document.getElementById('periodVirtual').textContent = "COP / mes · Sin copagos";
+                document.getElementById('priceTradicional').textContent = "39.900";
+                document.getElementById('periodTradicional').textContent = "COP / mes · Sin copagos";
+                document.getElementById('pricePlus').textContent = "54.900";
+                document.getElementById('periodPlus').textContent = "COP / mes · Los 5 Pilares Esenciales";
+            } else {
+                document.getElementById('priceVirtual').textContent = "249.000";
+                document.getElementById('periodVirtual').textContent = "COP / año · 2 meses gratis";
+                document.getElementById('priceTradicional').textContent = "399.000";
+                document.getElementById('periodTradicional').textContent = "COP / año · 2 meses gratis";
+                document.getElementById('pricePlus').textContent = "549.000";
+                document.getElementById('periodPlus').textContent = "COP / año · 2 meses gratis";
+            }
+        }
+
+        // 3. FORMULARIO EXPRESS EN EL HERO
+        function handleExpressLead(e) {
+            e.preventDefault();
+            const name = document.getElementById('leadName').value;
+            const email = document.getElementById('leadEmail').value;
+            const phone = document.getElementById('leadPhone').value;
+            const plan = document.getElementById('leadPlan').value;
+
+            document.getElementById('coFullName').value = name;
+            document.getElementById('coEmail').value = email;
+            document.getElementById('coPhone').value = phone;
+
+            startCheckout(plan);
+        }
+
+        // 4. CHECKOUT MODAL Y PASOS
+        function startCheckout(planKey) {
+            selectedPlanKey = planKey;
+            const price = billingMode === 'monthly' ? planPrices[planKey].monthly : planPrices[planKey].annual;
+            
+            document.getElementById('summaryPlanName').textContent = planPrices[planKey].name;
+            document.getElementById('summaryPrice').textContent = "$" + price.toLocaleString("es-CO") + " COP";
+            
+            // Reiniciar pasos
+            document.getElementById('checkoutStep1').style.display = "block";
+            document.getElementById('checkoutStep2').style.display = "none";
+            document.getElementById('checkoutStep3').style.display = "none";
+            
+            document.getElementById('stepIndicator1').className = "step-circle active";
+            document.getElementById('stepIndicator2').className = "step-circle";
+            document.getElementById('stepIndicator3').className = "step-circle";
+
+            openModal('checkoutModal');
+        }
+
+        function goToCheckoutStep2(e) {
+            e.preventDefault();
+            activeMember.fullName = document.getElementById('coFullName').value;
+            activeMember.docNumber = document.getElementById('coDocNumber').value;
+            activeMember.phone = document.getElementById('coPhone').value;
+            activeMember.email = document.getElementById('coEmail').value;
+            activeMember.address = document.getElementById('coAddress').value;
+            activeMember.planName = planPrices[selectedPlanKey].name;
+
+            document.getElementById('summaryHolder').textContent = "Titular: " + activeMember.fullName;
+            if (document.getElementById('coNequiPhone')) {
+                document.getElementById('coNequiPhone').value = activeMember.phone;
+            }
+
+            document.getElementById('checkoutStep1').style.display = "none";
+            document.getElementById('checkoutStep2').style.display = "block";
+            document.getElementById('checkoutStep3').style.display = "none";
+
+            document.getElementById('stepIndicator1').className = "step-circle done";
+            document.getElementById('stepIndicator2').className = "step-circle active";
+        }
+
+        function selectGateway(gw) {
+            activeGateway = gw;
+            document.getElementById('tabWompi').classList.toggle('active', gw === 'wompi');
+            document.getElementById('tabMP').classList.toggle('active', gw === 'mp');
+        }
+
+        function selectMethod(method) {
+            activePaymentMethod = method;
+            document.getElementById('btnMethodCard').classList.toggle('active', method === 'card');
+            document.getElementById('btnMethodNequi').classList.toggle('active', method === 'nequi');
+            document.getElementById('btnMethodPSE').classList.toggle('active', method === 'pse');
+
+            document.getElementById('methodFieldsCard').style.display = method === 'card' ? 'block' : 'none';
+            document.getElementById('methodFieldsNequi').style.display = method === 'nequi' ? 'block' : 'none';
+            document.getElementById('methodFieldsPSE').style.display = method === 'pse' ? 'block' : 'none';
+        }
+
+        function processPaymentSimulation() {
+            const btn = document.getElementById('btnSubmitPayment');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Validando con ' + activeGateway.toUpperCase() + '...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+
+                // Generar número de contrato
+                const randomId = Math.floor(100000 + Math.random() * 900000);
+                activeMember.contractNumber = "SW-" + randomId;
+
+                document.getElementById('coFinalContract').textContent = activeMember.contractNumber;
+                document.getElementById('coFinalName').textContent = activeMember.fullName;
+                document.getElementById('coFinalDoc').textContent = "C.C. " + activeMember.docNumber;
+                document.getElementById('coFinalPlan').textContent = activeMember.planName;
+
+                document.getElementById('checkoutStep2').style.display = "none";
+                document.getElementById('checkoutStep3').style.display = "block";
+
+                document.getElementById('stepIndicator2').className = "step-circle done";
+                document.getElementById('stepIndicator3').className = "step-circle active";
+            }, 1200);
+        }
+
+        function enterMemberHub() {
+            closeModal('checkoutModal');
+            document.getElementById('hubWelcomeName').textContent = "Bienvenido, " + activeMember.fullName;
+            document.getElementById('hubContractTag').textContent = "CONTRATO " + activeMember.contractNumber;
+            document.getElementById('hubPlanName').textContent = activeMember.planName + " · Póliza Vigente y Activa";
+            
+            document.getElementById('public-landing-view').style.display = "none";
+            document.getElementById('member-hub-view').style.display = "block";
+            window.scrollTo({ top: 0, behavior: "instant" });
+        }
+
+        function logoutMember() {
+            document.getElementById('member-hub-view').style.display = "none";
+            document.getElementById('public-landing-view').style.display = "block";
+            window.scrollTo({ top: 0, behavior: "instant" });
+        }
+
+        // 5. LOGIN DE AFILIADOS ("SOY AFILIADO")
+        function openLoginModal() {
+            openModal('loginModal');
+        }
+
+        function fillLoginDemo(cedula) {
+            document.getElementById('loginDocNumber').value = cedula;
+            document.getElementById('loginPhone').value = "313 428 9397";
+        }
+
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            const ced = document.getElementById('loginDocNumber').value.trim();
+            if (!ced) return;
+
+            activeMember.docNumber = ced;
+            activeMember.fullName = ced === "1018492031" ? "Carlos Andrés Villamil" : "Afiliado Titular";
+            activeMember.contractNumber = "SW-849102";
+
+            closeModal('loginModal');
+            enterMemberHub();
+        }
+
+        // 6. CONSULTA DEL OPERADOR DEMO
+        function testCedulaDemo(ced) {
+            document.getElementById('operatorCedulaInput').value = ced;
+            consultarOperador();
+        }
+
+        function consultarOperador() {
+            const input = document.getElementById('operatorCedulaInput').value.trim();
+            const card = document.getElementById('operatorResult');
+            if (!input) {
+                alert("Por favor ingresa un número de cédula para consultar.");
+                return;
+            }
+
+            if (input.length >= 7) {
+                document.getElementById('resDoc').textContent = "C.C. " + input + " · Contrato SW-" + input.slice(-6);
+                card.classList.add('show');
+            } else {
+                alert("No se registra cobertura activa para el documento ingresado.");
+                card.classList.remove('show');
+            }
+        }
+
+        // 7. DESPACHO DE ASISTENCIAS EN EL HUB
+        function openRequestAssistanceModal(serviceTitle) {
+            currentAssistanceRequested = serviceTitle;
+            document.getElementById('requestModalServiceTitle').textContent = "Solicitar: " + serviceTitle;
+            document.getElementById('reqHolderName').textContent = activeMember.fullName;
+            document.getElementById('reqContract').textContent = activeMember.contractNumber;
+            document.getElementById('reqService').textContent = serviceTitle;
+            document.getElementById('reqAddress').textContent = activeMember.address;
+
+            openModal('requestModal');
+        }
+
+        function confirmDispatchWhatsApp() {
+            const radicado = Math.floor(1000 + Math.random() * 9000);
+            const msg = encodeURIComponent(
+                "Hola Soluciones W, soy el afiliado " + activeMember.fullName + 
+                " (C.C. " + activeMember.docNumber + ", Contrato " + activeMember.contractNumber + 
+                ") y requiero solicitar la asistencia de *" + currentAssistanceRequested + 
+                "* (Radicado #" + radicado + ") en la dirección " + activeMember.address + "."
+            );
+            window.open("https://wa.me/573134289397?text=" + msg, "_blank");
+            closeModal('requestModal');
+        }
+
+        function filterHubServices(category, btnElement) {
+            document.querySelectorAll('.hub-pill').forEach(p => p.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            const cards = document.querySelectorAll('.hub-service-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-cat') === category) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // 8. FAQ ACCORDION
+        function toggleFaq(btn) {
+            const item = btn.parentElement;
+            const wasActive = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+            if (!wasActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // 9. MODALES UTILIDAD
+        function openModal(id) {
+            document.getElementById(id).classList.add('open');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('open');
+        }
+
+        function toggleMobileMenu() {
+            const nav = document.getElementById('e89-header-nav');
+            if (nav.style.display === 'flex') {
+                nav.style.display = 'none';
+            } else {
+                nav.style.display = 'flex';
+                nav.style.flexDirection = 'column';
+                nav.style.position = 'absolute';
+                nav.style.top = '100px';
+                nav.style.left = '0';
+                nav.style.right = '0';
+                nav.style.background = '#fff';
+                nav.style.padding = '20px';
+                nav.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+            }
+        }
+    </script>
+</body>
+</html>

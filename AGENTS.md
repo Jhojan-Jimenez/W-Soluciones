@@ -30,23 +30,16 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 ```text
 Projects/soluciones-w/
 ├── AGENTS.md                          # ⭐️ Memoria técnica y reglas de operación de Soluciones W
-└── frontend/
-    ├── src/
-    │   ├── app/
-    │   │   ├── layout.tsx             # Root layout con tipografía Inter, metadata y SEO
-    │   │   ├── page.tsx               # Landing page principal, Hero, Planes, 5 Pilares y Pasarelas
-    │   │   └── globals.css            # Estilos globales y tokens Tailwind CSS v4
-    │   └── components/
-    │       ├── RappiMemberHub.tsx     # Hub privado de afiliados (estilo Rappi con catálogo de asistencias)
-    │       └── MemberLoginModal.tsx   # Modal de login por cédula y acceso rápido demo
-    ├── public/
-    │   ├── favicon.png                # Favicon oficial HD con la W centrada
-    │   └── images/
-    │       ├── logo-w-symbol.png      # Isotipo W recortado en alta definición para móvil
-    │       ├── logo-soluciones-w.png  # Logo horizontal corporativo para desktop
-    │       └── payments/              # Logos oficiales de PSE, Nequi, Visa, Mastercard, Daviplata
-    ├── package.json                   # Next.js 16.3.8 + React 19.2.8 + Tailwind CSS 4.3.3 + Lucide
-    └── next.config.ts                 # Configuración de compilación Turbopack
+├── solucionesw-portal-completo.html   # Portal unificado standalone con diseño oficial 100% fiel
+├── frontend/                          # 🚀 [ACTIVO] Frontend oficial Next.js 16 + React 19 (Diseño Soluciones W)
+│   ├── src/app/
+│   │   ├── layout.tsx                 # Layout con Spartan, Libre Baskerville y FontAwesome
+│   │   ├── page.tsx                   # Portal interactivo completo (Landing, Checkout, Operador, Hub)
+│   │   ├── globals.css                # Estilos globales y paleta oficial (#0b5278, #4b722d, #dd9933)
+│   │   └── api/                       # Endpoints de login, verificación JWT, checkout demo y despacho
+│   ├── public/                        # Logos oficiales, imágenes de asistencias y medios de pago
+│   └── package.json                   # Next.js 16.3.8 + React 19.2.8 + Tailwind CSS 4.3.3
+└── Legacy-Frontend/                   # 📦 [BACKUP PREVIO] Versión frontend previa preservada intacta
 ```
 
 ---
@@ -127,15 +120,23 @@ pnpm run build
 ## 💬 Flujo de WhatsApp Cloud API (List Messages & Bot Nativo)
 * **Verify Token:** `process.env.WHATSAPP_VERIFY_TOKEN` (default: `soluciones_w_webhook_verify_token_2026`).
 * **Mensajes Interactivos:** Utiliza el tipo `interactive` con `type: "list"` oficial de Meta (hasta 10 filas divididas en secciones).
+* **Integración Activa con Vocero CRM:**
+  - El número de WhatsApp oficial (`+57 313 4289397`) está gestionado por **Vocero CRM** (`https://crm.jhojan.cloud`), preservando el Inbox en tiempo real, métricas y panel para asesores humanos.
+  - Vocero CRM se conecta vía HTTP REST API a Soluciones W (`https://w-soluciones.jhojan.cloud`):
+    1. Consulta `/api/auth/login` con la cédula del cliente para obtener validez del plan, nombre y JWT (Magic Link).
+    2. Envía la lista interactiva nativa de Meta de asistencias disponibles.
+    3. Al seleccionar un servicio, llama a `/api/assistances/request` para generar el radicado oficial `#AUX-XXXX` y guardarlo en el sistema de Soluciones W.
 * **Flujo del Afiliado por WhatsApp:**
-  1. El usuario envía su número de cédula al bot.
-  2. El webhook consulta la base de datos `soluciones_w.json`.
-  3. Si la cédula existe y está activa, genera un JWT y responde con una **Lista Interactiva** de 5 asistencias con botón *"Seleccionar Asistencia"* y un link mágico para entrar al portal web sin contraseña (`https://w-soluciones.jhojan.cloud/?token=...`).
-  4. Al seleccionar un servicio en la lista, el webhook radicará automáticamente la asistencia en la base de datos (`AUX-XXXX`) y enviará un mensaje de confirmación con el código de despacho y los minutos de llegada.
+  1. El usuario envía un saludo ("Hola") o pasan más de 24 horas: Vocero CRM muestra el menú interactivo principal.
+  2. El usuario elige "Solicitar Asistencia" o "Consultar Mi Plan" y escribe su cédula.
+  3. Vocero CRM valida con Soluciones W: si está activo, envía la lista interactiva de asistencias y el Magic Link web.
+  4. Al seleccionar un servicio, se radica (`AUX-XXXX`) y se notifica el tiempo estimado de despacho.
+  5. Si el usuario solicita hablar con un asesor, se activa el escalado humano (`handoff`), permitiendo al equipo responder directamente desde el Inbox de Vocero.
 
 ---
 
 ## ⚠️ Regla Operativa Estricta: PRIMERO LOCAL (PROHIBIDO AUTO-PUSH Y DEPLOY)
 * **Primero Local:** Todas las modificaciones se programan, verifican y compilan exclusivamente en el entorno local (`pnpm run build` / servidor local).
 * **Cero Push Automático:** NO ejecutar `git push` ni disparar despliegues hacia Coolify / OCI a menos que el usuario lo solicite de manera explícita en su mensaje.
+
 
